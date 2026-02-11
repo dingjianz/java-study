@@ -1,4 +1,5 @@
 package com.itheima.variable;
+
 import java.util.Scanner;
 
 public class VariableDemo6 {
@@ -21,6 +22,5 @@ public class VariableDemo6 {
         // 输出两个整数相加的结果
         int result = num1 + num2;
         System.out.println("两数之和是: " + result);
-
     }
 }
