@@ -1,7 +1,7 @@
 package com.itheima.operator;
 
 public class OperatorDemo1 {
-    public static void main(String[] args) {
+    static void main(String[] args) {
         // 算术运算符 + - * / %
 
         // 整数运算

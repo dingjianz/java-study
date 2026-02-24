@@ -7,7 +7,7 @@ public class VariableDemo6 {
     让 Scanner 类来帮助我们实现键盘录入功能。
     需求：提示用户分别输入两个整数，并将两个整数相加后的结果在控制台输出。
      */
-    public static void main() {
+    public static void main(String[] args) {
         // 创建 Scanner 对象
         Scanner scanner = new Scanner(System.in);
 
