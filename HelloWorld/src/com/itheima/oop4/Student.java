@@ -15,21 +15,57 @@ public class Student {
             2. 构造方法的主要作用是初始化对象的成员变量
      */
 
-    String name;
-    int age;
-    char gender;
-    double height;
+    private String name;
+    private int age;
+    private char gender;
+    private double height;
 
-    public Student () {
+    public Student() {
         System.out.println("这是一个无参的构造方法");
     }
 
-    public Student (String name, int age, char gender, double height) {
+    public Student(String name, int age, char gender, double height) {
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.height = height;
         System.out.println("这是一个有参的构造方法，参数name的值是：" + name);
         System.out.println(this.name + " 今年" + this.age + "岁了，性别是" + this.gender + "，身高是" + this.height + "米");
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setAge(int age) {
+        if (age < 0 || age > 20) {
+            System.out.println("年龄不合法");
+            return;
+        }
+        this.age = age;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setGender(char gender) {
+        this.gender = gender;
+    }
+
+    public char getGender() {
+        return gender;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public double getHeight() {
+        return height;
     }
 }
