@@ -35,8 +35,13 @@ public enum OrderState {
 
 
     private final String name;
-
-    private OrderState(String name) {
+       /*
+        private OrderState(String name) {
+            this.name = name;
+        }
+        */
+    // 枚举类的构造方法默认是private修饰的，不能被外部调用。即使不写private修饰符，编译器也会自动将其视为private。
+       OrderState(String name) {
         this.name = name;
     }
 
