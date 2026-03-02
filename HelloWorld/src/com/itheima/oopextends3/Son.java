@@ -1,6 +1,6 @@
 package com.itheima.oopextends3;
 
-class Son extends Father {
+public class Son extends Father {
     String name = "儿子";
 
     // 注解：Override表示重写父类的方法，编译器会检查是否正确重写了父类的方法，如果没有正确重写，会报错。

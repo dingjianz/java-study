@@ -1,6 +1,6 @@
 package com.itheima.oopextends3;
 
-class Father {
+public class Father {
     String name = "父亲";
 
     public void show() {
