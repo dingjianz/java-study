@@ -28,4 +28,8 @@ public class Father {
     public void setB(int b) {
         this.b = b;
     }
+
+    private void privateMethod() {
+        System.out.println("父类的privateMethod方法");
+    }
 }
