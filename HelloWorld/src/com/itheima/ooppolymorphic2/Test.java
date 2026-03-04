@@ -27,12 +27,30 @@ public class Test {
 
         Father f = new Son();
         System.out.println(f.name);
-     // System.out.println(f.age); // 编译错误，父类没有age属性
+        // System.out.println(f.age); // 编译错误，父类没有age属性
         f.show();
         f.fuShow();
 
         // f.erShow(); // 编译错误，父类没有erShow方法
 
+        // 类型强制转换
+        Son s = (Son) f; // 父类引用强制转换成子类引用，编译通过，运行成功
+        s.erShow(); // 调用子类特有的方法
+        System.out.println(f instanceof Son); // true，f是Son类型的对象
+
+        /*
+            1.多态的弊端是什么？
+                不能使用子类的特有功能
+            2.引用数据类型的类型转换，有几种方式？
+                向上转型：子类类型转换成父类类型，自动完成，安全的。
+                向下转型：父类类型转换成子类类型，必须强制转换，可能会出现ClassCastException异常。
+
+            3.强制类型转换能解决什么问题？强制类型转黄需要注意什么？
+                强制类型转换可以解决多态的弊端，让父类引用能够调用子类特有的方法。
+                转换类型与真实对象不一致会报错
+                转换的时候用 instanceof 进行判断，确保转换的安全性。
+
+         */
     }
 
 }
