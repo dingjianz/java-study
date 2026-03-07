@@ -5,7 +5,7 @@ public class Test {
         /*
             接口: 是一种特殊的抽象类，接口中的成员变量只能是常量，接口中的方法只能是抽象方法。接口不能被实例化，接口只能被实现。
                 1. 接口中的成员变量默认是 public static final 的，可以省略不写。
-                eg：int a = 10; // 等价于 public static final int a = 10;
+                eg：int A = 10; // 等价于 public static final int A = 10;
 
                 2. 接口中的方法默认是 public abstract 的，可以省略不写。
                 eg：void eat(); // 等价于 public abstract void eat();
@@ -23,6 +23,11 @@ public class Test {
                 13. 接口中的成员变量和方法不能有 transient 修饰符，接口中的成员变量和方法不能有 volatile 修饰符。
                 14. 接口中的成员变量和方法不能有 synchronized 修饰符，接口中的成员变量和方法不能有 native 修饰符。
                 15. 接口中的成员变量和方法不能有 strictfp 修饰符，接口中的成员变量和方法不能有 transient 修饰符。
+
+              接口和接口的关系
+                1. 接口之间可以继承，且可以多继承，接口之间用逗号分隔。
+                2. 接口不能继承类，接口只能继承接口。
+                3. 接口中的成员变量和方法都是 public 的，接口中的成员变量和方法不能有其他访问修饰符。
 
 
             练习:

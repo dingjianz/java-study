@@ -1,6 +1,6 @@
 package com.itheima.oopinterface;
 
-public class Dog  extends Animal implements Swim{
+public class Dog extends Animal implements Swim {
     public Dog() {
     }
 
@@ -10,6 +10,7 @@ public class Dog  extends Animal implements Swim{
 
     @Override
     public void eat() {
+        System.out.println(A);
         System.out.println("🐶" + getName() + "正在吃骨头...");
     }
 
