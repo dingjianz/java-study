@@ -28,21 +28,21 @@ public class Test3 {
             System.out.println(s.getId() + "," + s.getName() + "," + s.getAge());
         }
 
-        Student s = findStudentById(list, 1001);
-        if (s != null) {
-            System.out.println(s.getId() + "," + s.getName() + "," + s.getAge());
+        int index = findStudentById(list, 1003);
+        if (index != -1) {
+            System.out.println("该学生的索引是：" + index);
         } else {
             System.out.println("没有找到该学生");
         }
     }
 
-    public static Student findStudentById(ArrayList<Student> list, int id) {
+    public static int findStudentById(ArrayList<Student> list, int id) {
         for (int i = 0; i < list.size(); i++) {
             Student s = list.get(i);
             if (s.getId() == id) {
-                return s;
+                return i;
             }
         }
-        return null;
+        return -1;
     }
 }
