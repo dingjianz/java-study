@@ -4,6 +4,11 @@ import java.util.Scanner;
 
 public class OperatorDemo3 {
     public static void main(String[] args) {
+
+        int j = 10;
+        boolean ff = ++j == 11;
+        System.out.println("-----");
+        System.out.println(ff);
         /*
             自增资减运算符
                 ++：自增运算符，变量的值增加1
@@ -50,16 +55,48 @@ public class OperatorDemo3 {
         System.out.println(num + "能否被3整除？" + isDivisibleBy3);
 
         /*
-        逻辑运算符
-            &&：逻辑与，只有当两个条件都为true时，结果才为true，否则为false
-            ||：逻辑或，只有当两个条件都为false时，结果才为false，否则为true
-            !：逻辑非，取反运算符，将true变为false，将false变为true
-         逻辑运算符的优先级低于关系运算符
-         逻辑运算符的优先级高于赋值运算符
-         逻辑运算符的优先级相同，按照从左到右的顺序进行计算
-         逻辑运算符的结果是一个boolean值，true或false
-         逻辑运算符可以进行短路运算，例如：a > b && c > d，如果a > b为false，那么c > d就不会被计算
+        逻辑运算符详解
+        1. 基本逻辑运算符
+            Java 中有三种基本逻辑运算符：
+            & (逻辑与) - 两个操作数都为 true 时结果为 true
+            | (逻辑或) - 两个操作数至少一个为 true 时结果为 true
+            ! (逻辑非) - 取反，true 变 false，false 变 true
+            ^ (逻辑异或) - 两个操作数不同时结果为 true
+
+        2. 短路逻辑运算符
+            && (短路与) - 功能与 & 相同，但有短路特性
+            || (短路或) - 功能与 | 相同，但有短路特性
+
+        3. 短路特性
+            短路运算的核心区别：
+            && (短路与) 的短路规则：
+            如果左边为 false，右边表达式不会执行，直接返回 false
+
+            如果左边为 true，才会计算右边表达式
+            || (短路或) 的短路规则：
+            如果左边为 true，右边表达式不会执行，直接返回 true
+            如果左边为 false，才会计算右边表达式
+
+
          */
+
+        // & (不短路) vs && (短路)
+        int aa = 10;
+        boolean result1 = (aa > 20) & (aa++ > 5);  // false & true = false
+        // aa 的值会变成 11，因为两边都执行了
+
+        int bb = 10;
+        boolean result2 = (bb > 20) && (bb++ > 5);  // false，右边不执行
+        // bb 的值还是 10，因为右边被短路了
+
+        // | (不短路) vs || (短路)
+        int c = 10;
+        boolean result3 = (c > 5) | (c++ > 20);  // true | false = true
+        // c 的值会变成 11，因为两边都执行了
+
+        int d = 10;
+        boolean result4 = (d > 5) || (d++ > 20);  // true，右边不执行
+        // d 的值还是 10，因为右边被短路了
 
         // 需求：输入一个数字，判断它是否在1到10之间
         boolean result = (num > 1) && (num < 10);
@@ -87,5 +124,8 @@ public class OperatorDemo3 {
             7. 三元运算 ? :
             8. 赋值运算 = += -= *= /= %=
          */
+
+
+
     }
 }

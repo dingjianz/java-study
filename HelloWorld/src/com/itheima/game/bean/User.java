@@ -1,7 +1,5 @@
 package com.itheima.game.bean;
 
-import java.nio.file.attribute.AclFileAttributeView;
-
 public class User {
     private String id; // 用户ID iflytek + 5位数字 iflytek12345
     private String username; // 用户名
@@ -11,7 +9,7 @@ public class User {
     public User() {
     }
 
-    public User(String id, String username, String password, boolean status) {
+    public User(String username, String password, boolean status) {
         this.id = createId();
         this.username = username;
         this.password = password;

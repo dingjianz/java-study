@@ -45,14 +45,11 @@ public class Login {
         while (true) {
             System.out.println("请输入用户名：");
             String username = sc.next();
-            if (checkLen(3, 6, username)) {
+            if (!checkLen(3, 6, username)) {
                 System.out.println("用户名的长度必须是3-16位");
                 continue;
             }
         }
-        System.out.println("请输入密码：");
-        String password = sc.next();
-        System.out.println("用户名是：" + username + "，密码是：" + password);
     }
 
     // 注册
