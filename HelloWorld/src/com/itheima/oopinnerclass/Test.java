@@ -52,13 +52,17 @@ public class Test {
                     }
                 4.匿名内部类等价于
                     没有名字的java类 + 实现接口/继承类 + 重写方法 + 创建对象；
+                   简化代码，减少文件数量
+                     不需要为只使用一次的实现创建单独的 .java 文件。
+
                 5。使用场景
                     如果实现类只需要使用一次，就可以用匿名内部类简化代码
          */
 
         // 创建成员内部类对象
-//        Outer.Inner oi = new Outer("张三").new Inner();
-//        oi.show();
+        // Outer.Inner oi = new Outer("张三").new Inner();
+        // oi.show();
+
         Outer.Inner oi = new Outer("dc").new Inner();
         oi.show();
 
@@ -68,5 +72,19 @@ public class Test {
         Outer3 o3 = new Outer3();
         o3.show();
 
+
+        // 1. 匿名内部类
+        interface MyInterface {
+            void doSomething();
+        }
+
+        // 使用匿名内部类
+        MyInterface obj = new MyInterface() {
+            @Override
+            public void doSomething() {
+                System.out.println("实现接口方法");
+            }
+        };
+        obj.doSomething();
     }
 }
