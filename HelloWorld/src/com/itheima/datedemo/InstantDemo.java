@@ -37,9 +37,11 @@ public class InstantDemo {
         // 相等也会报错
         System.out.println(instant1.isAfter(instant1)); // false
 
-        // 减少时间 原时间对象不变
+        // 减少/增加时间 原时间对象不变
         Instant instant3 = Instant.ofEpochMilli(3000L); // 1970-01-01T00:00:03Z
         Instant instant4 = instant3.minusSeconds(2L); // 1970-01-01T00:00:01Z
+        Instant instant5 = instant3.plusMillis(2000L);
+        Instant instant6 = instant5.plusSeconds(1L);
 
 
     }
