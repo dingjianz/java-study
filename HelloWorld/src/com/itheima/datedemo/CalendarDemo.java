@@ -31,6 +31,10 @@ public class CalendarDemo {
         // 2.修改日历代表的时间
         Date d = new Date(0L);
         c.setTime(d);
+        // c.set(2026, 2, 27);
+        // c.set(Calendar.YEAR , 2026);
+        // c.set(Calendar.MONTH, 2);
+        // c.set(Calendar.DATE, 27);
 
         // 3.获取时间
         Date d2 = c.getTime();
