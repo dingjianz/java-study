@@ -1,7 +1,9 @@
 package com.itheima.collectionDemo;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 public class ListDemo {
     public static void main(String[] args) {
@@ -19,6 +21,14 @@ public class ListDemo {
                     3.E set(int index,E element)：修改指定索引处的元素 返回被修改的元素
                     4.E remove(int index)：删除指定索引处的元素
 
+             List能用Collection集合的所有方法
+               List系列集合的五种遍历方式
+                1. 迭代器：在遍历的过程中需要删除元素，请使用迭代器
+                2. 列表迭代器：在遍历的过程中需要添加元素，请使用列表迭代器
+                3. 增强for
+                4. Lambda表达式
+                5. 普通for循环
+
          */
 
         // 1.创建集合
@@ -31,16 +41,57 @@ public class ListDemo {
 
         // 3.在指定的位置添加元素
         // 细节：原来索引上的元素会依次往后移
-        list.add(1,"qqq");
+        list.add(1, "qqq");
 
         list.remove("qqq"); // 删除指定元素
         list.remove(1); // 删除指定索引的元素
 
         // E set(int index,E element)：修改指定索引处的元素 返回被修改的元素 index不能超出集合的长度
-        String s = list.set(1,"jianding9");
+        String s = list.set(1, "jianding9");
         System.out.println(s); // java
-
         System.out.println(list);
 
+        System.out.println("-------------------");
+
+        // 迭代器
+        Iterator<String> it = list.iterator();
+        while (it.hasNext()) {
+            String s1 = it.next();
+            System.out.println(s1);
+        }
+
+        System.out.println("-------------------");
+
+        // 列表迭代器
+        // 在迭代器的基础上新增了 add的方法 E add(E element)
+        ListIterator<String> lit = list.listIterator();
+        while (lit.hasNext()) {
+            String s2 = lit.next();
+            System.out.println(s2);
+//            if(s2.equals("hello")) {
+            if(s2 == "hello") {
+                lit.add("javaee");
+            }
+        }
+
+        System.out.println("-------------------");
+
+        // 增强for循环
+        for (String s1 : list) {
+            System.out.println(s1);
+        }
+
+        System.out.println("-------------------");
+
+        // Lambda表达式
+        list.forEach(s3 -> System.out.println(s3));
+
+        System.out.println("-------------------");
+
+        // 普通for循环
+        for (int i = 0; i < list.size(); i++) {
+            String s4 = list.get(i);
+            System.out.println(s4);
+        }
     }
 }
