@@ -22,7 +22,7 @@ public class Test2 {
     }
 
     @FunctionalInterface
-    interface  Swimmer {
+    interface Swimmer {
         public abstract void swim();
     }
 
