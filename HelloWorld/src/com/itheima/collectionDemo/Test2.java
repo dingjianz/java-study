@@ -1,5 +1,8 @@
 package com.itheima.collectionDemo;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Test2 {
     public static void main(String[] args) {
         /*
@@ -23,6 +26,10 @@ public class Test2 {
 
          */
 
-
+        ArrayList<Integer> arr = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
+        arr.add(1);
+        arr.add(0, 66);
+        System.out.println(arr.size());
+        System.out.println(arr.toString());
     }
 }
