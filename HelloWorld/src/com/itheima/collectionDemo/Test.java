@@ -15,13 +15,16 @@ public class Test {
                 List系列集合：添加的元素是有序、可重复、有索引
                 Set系列集合：添加的元素是无序、不重复、无索引
 
-
                 public boolean add(E e) {} 把给定的对象添加到当前集合中
                 public void clear() {} 清空集合中的元素
                 public boolean remove(Object o) {} 删除集合中指定的元素
                 public boolean contains(Object o) {} 判断当前集合中是否包含给定的元素
                 public boolean isEmpty() {} 判断当前集合是否为空
                 public int size() {} 获取当前集合的元素个数
+
+            2.双列集合 Map
+                2.1 Map: HashMap TreeMap
+
 
 
        */
@@ -46,7 +49,6 @@ public class Test {
          */
         coll.add("hello");
         coll.add("world");
-
 
         /*
             2.删除元素
@@ -104,7 +106,7 @@ public class Test {
             如果同名同姓同龄，就认为是同一个学生
             如果直接使用equals()方法判断，那么返回false，默认会使用Object类的equals()方法判断
             而Object类的equals()方法判断两个对象是否相同，就是判断两个对象的地址是否相同
-            所以需要重写equals()方法，在对应的Javabe中，Student类中重写equals()方法
+            所以需要重写equals()方法，在对应的Javabean中，Student类中重写equals()方法
          */
         System.out.println(students.contains(stu4)); // true
     }
