@@ -38,6 +38,3 @@ public class GenericsDemo3 {
     }
 }
 
-class Student {
-}
-
