@@ -11,9 +11,13 @@ public class Test {
 
             1.单列集合Collection：
                  1.1 List: ArrayList LinkedList Vector
-                 1.2 Set: HashSet TreeSet
+                 1.2 Set: HashSet TreeSet LinkedHashSet
                 List系列集合：添加的元素是有序、可重复、有索引
                 Set系列集合：添加的元素是无序、不重复、无索引
+                    Set集合的实现类的特点
+                        HashSet: 无序、不重复、无索引
+                        LinkedHashSet: 有序、不重复、无索引
+                        TreeSet: 可排序、不重复、无索引
 
                 public boolean add(E e) {} 把给定的对象添加到当前集合中
                 public void clear() {} 清空集合中的元素
