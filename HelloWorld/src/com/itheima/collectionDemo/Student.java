@@ -36,4 +36,9 @@ public class Student {
         Student student = (Student) o;
         return age == student.age && Objects.equals(name, student.name);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age);
+    }
 }
