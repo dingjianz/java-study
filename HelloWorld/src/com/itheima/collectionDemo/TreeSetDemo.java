@@ -15,6 +15,12 @@ public class TreeSetDemo {
             对于字符、字符串类型：按照字符在ASCII码表中的数字顺序排序
 
             eg："aaa" > "ab" > "aba" > "cd" > "qwer"
+
+            TreeSet 两种比较规则：
+                1. 默认排序/自然排序：
+                    Javabean类实现Comparable接口指定比较规则
+                2. 比较器排序：
+                创建TreeSet集合对象时候，传递比较器Comparator指定规则
          */
 
 
