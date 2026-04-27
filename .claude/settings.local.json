@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(claude-code skills:*)",
+      "Bash(npx skills:*)",
+      "Bash(javac -cp \"lib/gson-2.10.1.jar\" -d ../out/production/java-study src/com/itheima/Objectdemo/clone.java)",
+      "Bash(javac -cp \"../lib/gson-2.10.1.jar\" com/itheima/Objectdemo/Student.java com/itheima/Objectdemo/clone.java)",
+      "Bash(java -cp \"../lib/gson-2.10.1.jar:.\" com.itheima.Objectdemo.clone)",
+      "Bash(javac -cp \"../lib/gson-2.10.1.jar\" com/itheima/datedemo/SimpleDateFormatDemo.java)",
+      "Bash(java -cp \"../lib/gson-2.10.1.jar:.\" com.itheima.datedemo.SimpleDateFormatDemo)",
+      "Bash(javac -encoding UTF-8 com/itheima/datedemo/SimpleDateFormatDemo.java)",
+      "Bash(java -Dfile.encoding=UTF-8 com.itheima.datedemo.SimpleDateFormatDemo)"
+    ]
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true
+  }
+}
