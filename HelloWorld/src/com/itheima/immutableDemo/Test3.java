@@ -1,18 +1,16 @@
 package com.itheima.immutableDemo;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class Test3 {
     public static void main(String[] args) {
         /*
-        创建不可变的Map集合
+            创建不可变的Map集合
          */
 
         // Map.of 参数最多为 10 个
-        Map<String,Integer> map = Map.of("张三", 20, "李四", 21, "王五", 22);
+        Map<String, Integer> map = Map.of("张三", 20, "李四", 21, "王五", 22);
         System.out.println(map);
 
         // ofEntries的参数可以为多个
@@ -59,12 +57,12 @@ public class Test3 {
             如果集合的长度 <= 数组的长度，数据在数组中的放的下，此时不会创建新的数据，而是直接用
          */
         // 简写
-        Map map1 = Map.ofEntries(map2.entrySet().toArray(new Map.Entry[0]));
+        Map<Object, Object> map1 = Map.ofEntries(map2.entrySet().toArray(new Map.Entry[0]));
         System.out.println(map1);
 
 
         // Map.copyOf JDk10 之后的版本
-        Map map3 = Map.copyOf(map2);
+        Map<String, Integer> map3 = Map.copyOf(map2);
 
     }
 }
