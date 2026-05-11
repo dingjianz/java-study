@@ -34,13 +34,16 @@ public class Test {
         // 运行时异常（在运行阶段，如果代码有错误，就会抛出异常，程序就会停止）
         int[] arr = {1,2,3};
         try {
-            System.out.println(2/0);
             System.out.println(arr[3]); // ArrayIndexOutOfBoundsException
+            System.out.println(2/0);
         } catch (ArrayIndexOutOfBoundsException | ArithmeticException e) {
-            System.out.println("e:" + e);
+//            System.out.println("e:" + e);
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+            System.out.println(e.toString());
         }
         System.out.println("程序继续执行");
-
-
+        // err 打印错误信息
+        System.err.println("程序继续执行");
     }
 }
