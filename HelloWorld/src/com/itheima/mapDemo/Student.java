@@ -1,8 +1,14 @@
 package com.itheima.mapDemo;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Student implements Comparable<Student>{
+/*
+Serializable 序列化接口 里面没有抽象方法 是标记性接口
+创建对象时，会自动生成一个序列号，表示当前类可以被序列化
+ */
+public class Student implements Comparable<Student>, Serializable {
+    private static final long serialVersionUID = 1L;
     private String name;
     private int age;
 
