@@ -25,8 +25,8 @@ public class BigDecimalDemo {
             1.通过double创建BigDecimal对象
             这种创建方式，创建的BigDecimal对象，会有误差，不建议使用
          */
-        BigDecimal bd1 = new BigDecimal(0.01);
-        BigDecimal bd2 = new BigDecimal(0.02);
+        BigDecimal bd1 = new BigDecimal("0.01");
+        BigDecimal bd2 = new BigDecimal("0.02");
 
         System.out.println(bd1); // 0.01000000000000000020816681711721685132943093776702880859375
         System.out.println(bd2); // 0200000000000000004163336342344337026588618755340576171875
