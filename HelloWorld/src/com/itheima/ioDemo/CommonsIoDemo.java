@@ -16,7 +16,6 @@ public class CommonsIoDemo {
         3.右键点击 jar 包，选择 Add as Library -> 点击OK
         4.在类中导包使用
 
-
         FileUtils类
            static void copyFile(File srcFile, File destFile)     复制文件
            static void copyDirectory(File srcDir, File destDir)   直接复制目录
