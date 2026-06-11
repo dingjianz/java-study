@@ -11,7 +11,7 @@ public class TheadTest2 {
             5. 调用start方法启动线程
          */
 
-        MyRun mr = new MyRun();
+        MyRunnable mr = new MyRunnable();
 
         Thread t1 = new Thread(mr);
         t1.setName("线程1");

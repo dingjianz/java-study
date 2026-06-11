@@ -1,6 +1,6 @@
 package com.itheima.threadDemo;
 
-public class TicketRunnable implements Runnable{
+public class TicketRunnable implements Runnable {
     int ticket = 0;
 
     @Override

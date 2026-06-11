@@ -1,6 +1,6 @@
 package com.itheima.threadDemo;
 
-public class MyRun implements Runnable {
+public class MyRunnable implements Runnable {
     @Override
     public void run() {
         Thread t = Thread.currentThread(); // 获取当前线程的对象

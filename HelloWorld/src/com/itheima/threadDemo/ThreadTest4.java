@@ -8,7 +8,7 @@ public class ThreadTest4 {
         */
 
         // 创建线程要执行的参数对象
-        MyRun mr = new MyRun();
+        MyRunnable mr = new MyRunnable();
 
         // 创建线程对象
         Thread t1 = new Thread(mr, "飞机✈️");
