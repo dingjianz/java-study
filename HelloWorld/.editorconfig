@@ -1,0 +1,20 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+
+[*.java]
+# 一行最大宽度（超过则换行）
+max_line_length = 120
+# IDEA 专属：输入时自动按右边距换行
+ij_wrap_on_typing = true
+# IDEA 专属：硬性换行边距
+ij_visual_guides = 120
+
+[*.{xml,yml,yaml,json}]
+indent_size = 2
