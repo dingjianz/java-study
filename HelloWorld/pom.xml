@@ -43,5 +43,12 @@
             <artifactId>jol-core</artifactId>
             <version>0.17</version>
         </dependency>
+
+        <!-- MySQL JDBC 驱动 -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.4.0</version>
+        </dependency>
     </dependencies>
 </project>
