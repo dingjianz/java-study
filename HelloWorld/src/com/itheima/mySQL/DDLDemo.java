@@ -1,6 +1,6 @@
 package com.itheima.mySQL;
 
-public class Test {
+public class DDLDemo {
     /*
     ------------ DDL 数据库定义语言 (Data Definition Language) 用于定义数据库结构 -----------
     mysql -u root -p // 登录mysql dJ573828395
