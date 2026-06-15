@@ -46,10 +46,38 @@ public class DCLDemo {
          1.查询权限
             show grants for '用户名'@'主机';
 
+
          2.授予权限
             grant 权限1, 权限2, ... on 数据库.表 to '用户名'@'主机';
 
          3.撤销权限
             revoke 权限1, 权限2, ... on 数据库.表 from '用户名'@'主机';
+
+
+           初始化用户权限
+              show grants for 'jianding9'@'%';
+                +----------------------------------------------------------------+
+                | Grants for jianding9@%                                         |
+                +----------------------------------------------------------------+
+                | GRANT USAGE ON *.* TO `jianding9`@`%`                          ｜
+                +----------------------------------------------------------------+
+                // 只授予用户访问权限，不授予任何权限
+
+              grant all on itheima.* to 'jianding9'@'%';
+              show grants for 'jianding9'@'%';
+                +----------------------------------------------------------------+
+                | Grants for jianding9@%                                         |
+                +----------------------------------------------------------------+
+                | GRANT USAGE ON *.* TO `jianding9`@`%`                          |
+                | GRANT ALL PRIVILEGES ON `itheima`.`tb_user` TO `jianding9`@`%` |
+                +----------------------------------------------------------------+
+
+               revoke all on itheima.tb_user from 'jianding9'@'%';
+               SHOW GRANTS FOR 'jianding9'@'%';
+                +---------------------------------------+
+                | Grants for jianding9@%                |
+                +---------------------------------------+
+                | GRANT USAGE ON *.* TO `jianding9`@`%` |
+                +---------------------------------------+
      */
 }
