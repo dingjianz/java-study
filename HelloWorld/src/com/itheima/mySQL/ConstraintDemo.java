@@ -21,8 +21,6 @@ public class ConstraintDemo {
         status           状态          char(1)     如果没有指定该值，默认为1
         gender           性别          char(1)            无
 
-
-        ---------------- 约束演示 ----------------
         create table employee(
             id int primary key auto_increment comment 'id唯一标识',
             name varchar(10) not null unique comment '姓名',
@@ -31,21 +29,21 @@ public class ConstraintDemo {
             gender char(1) comment '性别'
         ) comment '雇员表';
 
+        关键字 auto_increment: 自动增长
 
        ----------- 外键约束 ------------
        语法：
         1. 添加外键约束
             1.1 建表时直接写在列定义后面
             CREATE TABLE 表名(
-             字段名 数据类型,
-             ...,
-             [CONSTRAINT] [外键名称] FOREIGN KEY (外键字段名) REFERENCES 主表名(主表列名)
+                 字段名 数据类型,
+                 ...,
+                 [CONSTRAINT] [外键名称] FOREIGN KEY (外键字段名) REFERENCES 主表名(主表列名)
              );
 
             1.2 建表后追加
               ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名) REFERENCES 主表名(主表列名);
-
-              外键名称命名没有强制规范，但推荐 fk_从表名_主表名，一眼就能看出关联关系。
+              外键名称: 命名没有强制规范，但推荐 fk_从表名_主表名，一眼就能看出关联关系。
              eg:
               CREATE TABLE employe (
                   id      INT AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
@@ -54,12 +52,19 @@ public class ConstraintDemo {
                   dept_id INT NOT NULL COMMENT '部门ID',
                   CONSTRAINT fk_employe_dept FOREIGN KEY (dept_id) REFERENCES dept(id)
               ) COMMENT '员工表';
-
              eg: alter table employe add constraint fk_employe_dept foreign key (dept_id) references dept(id);
 
         2. 删除外键约束
             ALTER TABLE 表名 DROP FOREIGN KEY 外键名称;
-
             eg: alter table employe drop foreign key fk_employe_dept;
+
+        3.外键约束的 删除/更新行为
+           NO ACTION: 默认值，删除/更新主表数据时，如果从表中有外键数据，则不允许删除/更新
+           RESTRICT: 删除/更新主表数据时，如果从表中有外键数据，则不允许删除/更新
+           CASCADE: 删除/更新主表数据时，如果从表中有外键数据，则一并删除/更新
+           SET NULL: 删除主表数据时，如果从表中有外键数据，则将从表中的外键字段设置为null
+           SET DEFAULT: 删除/更新主表数据时，如果从表中有外键数据，则将从表中的外键字段设置为默认值(Innodb不支持)
+
+           ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段) REFERENCES 主表名(主表字段) ON DELETE CASCADE ON UPDATE CASCADE;
      */
 }

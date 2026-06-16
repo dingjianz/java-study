@@ -1,0 +1,68 @@
+package com.itheima.mySQL;
+
+public class MulTable {
+    /*
+     create table student(
+         id int primary key auto_increment comment '主键ID',
+         name varchar(20) not null comment '学生姓名',
+         no varchar(10) not null unique comment '学生学号'
+     ) comment '学生表';
+
+     insert into student(name,no) values('张三','001'),('李四','002'),('王五','003'),('赵六','004');
+
+     create table course(
+         id int primary key auto_increment comment '课程ID',
+         name varchar(20) not null comment '课程名称'
+     ) comment '课程表';
+
+     insert into course(name) values('Java'),('C++'),('Python');
+
+     创立中间表(针对于多对多的关系)
+     create table student_course(
+         id int primary key auto_increment comment '主键ID',
+         studentid int not null comment '学生ID',
+         courseid int not null comment '课程ID',
+         constraint fk_courseid foreign key (courseid) references course(id),
+         constraint fk_studentid foreign key (studentid) references student(id)
+     ) comment '学生课程中间表';
+
+     insert into student_course(studentid,courseid) values(1,1),(1,2),(1,3),(2,1),(2,2),(3,1),(3,3),(4,2);
+
+    一对一的关系：
+        案例：用户与用户详情的关系
+        关系：一对一关系，多用于单表拆分，将一张表的基础字段放在一张表中，其余详情放在一张表中，以提升操作效率。
+        实现：在任意一方加入外键，关联另外一方的主键，并且设置外键为唯一的(UNIQUE)
+
+        create table tb_user(
+            id int primary key auto_increment comment '用户ID',
+            name varchar(10) not null comment '用户名',
+            age int not null comment '年龄',
+            gender char(1) not null comment '1:男 2:女',
+            phone varchar(11) not null comment '手机号'
+        ) comment '用户表';
+
+        insert into tb_user(id, name,age,gender,phone) values(4, '张三',18,'1','18368469517'),
+        (5, '李四',19,'2','18368469508'),
+        (6, '王五',20,'1','18368469509'),
+        (7, '赵六',21,'2','18368469510');
+
+        create table tb_user_edu(
+            id int primary key auto_increment comment '用户详情ID',
+            degree int not null comment '用户学历',
+            major varchar(50) not null comment '专业',
+            primaryschool varchar(50) not null comment '小学',
+            middleschool varchar(50) not null comment '中学',
+            university varchar(50) not null comment '大学',
+            userid int unique comment '用户ID',
+            constraint fk_userid foreign key (userid) references tb_user(id)
+        ) comment '用户教育信息表';
+
+        insert into tb_user_edu(degree,major,primaryschool,middleschool,university,userid) values(1,'Java','星火小学',
+        '东升私立高中','哈佛大学',4),
+        (2,'C++','宝福小学','新安中学','耶鲁大学',5),
+        (3,'Python','安居苑小学','秀山中学','辽石化大学',6),
+        (4,'Java','火炬小学','高河中学','斯坦福大学',7);
+
+        多表查询
+     */
+}
