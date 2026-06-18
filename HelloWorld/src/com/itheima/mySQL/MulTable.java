@@ -63,6 +63,37 @@ public class MulTable {
         (3,'Python','安居苑小学','秀山中学','辽石化大学',6),
         (4,'Java','火炬小学','高河中学','斯坦福大学',7);
 
-        多表查询
+        多表查询: 指的是从多张表中查询数据
+        笛卡尔积：笛卡尔乘积是指在数学中，两个集合A和B集合的所有组合的情况。(在多表查询时，需要消除无效的笛卡尔积)
+        无效的笛卡尔积：指的时在多表查询时，查询条件没有限制，导致查询出无效的数据。
+        eg: select * from employe dept where employe.dept_id = dept.id;
+
+        多表查询分类
+            1.连接查询
+                1.1.内连接查询：相当于查询A、B两张表中交集部分数据。
+                    1.1.1 隐式内连接
+                        select 字段列表 from 表1, 表2 where 条件
+                        select e.name, d.name from employee e, dept d where e.dept_id = d.id;
+                    1.1.2 显式内连接
+                        select 字段列表 from 表1 [inner] join 表2 on 连接条件...; // inner 可以省略
+                        select e.name, d.name from employee e inner join dept d on e.dept_id = d.id;
+
+                1.2.外连接查询：
+                    1.2.1 左外连接查询：查询左表所有数据，以及两张表交集部分数据。
+                        select 字段列表 from 表1 left [outer] join 表2 on 连接条件...;
+                        select e.*, d.name from employe e left outer join dept d on e.dept_id = d.id;
+
+                    1.2.2 右外连接查询：查询右表所有数据，以及两张表交集部分数据。
+                        select 字段列表 from 表1 right [outer] join 表2 on 连接条件...;
+                        select d.*, e.* from employe e right outer join dept d on e.dept_id = d.id;
+
+                        左外连接查询用的比较多，因为右外连接可以转换为左外连接。
+
+                1.3.自连接查询：当前表与自身的连接查询，自连接必须使用表别名。
+                自连接查询可以是内连接查询，也可以是外连接查询。
+                select 字段列表 from 表A 别名A join 表A 别名B on 连接条件...;
+
+            2.子查询
+
      */
 }
