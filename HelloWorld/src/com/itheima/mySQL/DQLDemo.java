@@ -34,7 +34,7 @@ public class DQLDemo {
             | id1  | 姓名     | 年龄   | 性别   |
             +------+----------+--------+--------+
             |    1 | zhangsan |     32 | 男     |
-            |    2 | wangwu   |     17 | 男     |
+            |    2 | ||wangwu   |     17 | 男     |
             |    3 | 里斯     |     60 | 女     |
             |    4 | 赵敏     |     25 | 女     |
             +------+----------+--------+--------+
@@ -79,6 +79,9 @@ public class DQLDemo {
                   IS NOT NULL : 不为NULL
                   IN (A, B, C) : A, B, C 中的任意一个
                   NOT IN (A, B, C) : A, B, C 中的任意一个
+                  ANY: 任意一个
+                  SOME：与ANY相同，使用SOME的地方都可以使用ANY
+                  ALL：必须全部满足
 
               2.2.逻辑运算符
                   AND  或 && : 并且
@@ -86,7 +89,6 @@ public class DQLDemo {
                   NOT  或 ! : 非
                   括号 ()  改变运算顺序
                   eg: SELECT * FROM tb_user WHERE age > 18 AND gender = '男';
-
 
          DQL: 聚合函数
             将一列数据作为一个整体，进行纵向计算；
@@ -183,9 +185,6 @@ public class DQLDemo {
             排序字段列表
          LIMIT
             分页参数
-
-
-
 
 
          按照需求完成如下DQL语句编写：

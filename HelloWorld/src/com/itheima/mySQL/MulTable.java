@@ -92,8 +92,88 @@ public class MulTable {
                 1.3.自连接查询：当前表与自身的连接查询，自连接必须使用表别名。
                 自连接查询可以是内连接查询，也可以是外连接查询。
                 select 字段列表 from 表A 别名A join 表A 别名B on 连接条件...;
+                案例1：employe表与自己进行连接，查询出所有员工的姓名以及员工的上司的姓名。
+                select e.name, m.name from employe e inner join employe m on e.manager_id = m.id;
 
-            2.子查询
+                案例2:查询所有员工employe 及其领导的名字 employe,如果员工没有领导，也需要查询出来。
+                select a.name as '员工', b.name as '领导' from employe a left outer join employe b on a.manager_id = b.id;
+
+            2.联合查询-union, union all
+                对于union查询，就是把多次查询的结果合并起来，形成一个新的查询结果集。
+                union查询默认会去重，如果需要保留重复数据，可以使用union all
+                语法：
+                select 字段列表 from 表1 where 条件1
+                union [all]
+                select 字段列表 from 表2 where 条件2;
+
+                注意：1.两个查询的字段数量必须一致
+                    2.两个查询的字段对应的数据类型必须兼容
+
+                案例：将薪资低于 5000的员工 以及 年龄大于50的员工全部查询出来。
+                select name, salary from employe where salary < 5000
+                union
+                select name, salary from employe where age > 50;
+
+            3.子查询：SQL语句中嵌套SELECT语句，称为嵌套查询，又称子查询。
+            select * from 表1 where column1 = (select column1 from 表2);
+            子查询外部的语句可以是insert / update / delete / select 中的任何一种。
+
+            根据子查询的结果不同，分为：
+                1.标量子查询：子查询结果为单个值
+                2.行子查询：子查询结果为一行
+                3.列子查询：子查询结果为一列
+                4.表子查询：子查询结果为多行多列
+
+             根据子查询位置，分为：where之后、from之后、select之后
+
+           1.标量子查询：子查询返回的结果是单个值（数字、字符串、日期等），最简单的形式。
+               常用的操作符：= <> > >= < <=
+
+               案例1：查询 “销售部” 的所有员工信息。分为两步：第一查询销售部的部门id，第二根据销售部的部门id，查询员工信息。
+               select * from employe where dept_id = (select id from dept where name = '销售部');
+
+               案例2:查询在 “张三” 入职之后的员工信息。
+               select * from employe where entrydate > (select entrydate from employe where name = '张三');
+               注解：子查询 select entrydate from employe where name = '张三' 返回的是一个日期。
+
+           2.行子查询：子查询返回的结果是一行（可以多列），这种子查询称为行子查询。
+               常用的操作符： = <> in、not in
+
+               案例1:查询与张无忌的薪资、直属上级都相同的员工信息。
+               select * from employe where (salary, manager_id) = (select salary, manager_id from employe where name = '张无忌');
+               注解: 子查询 select salary, manager_id from employe where name = '张无忌'; 子查询返回的结果是一行
+
+           3.列子查询：子查询返回的结果是一列（可以是多行），这种子查询称为列子查询。
+               常用的操作符： in、not in、any、some、all
+
+               案例1：查询销售部和市场部的所有员工信息。
+               select * from employe where dept_id in (select id from dept where name in ('销售部','市场部'));
+               注解：子查询 select id from dept where name in ('销售部','市场部') 返回的是一列2行。
+
+               案例2:查询比 财务部 所有人工资都高的员工信息。
+               select * from employe where salary > all (select salary from employe where dept_id = (select id from dept where name = '财务部'));
+               注解：子查询 select salary from employe where dept_id = (select id from dept where name = '财务部') 返回的一列多行。
+               使用 MAX()
+               select * from employe where salary > (select max(salary) from employe where dept_id = (select id from dept where name = '财务部'));
+
+               案例3:查询 比研发部 任意一人工资高的员工信息。
+               select * from employe where salary > any (select salary from employe where dept_id = (select id from dept where name = '研发部'));
+               注解：子查询 select salary from employe where dept_id = (select id from dept where name = '研发部') 返回的一列多行。
+               使用 MIN()（比任意一人高 = 比最低工资还高）
+               select * from employe where salary > (select min(salary) from employe where dept_id = (select id from dept where name = '研发部'));
+
+            4.表子查询：子查询返回的结果是多行多列，这种子查询称为表子查询。
+                常用的操作符： in
+
+                案例1：查询与张无忌、周芷若的职位和薪资相同的员工信息。
+                select * from employe where (job, salary) in (select job, salary from employe where name in ('张无忌','周芷若'));
+                注解: 子查询 select job, salary from employe where name in ('张无忌','周芷若') 返回的多列多行。
+
+                案例2:查询入职日期是“2006-01-01”之后的员工信息，及其部门的信息。
+                select e.*, d.* from (select * from employe where entrydate > '2006-01-01') e left join dept d on e
+                .dept_id = d.id;
+                注解: 子查询 select * from employe where entrydate > '2006-01-01' 返回的多列多行。
+
 
      */
 }

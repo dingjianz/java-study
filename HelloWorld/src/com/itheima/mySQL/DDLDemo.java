@@ -109,6 +109,7 @@ DDL - 表操作 - 数据类型
          tinytext - 二进制小对象  0 ~ 255 字节
          mediumtext - 中等文本对象  0 ~ 16777215 字节
          longtext - 长文本对象  0 ~ 4294967295 字节
+
      - 日期时间类型：
          date - 日期类型  YYYY-MM-DD  0000-00-00 ~ 9999-12-31
          time - 时间类型  HH:MM:SS  -838:59:59 ~ 838:59:59
@@ -128,6 +129,7 @@ DDL - 表操作 - 修改
 
      修改字段名和字段类型
         alter table 表名 change 旧字段名 新字段名 新字段类型[COMMENT 新字段注释][约束];
+        如果字段名不用修改，新字段名不需要写，狗则报错
         eg: alter table tb_user change addr address varchar(100) comment '地址';
 
       删除字段
