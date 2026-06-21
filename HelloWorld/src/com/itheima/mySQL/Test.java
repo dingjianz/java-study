@@ -20,14 +20,29 @@ public class Test {
         5.查询所有员工的工资等级。
         select e.name, s.grade as '工资等级' from employe e, salgrade s where e.salary between s.losal and s.hisal;
 
-        6.查询"研发部"所有员工的信息及工资等级。
+        6.查询研发部所有员工的信息及工资等级。
+        select e.*, s.grade as '工资等级' from employe e, salgrade s, dept d where e.dept_id = d.id and ( e.salary
+        between s.losal and s.hisal ) and d.name = '研发部';
 
-        7.查询"研发部”员工的平均工资。
-        8.查询工资比"灭绝"高的员工信息。
+        7.查询研发部员工的平均工资。
+        select floor(avg(e.salary)) '平均工资' from employe e, dept d where e.dept_id = d.id and d.name = '研发部';
+
+        8.查询工资比 灭绝 高的员工信息。
+        select * from employe where salary > ( select salary from employe where name = '灭绝' )
+
         9.查询比平均薪资高的员工信息。
+        select * from employe where salary > ( select avg(salary) from employe );
+
         10.查询低于本部门平均工资的员工信息。
+        SELECT * FROM employe e WHERE e.salary < ( SELECT AVG(salary) FROM employe WHERE dept_id = e.dept_id );
+
         11.查询所有的部门信息，并统计部门的员工人数。
+        select d.id, d.name, (select count(*) from employe e where e.dept_id = d.id) '人数' from dept d;
+
         12.查询所有学生的选课情况，展示出学生名称，学号，课程名称
+        select s.name , s.no, c.name from student s, course c, student_course sc where sc.studentid = s.id and sc
+        .courseid = c.id;
+
 
         create table salgrade(
            grade int comment '等级',
