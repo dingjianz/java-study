@@ -36,7 +36,7 @@ public class Test {
         ArrayList<String> list = new ArrayList<>();
         list.add("hello");
         list.add("world");
-        File file = FileUtil.writeLines(list, "HelloWorld/src/com/itheima/hutool/1.txt", StandardCharsets.UTF_8, false);
+        File file = FileUtil.writeLines(list, "HelloWorld/src/main/java/com/itheima/hutool/1.txt", StandardCharsets.UTF_8, false);
         System.out.println(file);
 
         // readLines 默认一行是一个数据

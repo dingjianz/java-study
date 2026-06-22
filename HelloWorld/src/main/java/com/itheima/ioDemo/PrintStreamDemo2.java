@@ -21,7 +21,7 @@ public class PrintStreamDemo2 {
      */
 
         // 1.创建字节打印流的对象
-        PrintWriter pw = new PrintWriter(new FileOutputStream("src/com/itheima/ioDemo/1.txt"), true);
+        PrintWriter pw = new PrintWriter(new FileOutputStream("src/main/java/com/itheima/ioDemo/1.txt"), true);
         // 2.写数据
         // println: 自动刷新，自动换行, 原数据 写到方法的是97 到文件中也是97
         pw.println(97);

@@ -21,7 +21,7 @@ public class CharStreamDemo3 {
           public void write(char[] cbuf, int off, int len) 写出一个字符数组的一部分
         */
 
-        FileWriter fw = new FileWriter("src/com/itheima/ioDemo/1.txt", true);
+        FileWriter fw = new FileWriter("src/main/java/com/itheima/ioDemo/1.txt", true);
 
         // 根据字符集的编码方式进行编码，把编码之后的数据写到文件中去
         // UTF-8

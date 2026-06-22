@@ -12,7 +12,7 @@ public class ByteStreamDemo6 {
       */
 
         // 1.创建对象
-        FileInputStream fis = new FileInputStream("src/com/itheima/ioDemo/1.txt");
+        FileInputStream fis = new FileInputStream("src/main/java/com/itheima/ioDemo/1.txt");
 
         // 2.读取数据
         byte[] b = new byte[2]; // 创建字节数组，作为缓存 2 字节

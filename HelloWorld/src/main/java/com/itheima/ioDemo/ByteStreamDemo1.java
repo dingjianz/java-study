@@ -30,7 +30,7 @@ public class ByteStreamDemo1 {
          */
 
         // 1. 创建字节输出流对象
-        FileOutputStream fos = new FileOutputStream("src/com/itheima/ioDemo/1.txt");
+        FileOutputStream fos = new FileOutputStream("src/main/java/com/itheima/ioDemo/1.txt");
 
         // 2. 写数据
          /*fos.write(55); // 7

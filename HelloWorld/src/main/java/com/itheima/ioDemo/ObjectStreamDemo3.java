@@ -22,11 +22,11 @@ public class ObjectStreamDemo3 {
 
 
         // 创建序列化流对象
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/com/itheima/ioDemo/1.txt"));
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/main/java/com/itheima/ioDemo/1.txt"));
         oos.writeObject(students);
 
         // 创建反序列化流对象
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/com/itheima/ioDemo/1.txt"));
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/main/java/com/itheima/ioDemo/1.txt"));
 
         ArrayList<Student> lists = (ArrayList<Student>) ois.readObject();
 

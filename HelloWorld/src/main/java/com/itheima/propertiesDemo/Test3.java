@@ -15,7 +15,7 @@ public class Test3 {
         Properties prop = new Properties();
 
         //2.读取本地 Properties 文件的数据到集合中
-        FileReader fileReader = new FileReader("src/com/itheima/propertiesDemo/db.properties");
+        FileReader fileReader = new FileReader("src/main/java/com/itheima/propertiesDemo/db.properties");
         prop.load(fileReader);
         fileReader.close();
 

@@ -13,14 +13,14 @@ public class ZipStreamDemo2 {
             什么是压缩？
              压缩本质：把每一个（文件/文件夹）堪称ZipEntry对象放到压缩包中
 
-             需求：把HelloWorld/src/com/itheima/ioDemo/1.txt进行压缩
+             需求：把HelloWorld/src/main/java/com/itheima/ioDemo/1.txt进行压缩
          */
 
         // 1.创建一个File表示要压缩的文件
-        File src = new File("HelloWorld/src/com/itheima/ioDemo/1.txt");
+        File src = new File("HelloWorld/src/main/java/com/itheima/ioDemo/1.txt");
 
         // 创建一个 File表示 压缩包的位置
-        File dest = new File("HelloWorld/src/com/itheima/ioDemo");
+        File dest = new File("HelloWorld/src/main/java/com/itheima/ioDemo");
 
         toZip(src, dest);
 

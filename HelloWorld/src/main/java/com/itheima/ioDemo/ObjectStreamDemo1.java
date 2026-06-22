@@ -25,7 +25,7 @@ public class ObjectStreamDemo1 {
         Student stu = new Student("张三", 18);
 
         // 2.创建序列化流的对象/对象操作输出流
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/com/itheima/ioDemo/1.txt"));
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/main/java/com/itheima/ioDemo/1.txt"));
 
         oos.writeObject(stu);
 

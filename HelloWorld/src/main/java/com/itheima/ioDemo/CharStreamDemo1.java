@@ -29,7 +29,7 @@ public class CharStreamDemo1 {
          */
 
         // 1. 创建字符输入流对象
-        FileReader fis = new FileReader("src/com/itheima/ioDemo/1.txt");
+        FileReader fis = new FileReader("src/main/java/com/itheima/ioDemo/1.txt");
 
         // 2.读取数据
         int c = fis.read();

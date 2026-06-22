@@ -17,7 +17,7 @@ public class Test4 {
             将文件中的数据进行排序，变成以下的数据:1-2-4-7-8-9
          */
 
-        FileInputStream fis = new FileInputStream("src/com/itheima/ioDemo/1.txt");
+        FileInputStream fis = new FileInputStream("src/main/java/com/itheima/ioDemo/1.txt");
         StringBuilder sb = new StringBuilder();
 
         int len;
@@ -35,7 +35,7 @@ public class Test4 {
             sj.add(i.toString());
         }
 
-        FileOutputStream fos = new FileOutputStream("src/com/itheima/ioDemo/2.txt");
+        FileOutputStream fos = new FileOutputStream("src/main/java/com/itheima/ioDemo/2.txt");
         fos.write(sj.toString().getBytes());
 
         fos.close();

@@ -15,8 +15,8 @@ public class BufferedStreamDemo2 {
          */
 
         // 1.创建缓冲输入字节流对象
-        BufferedInputStream bis = new BufferedInputStream(new FileInputStream("src/com/itheima/ioDemo/2.txt"));
-        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("src/com/itheima/ioDemo/2_copy.txt"));
+        BufferedInputStream bis = new BufferedInputStream(new FileInputStream("src/main/java/com/itheima/ioDemo/2.txt"));
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("src/main/java/com/itheima/ioDemo/2_copy.txt"));
 
         int b;
         byte[] bytes = new byte[1024];

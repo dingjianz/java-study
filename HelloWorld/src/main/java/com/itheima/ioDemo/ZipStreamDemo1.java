@@ -24,11 +24,11 @@ public class ZipStreamDemo1 {
          */
 
         // 1.创建一个File表示要解压的压缩包
-        File src = new File("HelloWorld/src/com/itheima/ioDemo/zipdir.zip");
+        File src = new File("HelloWorld/src/main/java/com/itheima/ioDemo/zipdir.zip");
 
         // 创建一个 File表示解压的目的地
 
-        File dest = new File("HelloWorld/src/com/itheima/ioDemo/zipdirCopy");
+        File dest = new File("HelloWorld/src/main/java/com/itheima/ioDemo/zipdirCopy");
 
         unZip(src, dest);
 

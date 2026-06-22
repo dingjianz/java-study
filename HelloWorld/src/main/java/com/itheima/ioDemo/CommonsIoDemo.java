@@ -35,20 +35,20 @@ public class CommonsIoDemo {
         // ... existing code ...
 
        /*
-        File srcFile = new File("HelloWorld/src/com/itheima/ioDemo/1.txt");
-        File destFile = new File("HelloWorld/src/com/itheima/ioDemo/1_copy.txt");
+        File srcFile = new File("HelloWorld/src/main/java/com/itheima/ioDemo/1.txt");
+        File destFile = new File("HelloWorld/src/main/java/com/itheima/ioDemo/1_copy.txt");
         FileUtils.copyFile(srcFile, destFile);
         */
 
         /*
-        File srcFile = new File("HelloWorld/src/com/itheima/ioDemo");
-        File destFile = new File("HelloWorld/src/com/itheima/ioDemoCopy");
+        File srcFile = new File("HelloWorld/src/main/java/com/itheima/ioDemo");
+        File destFile = new File("HelloWorld/src/main/java/com/itheima/ioDemoCopy");
         FileUtils.copyDirectory(srcFile, destFile);
          */
 
         /*
-        File srcFile = new File("HelloWorld/src/com/itheima/ioDemo");
-        File destFile = new File("HelloWorld/src/com/itheima/ioDemoCopy");
+        File srcFile = new File("HelloWorld/src/main/java/com/itheima/ioDemo");
+        File destFile = new File("HelloWorld/src/main/java/com/itheima/ioDemoCopy");
         FileUtils.copyDirectoryToDirectory(srcFile, destFile);
          */
     }

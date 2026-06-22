@@ -115,7 +115,7 @@ public class PrintStreamDemo1 {
      */
 
         // 1.创建字节打印流的对象
-        PrintStream ps = new PrintStream(new FileOutputStream("src/com/itheima/ioDemo/1.txt"), true, StandardCharsets.UTF_8);
+        PrintStream ps = new PrintStream(new FileOutputStream("src/main/java/com/itheima/ioDemo/1.txt"), true, StandardCharsets.UTF_8);
         // println: 自动刷新，自动换行, 原数据 写到方法的是97 到文件中也是97
         ps.println(97);
         ps.println(98);

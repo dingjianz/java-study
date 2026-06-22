@@ -14,7 +14,7 @@ public class BufferedStreamDemo4 {
          */
 
         // 1.创建字符缓冲输出流对象  续写的时候 要写在 FileWriter 里面
-        BufferedWriter bw = new BufferedWriter(new FileWriter("src/com/itheima/ioDemo/2.txt", true));
+        BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/java/com/itheima/ioDemo/2.txt", true));
 
         // 2.写出数据
         bw.write("hello,world");

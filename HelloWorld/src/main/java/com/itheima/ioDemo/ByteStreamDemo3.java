@@ -15,7 +15,7 @@ public class ByteStreamDemo3 {
          */
 
         // 1. 创建字节输入流对象
-        FileInputStream fis = new FileInputStream("src/com/itheima/ioDemo/1.txt");
+        FileInputStream fis = new FileInputStream("src/main/java/com/itheima/ioDemo/1.txt");
 
         // 2. 读数据
         /*int b = fis.read();

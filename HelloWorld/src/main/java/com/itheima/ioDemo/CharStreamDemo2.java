@@ -6,7 +6,7 @@ import java.io.IOException;
 public class CharStreamDemo2 {
     public static void main(String[] args) throws IOException {
         // 1.创建字符流输入流对象
-        FileReader fis = new FileReader("src/com/itheima/ioDemo/1.txt");
+        FileReader fis = new FileReader("src/main/java/com/itheima/ioDemo/1.txt");
 
         // 2.读取数据
          /*

@@ -19,7 +19,7 @@ public class ByteStreamDemo2 {
          */
 
         // 1. 创建字节输出流对象
-        FileOutputStream fos = new FileOutputStream("src/com/itheima/ioDemo/1.txt", true);
+        FileOutputStream fos = new FileOutputStream("src/main/java/com/itheima/ioDemo/1.txt", true);
 
         // 2. 写数据
         String str = "hello world\r\nhello java\r\nhello itheima";

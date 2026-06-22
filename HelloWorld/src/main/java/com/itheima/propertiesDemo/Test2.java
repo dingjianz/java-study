@@ -18,7 +18,7 @@ public class Test2 {
         prop.setProperty("age", "18");
 
         // 3.把集合中的数据写到文件中
-        BufferedWriter bw = new BufferedWriter(new FileWriter("src/com/itheima/propertiesDemo/db.properties"));
+        BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/java/com/itheima/propertiesDemo/db.properties"));
         prop.store(bw, "save data");
         bw.close();
     }

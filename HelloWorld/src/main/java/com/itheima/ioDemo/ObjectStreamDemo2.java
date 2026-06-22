@@ -20,7 +20,7 @@ public class ObjectStreamDemo2 {
          */
 
         // 1.创建反序列化流的对象
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/com/itheima/ioDemo/1.txt"));
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/main/java/com/itheima/ioDemo/1.txt"));
 
         Student o = (Student) ois.readObject();
 

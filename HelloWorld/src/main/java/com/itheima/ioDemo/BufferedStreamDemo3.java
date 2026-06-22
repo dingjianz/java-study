@@ -16,7 +16,7 @@ public class BufferedStreamDemo3 {
          */
 
         // 1.创建字符缓冲输入流对象
-        BufferedReader br = new BufferedReader(new FileReader("src/com/itheima/ioDemo/1.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("src/main/java/com/itheima/ioDemo/1.txt"));
         String line = null;
         while ((line = br.readLine())!= null) {
             System.out.println(line);

@@ -11,14 +11,14 @@ public class ZipStreamDemo3 {
     public static void main(String[] args) throws IOException {
         /*
 
-             需求：把HelloWorld/src/com/itheima/ioDemo 文件夹进行压缩
+             需求：把HelloWorld/src/main/java/com/itheima/ioDemo 文件夹进行压缩
          */
 
         // 1.创建一个File表示要压缩的文件夹
-        File src = new File("HelloWorld/src/com/itheima/ioDemo");
+        File src = new File("HelloWorld/src/main/java/com/itheima/ioDemo");
 
         // 2.创建一个 File表示 压缩包的位置(压缩包的父级路径)
-        File desParent = src.getParentFile(); // HelloWorld/src/com/itheima
+        File desParent = src.getParentFile(); // HelloWorld/src/main/java/com/itheima
 
         // 3.创建File对象表示压缩包的路径
         File dest = new File(desParent, src.getName() + ".zip");
