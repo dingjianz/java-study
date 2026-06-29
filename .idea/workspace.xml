@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0e9715d0-73fa-4306-9c24-1f84a51c2c59" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maven-study/src/main/java/com/itheima/HelloMaven/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/maven-study/src/main/java/com/itheima/HelloMaven/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maven-study/src/main/java/com/itheima/SoftwareTest/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/maven-study/src/main/java/com/itheima/SoftwareTest/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-demo/src/main/java/mavenstudy/springdemo/SpringDemoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-demo/src/main/java/mavenstudy/springdemo/SpringDemoApplication.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
