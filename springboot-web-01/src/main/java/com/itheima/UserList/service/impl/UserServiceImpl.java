@@ -1,16 +1,21 @@
 package com.itheima.UserList.service.impl;
 
-import com.itheima.UserList.dao.impl.UserDaoImpl;
 import com.itheima.UserList.pojo.User;
 import com.itheima.UserList.dao.UserDao;
 import com.itheima.UserList.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+// @Component // 将当前类交给IOC容器管理
+@Service // 标注在业务层上，将当前类交给IOC容器管理
 public class UserServiceImpl implements UserService {
-    private final UserDao userDao = new UserDaoImpl();
+    @Autowired // 应用程序运行时，会自动的查询该类型的bean对象，并赋值给改成员变量
+    private UserDao userDao;
 
     @Override
     public List<User> findAll() {
