@@ -1,4 +1,4 @@
-package com.itheima.Note;
+package com.itheima.Lombok;
 
 /**
  * Lombok 演示类

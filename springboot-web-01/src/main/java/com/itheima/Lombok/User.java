@@ -1,4 +1,4 @@
-package com.itheima.Note;
+package com.itheima.Lombok;
 
 import lombok.*;
 

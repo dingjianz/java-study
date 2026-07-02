@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
+@RestController // @ResponseBody + @Controller
 public class UserController {
     /*
     controller:控制层，接收前端发送的请求，对请求进行处理，并相应数据。
@@ -44,8 +44,70 @@ public class UserController {
 
          DI详解：基于 @Autowired 进行依赖注入的常见方式有如下三种：
             1.属性注入
+            ```
+                @RestController
+                public class UserController {
+                    @Autowired
+                    private UserService userService;
+                    // ......
+                }
+             ```
+             优点：代码简介、方便快速开发
+             缺点：隐藏了类之间的依赖关系，可能会破坏类的封装性。
+
             2.构造函数注入
+            ```
+                @RestController
+                public class UserController {
+                   private final UserService userService;
+                   @Autowired
+                   public UserController(UserService userService) {
+                        this.UserService = userService;
+                   }
+                }
+             ```
+             优点：能清晰地看到类的依赖关系，提高了代码的安全性
+             缺点：代码繁琐，如果构造参数过多，可能会导致构造函数臃肿。
+             注意：如果只有一个构造函数，也就是没有无参构造函数，那么@Autowired注解可以省略
+
             3.setter注入
+             ```
+              @RestController
+              public class UserController {
+                  private final UserService userService;
+                  @Autowired
+                  public void setUserService(UserService userService) {
+                    this.UserService = userService;
+                  }
+              }
+            ```
+            优点：保持了类的封装性，依赖关系更清晰。
+            缺点：需要额外编写setter方法，增加了代码量。
+
+
+           ⚠️ @Autowired注解，默认是按照类型进行注入的。
+            如果存在多个相同类型的bean，将会报出如下错误：
+            No qualifying bean of type 'com.itheima.UserList.service.UserService' available: expected single matching bean but found 2: userServiceImpl,userServiceImpl2
+            解决办法：
+                1.@Primary 标识符，指定bean的默认bean对象
+                2.@Qualifier
+                 ```
+                     @Autowired
+                     @Qualifier("userServiceImpl")
+                     private UserService userService;
+                 ```
+                3.@Resource
+                  ```
+                      @Resource(name = "userServiceImpl")
+                      private UserService userService;
+                  ```
+
+            @Resource 和 @Autowired 的区别：
+            1. @Autowired 是 Spring 框架提供的注解，用于自动装配对象。
+            2. @Resource 是 J2EE 框架提供的注解，用于自动装配对象。
+            3.@Autowired默认按照类型注入，而@Resource按照名称注入。
+
+
 
      */
     // @Autowired
