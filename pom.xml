@@ -13,6 +13,7 @@
         <module>HelloWorld</module>
         <module>maven-study</module>
         <module>spring-demo</module>
+        <module>mybatis-demo</module>
     </modules>
 
     <properties>

@@ -24,4 +24,37 @@ class MybatisDemoApplicationTests {
         users.forEach(System.out::println);
     }
 
+    @Test
+    void testDeleteById() {
+        userMapper.deleteById(1);
+    }
+
+    @Test
+    void testInsertUser() {
+        User user = User.builder()
+                .age(29)
+                .name("周瑜")
+                .username("zhouyu")
+                .password("123456")
+                .build();
+        userMapper.inertUser(user);
+    }
+
+    @Test
+    public void testUpdateUser() {
+        User user = User.builder()
+                .id(16)
+                .age(29)
+                .name("周瑜2")
+                .username("zhouyu2")
+                .password("123456")
+                .build();
+        userMapper.updateUser(user);
+    }
+
+    @Test
+    public void testFindByUsernameAndPassword() {
+        User user = userMapper.findByUsernameAndPassword("zhouyu", "123456");
+        System.out.println("返回结果：" + user);
+    }
 }
