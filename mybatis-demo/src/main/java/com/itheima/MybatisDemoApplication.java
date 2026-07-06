@@ -84,7 +84,38 @@ public class MybatisDemoApplication {
 
         @Select("select id,name,score from ${tableName} order by ${sortField}")
 
+
+    XML映射配置
+    • 在Mybatis中，既可以通过注解配置SQL语句，也可以通过XML配置文件配置SQL语句。
+
+    • 默认规则：
+        1. XML映射文件的名称与Mapper接口名称一致，并且将XML映射文件和Mapper接口放置在相同包下（同包同名）。
+        2. XML映射文件的namespace属性为Mapper接口全限定名一致。
+        3. XML映射文件中sql语句的id与Mapper接口中的方法名一致，并保持返回类型一致。
+
+    使用注解来映射简单语句会使代码显得更加简洁，
+    但对于稍微复杂一点的语句，Java 注解不仅力不从心，
+    还会让你本就复杂的 SQL 语句更加混乱不堪。
+    因此，如果你需要做一些很复杂的操作，最好用 XML 来映射语句。
+
+    选择何种方式来配置映射，以及认为是否应该要统一映射语句定义的形式，
+    完全取决于你和你的团队。
+    换句话说，永远不要拘泥于一种方式，
+    你可以很轻松的在基于注解和 XML 的语句映射方式间自由移植和切换。
+
+    XML映射文件的位置：application.properties文件中配置
+     #指定XML映射配置文件的位置
+     mybatis.mapper-locations=classpath:mapper/*.xml
+
+SpringBoot配置文件：SpringBoot项目提供了多种属性配置方式(properties、yaml、yml)
+    yml配置文件
+    • 格式：
+        - 数值前边必须有空格，作为分隔符
+        - 使用缩进表示层级关系，缩进时，不允许使用Tab键，只能用空格（idea中会自动将Tab转换为空格）
+        - 缩进的空格数目不重要，只要相同层级的元素左侧对齐即可
+        - # 表示注释，从这个字符一直到行尾，都会被解析器忽略
      */
+
 
 
     public static void main(String[] args) {
