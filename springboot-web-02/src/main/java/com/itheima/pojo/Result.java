@@ -1,0 +1,34 @@
+package com.itheima.pojo;
+
+import lombok.Data;
+
+@Data
+public class Result {
+    private Integer code; // 编码 1成功 0失败
+    private String message; // 错误信息
+    private Object data; // 数据
+
+    public static Result success() {
+        Result result = new Result();
+        result.setCode(1);
+        result.setMessage("成功");
+        result.setData(null);
+        return result;
+    }
+
+    public static Result success(Object data) {
+        Result result = new Result();
+        result.setCode(1);
+        result.setMessage("成功");
+        result.setData(data);
+        return result;
+    }
+
+    public static Result error(String message) {
+        Result result = new Result();
+        result.setCode(0);
+        result.setMessage(message);
+        result.setData(null);
+        return result;
+    }
+}
