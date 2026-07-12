@@ -19,6 +19,30 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
                           (5,'人事部','2024-09-25 09:47:40','2024-09-25 09:47:40'),
                           (6,'行政部','2024-11-30 20:56:37','2024-09-30 20:56:37');
  */
+/**
+ * 数据封装
+
+   手动结果映射：通过 @Results 及 @Result 进行手动结果映射。
+
+     @Results({
+         @Result(column = "create_time", property = "createTime"),
+         @Result(column = "update_time", property = "updateTime")
+     })
+     @Select("select id, name, create_time, update_time from dept order by update_time desc")
+     public List<Dept> findAll();
+
+   起别名：在SQL语句中，对不一样的列名起别名，别名和实体类属性名一样。
+     @Select("select id, name, create_time createTime, update_time updateTime from dept ...")
+     public List<Dept> findAll();
+
+   开启驼峰命名：如果字段名与属性名符合驼峰命名规则，mybatis会自动通过驼峰命名规则映射。
+
+     application.yml 配置：
+     mybatis:
+       configuration:
+         map-underscore-to-camel-case: true
+
+ */
 @SpringBootApplication
 public class SpringbootWeb02Application {
 
