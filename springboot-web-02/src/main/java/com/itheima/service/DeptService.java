@@ -1,7 +1,9 @@
 package com.itheima.service;
 
-import com.itheima.pojo.Result;
+import com.itheima.pojo.Dept;
+
+import java.util.List;
 
 public interface DeptService {
-    Result getAllDept();
+    public List<Dept> getAllDept();
 }
