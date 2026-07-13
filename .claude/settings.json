@@ -1,5 +1,19 @@
 {
   "permissions": {
     "defaultMode": "bypassPermissions"
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"/Users/lijiaqi/.nvm/versions/node/v25.8.1/bin/node\" \".claude/hooks/lint-on-stop.js\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
   }
 }

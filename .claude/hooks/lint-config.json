@@ -1,0 +1,19 @@
+{
+  "enableJavaLint": true,
+  "enableFrontendLint": true,
+  "enableDependencyCheck": true,
+  "maxFilesToCheck": 50,
+  "timeout": 30000,
+  "skipPatterns": [
+    "node_modules/",
+    ".git/",
+    "dist/",
+    "build/",
+    "target/",
+    "*.min.js",
+    "*.bundle.js"
+  ],
+  "javaLintCommand": "mvn compile -q",
+  "frontendLintCommand": "npm run lint",
+  "description": "在每次 Claude 会话结束前自动检查修改的文件"
+}
