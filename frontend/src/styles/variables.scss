@@ -1,0 +1,95 @@
+// Variables
+$primary-color: #3b82f6;
+$secondary-color: #8b5cf6;
+$success-color: #10b981;
+$danger-color: #ef4444;
+$warning-color: #f59e0b;
+
+$border-radius: 0.5rem;
+$spacing-unit: 1rem;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin card-shadow {
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+@mixin transition($property: all) {
+  transition: $property 0.3s ease-in-out;
+}
+
+// Utility classes
+.custom-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 $spacing-unit;
+}
+
+.custom-card {
+  @include card-shadow;
+  border-radius: $border-radius;
+  padding: $spacing-unit * 1.5;
+  background: white;
+
+  &:hover {
+    @include transition(transform);
+    transform: translateY(-2px);
+  }
+}
+
+.custom-button {
+  @include transition(background-color);
+  padding: 0.5rem 1rem;
+  border-radius: $border-radius;
+  font-weight: 500;
+  cursor: pointer;
+
+  &.primary {
+    background-color: $primary-color;
+    color: white;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+
+  &.secondary {
+    background-color: $secondary-color;
+    color: white;
+
+    &:hover {
+      background-color: darken($secondary-color, 10%);
+    }
+  }
+}
+
+// Grid system
+.grid {
+  display: grid;
+  gap: $spacing-unit;
+
+  &.cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  &.cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  &.cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    &.cols-2,
+    &.cols-3,
+    &.cols-4 {
+      grid-template-columns: 1fr;
+    }
+  }
+}

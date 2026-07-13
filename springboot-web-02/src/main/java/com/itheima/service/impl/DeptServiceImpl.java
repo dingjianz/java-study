@@ -2,6 +2,7 @@ package com.itheima.service.impl;
 
 import com.itheima.mapper.DeptMapper;
 import com.itheima.pojo.Dept;
+import com.itheima.pojo.Result;
 import com.itheima.service.DeptService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -16,5 +17,10 @@ public class DeptServiceImpl implements DeptService {
     @Override
     public List<Dept> getAllDept() {
         return deptMapper.getAllDept();
+    }
+
+    @Override
+    public void deleteDeptById(Integer id) {
+        deptMapper.deleteDeptById(id);
     }
 }

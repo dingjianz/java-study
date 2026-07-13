@@ -25,8 +25,10 @@ public class DeptController {
      * 删除部门
      */
 
-    /*@DeleteMapping("/depts")
+    @DeleteMapping("/depts")
     public Result delete(HttpServletRequest  request){
-        return deptService.delete(request.getParameter("id"));
-    }*/
+        Integer id = Integer.valueOf(request.getParameter("id"));
+        deptService.deleteDeptById(id);
+        return Result.success();
+    }
 }

@@ -1,0 +1,62 @@
+@import './variables.scss';
+
+// Custom component styles using Sass
+.demo-component {
+  @include card-shadow;
+  padding: $spacing-unit * 2;
+  border-radius: $border-radius;
+
+  h2 {
+    color: $primary-color;
+    margin-bottom: $spacing-unit;
+  }
+
+  p {
+    line-height: 1.6;
+    color: #666;
+  }
+}
+
+// Example of nested styles
+.navigation {
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+
+  .nav-container {
+    @extend .custom-container;
+    @include flex-center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: $spacing-unit * 2;
+
+    a {
+      @include transition(color);
+      text-decoration: none;
+      color: #374151;
+      font-weight: 500;
+
+      &:hover {
+        color: $primary-color;
+      }
+
+      &.active {
+        color: $primary-color;
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -4px;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: $primary-color;
+        }
+      }
+    }
+  }
+}
