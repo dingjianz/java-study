@@ -2,7 +2,6 @@ package com.itheima.UserList.dao.impl;
 
 import cn.hutool.core.io.IoUtil;
 import com.itheima.UserList.dao.UserDao;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.io.InputStream;

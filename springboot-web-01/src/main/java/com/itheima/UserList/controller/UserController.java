@@ -3,7 +3,6 @@ package com.itheima.UserList.controller;
 import com.itheima.UserList.pojo.User;
 import com.itheima.UserList.service.UserService;
 import jakarta.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

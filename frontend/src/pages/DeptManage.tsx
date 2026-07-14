@@ -3,17 +3,23 @@ import { deptApi } from "@/api/dept";
 import type { Dept } from "@/types/dept";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import DeptModal from "@/components/dept/DeptModal";
+import { Modal, ModalContent, ModalHeader, ModalFooter, ModalTitle } from "@/components/ui/modal";
+import { Input } from "@/components/ui/input";
 import dayjs from "dayjs";
 
 export default function DeptManagePage() {
   const [deptList, setDeptList] = useState<Dept[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // 模态框状态
+  // 编辑/新增模态框状态
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState<"add" | "edit">("add");
   const [currentDept, setCurrentDept] = useState<Dept | null>(null);
+  const [deptName, setDeptName] = useState("");
+
+  // 删除确认框状态
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState<number | null>(null);
 
   // 加载部门列表
   const loadDeptList = async () => {
@@ -38,6 +44,7 @@ export default function DeptManagePage() {
   const handleAdd = () => {
     setModalType("add");
     setCurrentDept(null);
+    setDeptName("");
     setIsModalOpen(true);
   };
 
@@ -45,33 +52,58 @@ export default function DeptManagePage() {
   const handleEdit = (dept: Dept) => {
     setModalType("edit");
     setCurrentDept(dept);
+    setDeptName(dept.name);
     setIsModalOpen(true);
   };
 
-  // 删除部门
-  const handleDelete = async (id: number) => {
-    if (!confirm("确定要删除该部门吗？")) {
+  // 删除部门：打开确认框
+  const handleDelete = (id: number) => {
+    setDeleteId(id);
+    setIsDeleteOpen(true);
+  };
+
+  // 确认删除
+  const handleConfirmDelete = async () => {
+    if (deleteId === null) {
       return;
     }
 
     try {
-      await deptApi.delete(id);
+      await deptApi.delete(deleteId);
       console.log("删除成功");
       loadDeptList();
     } catch (error) {
       console.error("删除部门失败：", error);
       console.log("删除失败");
+    } finally {
+      setIsDeleteOpen(false);
+      setDeleteId(null);
     }
   };
 
   // 保存部门（新增或编辑）
-  const handleSave = async (dept: Dept) => {
+  const handleSave = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!deptName.trim()) {
+      console.log("请输入部门名称");
+      return;
+    }
+
     try {
+      const deptData: Dept = {
+        name: deptName.trim(),
+      };
+
+      if (modalType === "edit" && currentDept) {
+        deptData.id = currentDept.id;
+      }
+
       if (modalType === "add") {
-        await deptApi.add(dept);
+        await deptApi.add(deptData);
         console.log("新增成功");
       } else {
-        await deptApi.update(dept);
+        await deptApi.update(deptData);
         console.log("修改成功");
       }
       setIsModalOpen(false);
@@ -142,7 +174,52 @@ export default function DeptManagePage() {
       </Card>
 
       {/* 新增/编辑模态框 */}
-      <DeptModal open={isModalOpen} type={modalType} dept={currentDept} onClose={() => setIsModalOpen(false)} onSave={handleSave} />
+      <Modal open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <ModalContent>
+          <ModalHeader>
+            <ModalTitle>{modalType === "add" ? "新增部门" : "编辑部门"}</ModalTitle>
+          </ModalHeader>
+
+          <form onSubmit={handleSave}>
+            <div className="mb-4">
+              <label className="mb-2 block text-sm font-medium text-gray-700">
+                部门名称 <span className="text-red-500">*</span>
+              </label>
+              <Input
+                type="text"
+                value={deptName}
+                onChange={(e) => setDeptName(e.target.value)}
+                placeholder="请输入部门名称"
+                autoFocus
+              />
+            </div>
+
+            <ModalFooter>
+              <Button type="button" variant="outline" onClick={() => setIsModalOpen(false)}>
+                取消
+              </Button>
+              <Button type="submit">{modalType === "add" ? "新增" : "保存"}</Button>
+            </ModalFooter>
+          </form>
+        </ModalContent>
+      </Modal>
+
+      {/* 删除确认框 */}
+      <Modal open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
+        <ModalContent>
+          <ModalHeader>
+            <ModalTitle>确定要删除该部门吗？此操作不可撤销。</ModalTitle>
+          </ModalHeader>
+          <ModalFooter>
+            <Button variant="outline" onClick={() => setIsDeleteOpen(false)}>
+              取消
+            </Button>
+            <Button variant="destructive" onClick={handleConfirmDelete}>
+              删除
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   );
 }
