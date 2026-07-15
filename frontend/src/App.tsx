@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Toaster } from 'sonner'
 import AboutPage from './pages/About'
 import DeptManagePage from './pages/DeptManage'
+import CakeGrowthTest from './pages/CakeGrowthTest'
 import './index.css'
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
     <BrowserRouter>
       <Toaster position="top-center" richColors />
       <Routes>
-        <Route path="/" element={<DeptManagePage />} />
+        <Route path="/" element={<CakeGrowthTest />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/dept" element={<DeptManagePage />} />
       </Routes>
