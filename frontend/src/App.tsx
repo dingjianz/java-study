@@ -1,16 +1,16 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Toaster } from 'sonner'
 import AboutPage from './pages/About'
-import DashboardPage from './pages/Dashboard'
 import DeptManagePage from './pages/DeptManage'
 import './index.css'
 
 function App() {
   return (
     <BrowserRouter>
+      <Toaster position="top-center" richColors />
       <Routes>
         <Route path="/" element={<DeptManagePage />} />
         <Route path="/about" element={<AboutPage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/dept" element={<DeptManagePage />} />
       </Routes>
     </BrowserRouter>

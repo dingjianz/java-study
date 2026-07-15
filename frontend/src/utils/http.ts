@@ -1,9 +1,10 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse, AxiosError } from 'axios'
+import { toast } from 'sonner'
 
 // API 响应数据结构
 export interface ApiResponse<T = any> {
   code: number
-  message: string
+  msg: string
   data: T
 }
 
@@ -43,8 +44,10 @@ http.interceptors.response.use(
       return response
     } else {
       // 业务错误
-      console.error('业务错误：', data.message)
-      return Promise.reject(new Error(data.message || '请求失败'))
+      const errorMessage = data.msg || '请求失败'
+      console.error('业务错误：', errorMessage)
+      toast.error(errorMessage)
+      return Promise.reject(new Error(errorMessage))
     }
   },
   (error: AxiosError<ApiResponse>) => {
@@ -55,7 +58,7 @@ http.interceptors.response.use(
       const { status, data } = error.response
       switch (status) {
         case 400:
-          message = data?.message || '请求参数错误'
+          message = data?.msg || '请求参数错误'
           break
         case 401:
           message = '未授权，请重新登录'
@@ -79,7 +82,7 @@ http.interceptors.response.use(
           message = '网关超时'
           break
         default:
-          message = data?.message || `请求失败（${status}）`
+          message = data?.msg || `请求失败（${status}）`
       }
     } else if (error.request) {
       message = '网络错误，请检查网络连接'
@@ -88,6 +91,7 @@ http.interceptors.response.use(
     }
 
     console.error('HTTP 错误：', message)
+    toast.error(message)
     return Promise.reject(new Error(message))
   }
 )

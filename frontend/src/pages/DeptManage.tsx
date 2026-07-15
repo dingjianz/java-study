@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Modal, ModalContent, ModalHeader, ModalFooter, ModalTitle } from "@/components/ui/modal";
 import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
 import dayjs from "dayjs";
 
 export default function DeptManagePage() {
@@ -49,11 +50,21 @@ export default function DeptManagePage() {
   };
 
   // 编辑部门
-  const handleEdit = (dept: Dept) => {
-    setModalType("edit");
-    setCurrentDept(dept);
-    setDeptName(dept.name);
-    setIsModalOpen(true);
+  const handleEdit = async (dept: Dept) => {
+    if (!dept.id) {
+      console.error("部门 ID 不存在");
+      return;
+    }
+
+    try {
+      const response = await deptApi.getById(dept.id);
+      setModalType("edit");
+      setCurrentDept(response.data);
+      setDeptName(response.data.name);
+      setIsModalOpen(true);
+    } catch (error) {
+      console.error("获取部门详情失败：", error);
+    }
   };
 
   // 删除部门：打开确认框
@@ -70,11 +81,10 @@ export default function DeptManagePage() {
 
     try {
       await deptApi.delete(deleteId);
-      console.log("删除成功");
+      toast.success("删除成功");
       loadDeptList();
     } catch (error) {
       console.error("删除部门失败：", error);
-      console.log("删除失败");
     } finally {
       setIsDeleteOpen(false);
       setDeleteId(null);
@@ -86,7 +96,7 @@ export default function DeptManagePage() {
     e.preventDefault();
 
     if (!deptName.trim()) {
-      console.log("请输入部门名称");
+      toast.warning("请输入部门名称");
       return;
     }
 
@@ -101,16 +111,15 @@ export default function DeptManagePage() {
 
       if (modalType === "add") {
         await deptApi.add(deptData);
-        console.log("新增成功");
+        toast.success("新增成功");
       } else {
         await deptApi.update(deptData);
-        console.log("修改成功");
+        toast.success("修改成功");
       }
       setIsModalOpen(false);
       loadDeptList();
     } catch (error) {
       console.error("保存部门失败：", error);
-      console.log("保存失败");
     }
   };
 
