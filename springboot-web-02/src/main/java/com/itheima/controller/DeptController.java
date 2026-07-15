@@ -4,12 +4,10 @@ import com.itheima.pojo.Dept;
 import com.itheima.pojo.Result;
 import com.itheima.service.DeptService;
 import jakarta.annotation.Resource;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-
+@RequestMapping("/depts")
 @RestController
 public class DeptController {
     @Resource
@@ -18,8 +16,9 @@ public class DeptController {
     /**
      * 查询部门列表
      */
-    @GetMapping("/depts")
-    public Result list(){
+//    @GetMapping("/depts")
+    @GetMapping
+    public Result list() {
         return Result.success(deptService.getAllDept());
     }
 
@@ -27,16 +26,17 @@ public class DeptController {
      * 删除部门
      */
 
-    @DeleteMapping("/depts")
-    public Result delete(HttpServletRequest  request){
-        /*
+/*//    @DeleteMapping("/depts")
+    @DeleteMapping
+    public Result delete(HttpServletRequest request) {
+        *//*
         方式一：通过原始的 HttpServletRequest对象获取参数(不推荐)
         且接收到的所有参数都是字符串类型 需求手动转换类型
-         */
+         *//*
         Integer id = Integer.valueOf(request.getParameter("id"));
         deptService.deleteDeptById(id);
         return Result.success();
-    }
+    }*/
 
     /*
         删除部门
@@ -46,8 +46,9 @@ public class DeptController {
         eg: public void delete(Integer id) -- 实际开发中推荐使用
      */
 
-    @DeleteMapping("/dept")
-    public Result delete(@RequestParam(value = "id", required = false, defaultValue = "0") Integer id){
+    //    @DeleteMapping("/depts")
+    @DeleteMapping
+    public Result delete(@RequestParam(value = "id", required = false, defaultValue = "0") Integer id) {
         deptService.deleteDeptById(id);
         return Result.success();
     }
@@ -58,8 +59,9 @@ public class DeptController {
     规则：JSON数据的键名与方法形参对象的属性名相同，并需要使用 @RequestBody 注解进行接收
      */
 
-    @PostMapping("/depts")
-    public Result addDept(@RequestBody @Valid Dept dept){
+    //    @PostMapping("/depts")
+    @PostMapping
+    public Result addDept(@RequestBody @Valid Dept dept) {
         deptService.addDept(dept);
         return Result.success();
     }
@@ -72,13 +74,15 @@ public class DeptController {
 
     url携带多个参数： GET /depts/{id}/{name} -> public void getDeptById(@PathVariable Integer id, @PathVariable String name)
      */
-    @GetMapping("/depts/{id}")
-    public Result getDeptById(@PathVariable("id") Integer id){
+//    @GetMapping("/depts/{id}")
+    @GetMapping("/{id}")
+    public Result getDeptById(@PathVariable("id") Integer id) {
         return Result.success(deptService.getDeptById(id));
     }
 
-    @PutMapping("/depts")
-    public Result updateDept(@RequestBody @Valid Dept dept){
+    //    @PutMapping("/depts")
+    @PutMapping
+    public Result updateDept(@RequestBody @Valid Dept dept) {
         deptService.updateDept(dept);
         return Result.success();
     }
