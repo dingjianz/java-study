@@ -11,3 +11,7 @@
 target/
 out/
 *.class
+
+# 日志文件
+logs/
+*.log

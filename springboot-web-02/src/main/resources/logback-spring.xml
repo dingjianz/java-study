@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Logback 配置文件
+    Spring Boot 项目日志配置
+
+    日志级别从低到高：TRACE < DEBUG < INFO < WARN < ERROR < FATAL
+
+    配置说明：
+    - 控制台输出：带彩色高亮，方便开发调试
+    - 文件输出：按日期和大小滚动，自动归档历史日志
+    - 异步日志：提高性能，避免 I/O 阻塞
+    - 多环境配置：开发、测试、生产环境使用不同的日志策略
+-->
+<configuration scan="true" scanPeriod="1 minutes">
+
+    <!-- ========================================== -->
+    <!-- 属性配置：定义可复用的变量 -->
+    <!-- ========================================== -->
+
+    <!-- 应用名称：用于日志文件命名 -->
+    <property name="APP_NAME" value="springboot-web-02"/>
+
+    <!-- 日志文件存储路径：默认存储在项目根目录的 logs 文件夹 -->
+    <property name="LOG_PATH" value="logs"/>
+
+    <!-- 日志文件名前缀 -->
+    <property name="LOG_FILE" value="${LOG_PATH}/${APP_NAME}"/>
+
+    <!--默认配置-->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <!-- 日志输出格式：时间 日志级别 线程名 类名:行号 - 日志内容 -->
+    <property name="LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50}:%line - %msg%n"/>
+
+    <!-- 控制台日志格式：带彩色高亮，方便开发时查看 -->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) %magenta([%thread]) %cyan(%logger{50}:%line) - %msg%n"/>
+
+    <!-- 日志文件最大大小：单个日志文件超过此大小会自动分割 -->
+    <property name="MAX_FILE_SIZE" value="100MB"/>
+
+    <!-- 日志文件保留天数：超过此天数的日志会被自动删除 -->
+    <property name="MAX_HISTORY" value="30"/>
+
+    <!-- 日志文件总大小限制：所有日志文件总和超过此大小会删除最旧的日志 -->
+    <property name="TOTAL_SIZE_CAP" value="10GB"/>
+
+
+    <!-- ========================================== -->
+    <!-- Appender 配置：定义日志输出目的地 -->
+    <!-- ========================================== -->
+
+    <!-- 控制台输出 Appender：开发环境使用，实时查看日志 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 输出到标准输出流（System.out） -->
+        <target>System.out</target>
+        <!-- 日志编码格式 -->
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <!-- 日志过滤器：只输出 INFO 及以上级别的日志 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+
+    <!-- 文件输出 Appender：所有级别日志 -->
+    <appender name="FILE_ALL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 当前日志文件路径 -->
+        <file>${LOG_FILE}.log</file>
+        <!-- 日志编码格式 -->
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <!-- 滚动策略：按时间和大小滚动 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 归档日志文件命名模式：应用名.年-月-日.序号.log -->
+            <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- 单个日志文件最大大小 -->
+            <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            <!-- 日志文件保留天数 -->
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+            <!-- 所有日志文件总大小限制 -->
+            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+
+    <!-- 文件输出 Appender：ERROR 级别日志 -->
+    <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 当前错误日志文件路径 -->
+        <file>${LOG_FILE}-error.log</file>
+        <!-- 日志编码格式 -->
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <!-- 日志过滤器：只记录 ERROR 及以上级别的日志 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <!-- 滚动策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FILE}-error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+
+    <!-- 异步日志 Appender：提高性能，避免 I/O 阻塞主线程 -->
+    <appender name="ASYNC_FILE_ALL" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- 不丢失日志：默认队列满时会丢弃 TRACE、DEBUG、INFO 级别日志，设为 false 则不丢失 -->
+        <discardingThreshold>0</discardingThreshold>
+        <!-- 队列大小：异步日志队列的最大容量 -->
+        <queueSize>512</queueSize>
+        <!-- 引用上面定义的 FILE_ALL appender -->
+        <appender-ref ref="FILE_ALL"/>
+    </appender>
+
+
+    <appender name="ASYNC_FILE_ERROR" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>512</queueSize>
+        <appender-ref ref="FILE_ERROR"/>
+    </appender>
+
+
+    <!-- ========================================== -->
+    <!-- Logger 配置：定义特定包或类的日志级别 -->
+    <!-- ========================================== -->
+
+    <!-- Spring 框架日志：设置为 INFO 级别，避免过多调试信息 -->
+    <logger name="org.springframework" level="INFO"/>
+
+    <!-- MyBatis 日志：设置为 DEBUG 级别，可以查看 SQL 语句 -->
+    <logger name="com.itheima.mapper" level="DEBUG"/>
+
+    <!-- 项目业务日志：设置为 DEBUG 级别，开发时可查看详细信息 -->
+    <logger name="com.itheima" level="DEBUG"/>
+
+    <!-- Tomcat 日志：设置为 INFO 级别 -->
+    <logger name="org.apache.catalina" level="INFO"/>
+
+    <!-- Hibernate Validator 日志：设置为 INFO 级别 -->
+    <logger name="org.hibernate.validator" level="INFO"/>
+
+
+    <!-- ========================================== -->
+    <!-- 多环境配置：根据 Spring Profile 使用不同的日志策略 -->
+    <!-- ========================================== -->
+
+    <!-- 开发环境（dev）：输出到控制台 + 文件，日志级别 DEBUG -->
+    <springProfile name="dev">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="ASYNC_FILE_ALL"/>
+            <appender-ref ref="ASYNC_FILE_ERROR"/>
+        </root>
+    </springProfile>
+
+    <!-- 测试环境（test）：输出到文件，日志级别 INFO -->
+    <springProfile name="test">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="ASYNC_FILE_ALL"/>
+            <appender-ref ref="ASYNC_FILE_ERROR"/>
+        </root>
+    </springProfile>
+
+    <!-- 生产环境（prod）：仅输出到文件，日志级别 INFO，关闭控制台输出 -->
+    <springProfile name="prod">
+        <root level="INFO">
+            <appender-ref ref="ASYNC_FILE_ALL"/>
+            <appender-ref ref="ASYNC_FILE_ERROR"/>
+        </root>
+    </springProfile>
+
+    <!-- 默认配置：如果没有指定 Spring Profile，使用此配置 -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="ASYNC_FILE_ALL"/>
+        <appender-ref ref="ASYNC_FILE_ERROR"/>
+    </root>
+
+</configuration>
