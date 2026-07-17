@@ -124,7 +124,7 @@ export default function DeptManagePage() {
   };
 
   return (
-    <div className="container mx-auto p-6">
+    <div>
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-2xl font-bold">部门管理</CardTitle>

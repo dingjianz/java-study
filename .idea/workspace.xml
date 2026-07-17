@@ -5,12 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e9715d0-73fa-4306-9c24-1f84a51c2c59" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/CLAUDE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/api/emps.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/dept/EmployeeFormModal.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/layout/AdminLayout.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/layout/Sidebar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/layout/menu-config.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/EmployeeManage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/Placeholder.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/types/employee.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-web-02/CLAUDE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/config/AppLogFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/EmpController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/mapper/EmpMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/Emp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/EmpService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/EmpServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/test/java/com/itheima/LogTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pnpm-lock.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CLAUDE.md" beforeDir="false" afterPath="$PROJECT_DIR$/CLAUDE.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HelloWorld/src/main/java/com/itheima/mySQL/ConstraintDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/HelloWorld/src/main/java/com/itheima/mySQL/ConstraintDemo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/api/dept.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/api/dept.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/DeptManage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/DeptManage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/SpringbootWeb02Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/SpringbootWeb02Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/DeptController.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/DeptController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/DeptService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/DeptService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/resources/logback-spring.xml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/resources/logback-spring.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,8 +46,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="package-info" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -148,6 +170,7 @@
     "JUnit.MybatisDemoApplicationTests.testUpdateUser.executor": "Run",
     "JUnit.SpringDemoApplicationTests.contextLoads.executor": "Run",
     "JUnit.SpringDemoApplicationTests.executor": "Debug",
+    "JUnit.SpringbootWeb02ApplicationTests.contextLoads.executor": "Run",
     "JUnit.UserServiceTest.executor": "Run",
     "Maven.java-study [clean].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
@@ -159,7 +182,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.SpringDemoApplication.executor": "Debug",
     "Spring Boot.SpringbootWeb01Application.executor": "Run",
-    "Spring Boot.SpringbootWeb02Application.executor": "Debug",
+    "Spring Boot.SpringbootWeb02Application.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "master",
@@ -172,7 +195,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "SQL Dialects"
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.com.intellij.openapi.options.colors.pages.DefaultLanguageColorsPage"
   },
   "keyToStringList": {
     "DatabaseDriversLRU": [
@@ -198,22 +221,6 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MybatisDemoApplicationTests.testDeleteById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="mybatis-demo" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.itheima.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.itheima" />
-      <option name="MAIN_CLASS_NAME" value="com.itheima.MybatisDemoApplicationTests" />
-      <option name="METHOD_NAME" value="testDeleteById" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -245,6 +252,22 @@
       <option name="PACKAGE_NAME" value="com.itheima" />
       <option name="MAIN_CLASS_NAME" value="com.itheima.MybatisDemoApplicationTests" />
       <option name="METHOD_NAME" value="testUpdateUser" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SpringbootWeb02ApplicationTests.contextLoads" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="springboot-web-02" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.itheima.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.itheima" />
+      <option name="MAIN_CLASS_NAME" value="com.itheima.SpringbootWeb02ApplicationTests" />
+      <option name="METHOD_NAME" value="contextLoads" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -292,10 +315,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.SpringbootWeb02Application" />
+        <item itemvalue="JUnit.SpringbootWeb02ApplicationTests.contextLoads" />
         <item itemvalue="Spring Boot.SpringbootWeb01Application" />
         <item itemvalue="JUnit.MybatisDemoApplicationTests.testUpdateUser" />
         <item itemvalue="JUnit.MybatisDemoApplicationTests.testFindByUsernameAndPassword" />
-        <item itemvalue="JUnit.MybatisDemoApplicationTests.testDeleteById" />
       </list>
     </recent_temporary>
   </component>

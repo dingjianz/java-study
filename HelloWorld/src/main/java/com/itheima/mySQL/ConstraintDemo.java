@@ -38,12 +38,11 @@ public class ConstraintDemo {
             CREATE TABLE 表名(
                  字段名 数据类型,
                  ...,
-                 [CONSTRAINT] [外键名称] FOREIGN KEY (外键字段名) REFERENCES 主表名(主表列名)
-             );/clear
-
+                 [CONSTRAINT] [外键名称] FOREIGN KEY (外键字段名) REFERENCES 主表名(字段名)
+             );
 
             1.2 建表后追加
-              ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名) REFERENCES 主表名(主表列名);
+              ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名) REFERENCES 主表名(字段名);
               括号一定要加上！！！
               外键名称: 命名没有强制规范，但推荐 fk_从表名_主表名，一眼就能看出关联关系。
              eg:

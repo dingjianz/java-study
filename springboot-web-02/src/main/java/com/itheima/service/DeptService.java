@@ -5,9 +5,13 @@ import com.itheima.pojo.Dept;
 import java.util.List;
 
 public interface DeptService {
-    public List<Dept> getAllDept();
-    public void deleteDeptById(Integer id);
-    public void addDept(Dept dept);
-    public Dept getDeptById(Integer id);
-    public void updateDept(Dept dept);
+    List<Dept> getAllDept();
+
+    void deleteDeptById(Integer id);
+
+    void addDept(Dept dept);
+
+    Dept getDeptById(Integer id);
+
+    void updateDept(Dept dept);
 }

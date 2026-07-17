@@ -5,11 +5,17 @@ import com.itheima.pojo.Result;
 import com.itheima.service.DeptService;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RequestMapping("/depts")
 @RestController
 public class DeptController {
+    // private static final Logger log = LoggerFactory.getLogger(DeptController.class);
+
     @Resource
     private DeptService deptService;
 
@@ -19,6 +25,7 @@ public class DeptController {
 //    @GetMapping("/depts")
     @GetMapping
     public Result list() {
+        log.info("查询部门列表");
         return Result.success(deptService.getAllDept());
     }
 
@@ -49,6 +56,7 @@ public class DeptController {
     //    @DeleteMapping("/depts")
     @DeleteMapping
     public Result delete(@RequestParam(value = "id", required = false, defaultValue = "0") Integer id) {
+        log.info("删除部门id:{}",  id);
         deptService.deleteDeptById(id);
         return Result.success();
     }
@@ -62,6 +70,7 @@ public class DeptController {
     //    @PostMapping("/depts")
     @PostMapping
     public Result addDept(@RequestBody @Valid Dept dept) {
+        log.info("新增部门:{}", dept);
         deptService.addDept(dept);
         return Result.success();
     }
@@ -77,12 +86,14 @@ public class DeptController {
 //    @GetMapping("/depts/{id}")
     @GetMapping("/{id}")
     public Result getDeptById(@PathVariable("id") Integer id) {
+        log.info("查询部门id:{}", id);
         return Result.success(deptService.getDeptById(id));
     }
 
     //    @PutMapping("/depts")
     @PutMapping
     public Result updateDept(@RequestBody @Valid Dept dept) {
+        log.info("修改部门:{}", dept);
         deptService.updateDept(dept);
         return Result.success();
     }

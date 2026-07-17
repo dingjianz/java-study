@@ -32,6 +32,6 @@ export const deptApi = {
 
   // 删除部门
   delete: (id: number) => {
-    return request.delete<void>(`/dept?id=${id}`)
+    return request.delete<void>(`/depts?id=${id}`)
   },
 }
