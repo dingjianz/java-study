@@ -5,34 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e9715d0-73fa-4306-9c24-1f84a51c2c59" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/CLAUDE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/api/emps.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/dept/EmployeeFormModal.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/layout/AdminLayout.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/layout/Sidebar.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/layout/menu-config.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/pages/EmployeeManage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/pages/Placeholder.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/types/employee.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/CLAUDE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/config/AppLogFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/EmpController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/mapper/EmpMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/Emp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/EmpService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/EmpServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/test/java/com/itheima/LogTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/EmpExprController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/mapper/EmpExprMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/EmpExpr.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/PageResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/EmpExprService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/EmpExprServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLAUDE.md" beforeDir="false" afterPath="$PROJECT_DIR$/CLAUDE.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/src/main/java/com/itheima/mySQL/ConstraintDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/HelloWorld/src/main/java/com/itheima/mySQL/ConstraintDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/api/dept.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/api/dept.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/DeptManage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/DeptManage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/SpringbootWeb02Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/SpringbootWeb02Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/DeptController.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/DeptController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/DeptService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/DeptService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/resources/logback-spring.xml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/resources/logback-spring.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/api/emps.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/api/emps.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ui/pagination.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ui/pagination.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/EmployeeManage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/EmployeeManage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/types/dept.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/types/dept.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/EmpController.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/EmpController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/mapper/EmpMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/mapper/EmpMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/Emp.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/Emp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/EmpService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/EmpService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/EmpServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/EmpServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,8 +34,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="package-info" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>

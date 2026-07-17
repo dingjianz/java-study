@@ -17,11 +17,11 @@ public class Emp {
     private String username;
     private String password;
     private String name;
-    private Integer gender;
+    private Integer gender; // 性别： 1男/2女
     private String phone;
     private Integer job;
     private Integer salary;
-    private  LocalDate entryDate;
+    private LocalDate entryDate;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
     private Integer deptId;

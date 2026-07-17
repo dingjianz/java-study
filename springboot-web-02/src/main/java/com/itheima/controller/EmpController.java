@@ -16,10 +16,10 @@ public class EmpController {
     @Autowired
     private EmpService empService;
 
-    @GetMapping
-    public Result list() {
-        log.info("查询所有员工信息");
-        return Result.success(empService.getAllEmp());
+    @GetMapping("/page")
+    public Result page(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer pageSize) {
+        log.info("分页查询员工信息，page：{}，pageSize：{}", page, pageSize);
+        return Result.success(empService.page(page, pageSize));
     }
 
     @GetMapping("/{id}")

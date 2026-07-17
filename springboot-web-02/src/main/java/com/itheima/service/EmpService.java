@@ -1,11 +1,10 @@
 package com.itheima.service;
 
 import com.itheima.pojo.Emp;
-
-import java.util.List;
+import com.itheima.pojo.PageResult;
 
 public interface EmpService {
-    List<Emp> getAllEmp();
+    PageResult<Emp> page(Integer page, Integer pageSize);
 
     Emp getEmpById(Integer id);
 

@@ -12,6 +12,8 @@ interface PaginationProps {
   onChange?: (page: number, pageSize: number) => void
   /** 可选的每页条数选项 */
   pageSizeOptions?: number[]
+  /** 只有一页数据时是否隐藏分页，默认 false（始终展示） */
+  hideOnSinglePage?: boolean
   className?: string
 }
 
@@ -47,10 +49,16 @@ const Pagination = ({
   total,
   onChange,
   pageSizeOptions = [10, 20, 50, 100],
+  hideOnSinglePage = false,
   className,
 }: PaginationProps) => {
   const totalPages = Math.max(1, Math.ceil(total / pageSize))
   const currentPage = Math.min(Math.max(1, page), totalPages)
+
+  // 只有一页数据且开启了 hideOnSinglePage 时，不渲染分页
+  if (hideOnSinglePage && totalPages <= 1) {
+    return null
+  }
 
   const goTo = (target: number) => {
     const next = Math.min(Math.max(1, target), totalPages)

@@ -9,7 +9,7 @@ export interface Dept {
 // 分页结果类型
 export interface PageResult<T> {
   total: number
-  rows: T[]
+  records: T[]
 }
 
 // API 响应类型

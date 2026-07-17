@@ -2,6 +2,7 @@ package com.itheima.service.impl;
 
 import com.itheima.mapper.EmpMapper;
 import com.itheima.pojo.Emp;
+import com.itheima.pojo.PageResult;
 import com.itheima.service.EmpService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -14,13 +15,23 @@ public class EmpServiceImpl implements EmpService {
     private EmpMapper empMapper;
 
     @Override
-    public List<Emp> getAllEmp() {
-        return empMapper.getAllEmp();
+    public PageResult<Emp> page(Integer page, Integer pageSize) {
+        // 总记录数
+        Long total = empMapper.count();
+        // 当前页数据（page 从 1 开始，转换为 SQL 偏移量）
+        int start = (page - 1) * pageSize;
+        List<Emp> records = empMapper.getAllEmp(start, pageSize);
+
+        PageResult<Emp> pageResult = new PageResult<>();
+        pageResult.setTotal(total);
+        pageResult.setRecords(records);
+        return pageResult;
     }
+
 
     @Override
     public Emp getEmpById(Integer id) {
-       return empMapper.getEmpById(id);
+        return empMapper.getEmpById(id);
     }
 
     @Override

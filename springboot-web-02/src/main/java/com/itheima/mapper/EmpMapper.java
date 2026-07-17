@@ -10,8 +10,18 @@ import java.util.List;
 
 @Mapper
 public interface EmpMapper {
-    @Select("select * from emp order by update_time desc")
-    List<Emp> getAllEmp();
+    /**
+     * 查询总记录数
+     */
+    @Select("select count(*) from emp e join dept d on e.dept_id = d.id")
+    Long count();
+
+    /**
+     * 分页查询（start 为起始偏移量，pageSize 为每页条数）
+     */
+    @Select("select e.* , d.name from emp e join dept d on e.dept_id = d.id "
+            + "order by e.update_time desc limit #{start},#{pageSize}")
+    List<Emp> getAllEmp(Integer start, Integer pageSize);
 
     @Select("select * from emp where id = #{id}")
     Emp getEmpById(Integer id);

@@ -13,6 +13,7 @@ import {
 import { GENDER_OPTIONS, genderText, jobText } from "@/types/employee"
 import type { Employee } from "@/types/employee"
 import EmployeeFormModal from "@/components/dept/EmployeeFormModal"
+import { Pagination } from "@/components/ui/pagination"
 import { cn } from "@/lib/utils"
 import dayjs from "dayjs"
 
@@ -20,31 +21,51 @@ const selectClass =
   "flex h-9 w-full rounded-md border border-gray-300 bg-white px-3 text-sm text-gray-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
 
 export default function EmployeeManagePage() {
-  // 员工列表数据（后端 GET /emps 返回全部）
+  // 员工列表数据（后端分页返回 { total, records }）
   const [employeeList, setEmployeeList] = useState<Employee[]>([])
   const [loading, setLoading] = useState(false)
 
+  // 分页状态
+  const [page, setPage] = useState(1)
+  const [pageSize, setPageSize] = useState(10)
+  const [total, setTotal] = useState(0)
+
   // 加载员工列表
-  const loadEmployees = () => {
+  const loadEmployees = (targetPage = page, targetSize = pageSize) => {
     setLoading(true)
     empApi
-      .getAll()
-      .then((res) => setEmployeeList(res.data ?? []))
+      .getPage(targetPage, targetSize)
+      .then((res) => {
+        setEmployeeList(res.data?.records ?? [])
+        setTotal(res.data?.total ?? 0)
+      })
       .catch(() => {
         /* 错误提示由 http 响应拦截器统一处理 */
       })
       .finally(() => setLoading(false))
   }
 
+  // 页码或每页条数变化时重新加载
+  const handlePageChange = (nextPage: number, nextSize: number) => {
+    setPage(nextPage)
+    setPageSize(nextSize)
+    setSelectedIds(new Set())
+    loadEmployees(nextPage, nextSize)
+  }
+
   useEffect(() => {
-    loadEmployees()
+    loadEmployees(1, pageSize)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // 选中行
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set())
 
-  // 删除确认框
+  // 批量删除确认框
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
+
+  // 单个删除确认框（记录待删除的员工，用于在确认信息中展示姓名）
+  const [deletingEmp, setDeletingEmp] = useState<Employee | null>(null)
 
   // 新增/编辑表单 Modal
   const [isFormOpen, setIsFormOpen] = useState(false)
@@ -94,12 +115,30 @@ export default function EmployeeManagePage() {
       })
   }
 
+  // 点击「删除」，弹出确认框（记录待删除员工以在确认信息中展示姓名）
   const handleDelete = (id: number) => {
-    if (!confirm("确定要删除该员工吗？此操作不可撤销。")) return
+    const emp = employeeList.find((e) => e.id === id)
+    if (!emp) return
+    setDeletingEmp(emp)
+  }
+
+  // 删除若干条后当前页可能剩余不足，必要时回退到上一页
+  const reloadAfterDelete = (deletedCount: number) => {
+    const remaining = total - deletedCount
+    const lastPage = Math.max(1, Math.ceil(remaining / pageSize))
+    const targetPage = Math.min(page, lastPage)
+    setPage(targetPage)
+    loadEmployees(targetPage, pageSize)
+  }
+
+  // 确认删除单个员工
+  const confirmDelete = () => {
+    if (!deletingEmp?.id) return
     empApi
-      .delete(id)
+      .delete(deletingEmp.id)
       .then(() => {
-        loadEmployees()
+        setDeletingEmp(null)
+        reloadAfterDelete(1)
       })
       .catch(() => {
         /* 错误提示由 http 响应拦截器统一处理 */
@@ -108,14 +147,24 @@ export default function EmployeeManagePage() {
 
   const confirmBatchDelete = () => {
     const ids = Array.from(selectedIds)
-    Promise.all(ids.map((id) => empApi.delete(id)))
-      .then(() => {
+    Promise.allSettled(ids.map((id) => empApi.delete(id)))
+      .then((results) => {
+        // 统计真正成功删除的条数
+        const successCount = results.filter(r => r.status === 'fulfilled').length
+        const failCount = results.filter(r => r.status === 'rejected').length
+
+        // 关闭确认框，清空选中状态
         setSelectedIds(new Set())
         setIsDeleteOpen(false)
-        loadEmployees()
-      })
-      .catch(() => {
-        /* 错误提示由 http 响应拦截器统一处理 */
+
+        // 即使部分失败也刷新列表（避免界面显示已删除的记录）
+        reloadAfterDelete(successCount)
+
+        // 有失败时额外提示用户（成功的提示已由响应拦截器处理）
+        if (failCount > 0 && successCount > 0) {
+          // 这里可以加 toast 提示，比如 toast.warning(`成功删除 ${successCount} 条，${failCount} 条失败`)
+          console.warn(`批量删除：成功 ${successCount} 条，失败 ${failCount} 条`)
+        }
       })
   }
 
@@ -193,6 +242,14 @@ export default function EmployeeManagePage() {
             onDelete={handleDelete}
           />
 
+          {/* 分页 */}
+          <Pagination
+            className="mt-4"
+            page={page}
+            pageSize={pageSize}
+            total={total}
+            onChange={handlePageChange}
+          />
         </CardContent>
       </Card>
 
@@ -204,6 +261,30 @@ export default function EmployeeManagePage() {
         employee={editingEmp}
         onSaved={loadEmployees}
       />
+
+      {/* 单个删除确认框 */}
+      <Modal
+        open={deletingEmp !== null}
+        onOpenChange={(open) => {
+          if (!open) setDeletingEmp(null)
+        }}
+      >
+        <ModalContent>
+          <ModalHeader>
+            <ModalTitle>
+              确定要删除员工「{deletingEmp?.name}」吗？此操作不可撤销。
+            </ModalTitle>
+          </ModalHeader>
+          <ModalFooter>
+            <Button variant="outline" onClick={() => setDeletingEmp(null)}>
+              取消
+            </Button>
+            <Button variant="destructive" onClick={confirmDelete}>
+              删除
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
 
       {/* 批量删除确认框 */}
       <Modal open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
