@@ -5,21 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e9715d0-73fa-4306-9c24-1f84a51c2c59" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/EmpExprController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/mapper/EmpExprMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/EmpExpr.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/PageResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/EmpExprService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/EmpExprServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/config/mybatis/MybatisPlusConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/api/emps.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/api/emps.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ui/pagination.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ui/pagination.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/EmployeeManage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/EmployeeManage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/types/dept.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/types/dept.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/types/employee.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/types/employee.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-study.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/EmpController.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/EmpController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/mapper/EmpMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/mapper/EmpMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/Emp.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/Emp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/EmpService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/EmpService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/PageResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/PageResult.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/EmpServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/EmpServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -28,7 +23,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="421" />
+    <option name="cachedIndexableFilesCount" value="500" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -69,61 +64,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0000000000000322" />
-      <entry key="MS500" value="1.002002475074004" />
-      <entry key="S2" value="1.2119186427914614" />
-      <entry key="S5" value="1.6527375042542465" />
-      <entry key="S10" value="2.6468349199965404" />
-      <entry key="S30" value="5.981121903915385" />
-      <entry key="S60" value="8.557794922078163" />
-      <entry key="M2" value="10.930397063831236" />
-      <entry key="M5" value="13.10370219806831" />
-      <entry key="M10" value="14.877433709412587" />
-      <entry key="M15" value="17.749164942859927" />
-      <entry key="M30" value="30.226934944270152" />
-      <entry key="H1" value="52.449479256023864" />
-      <entry key="H2" value="79.53202754316632" />
-      <entry key="H4" value="109.19230517486679" />
-      <entry key="D1" value="163.2923482100384" />
-      <entry key="W1" value="178.26327539945672" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.000000000000073" />
+      <entry key="S2" value="1.0005198921528216" />
+      <entry key="S5" value="1.0485696871102463" />
+      <entry key="S10" value="1.2203947811811489" />
+      <entry key="S30" value="1.6261149123578202" />
+      <entry key="S60" value="1.9898136259257955" />
+      <entry key="M2" value="3.199097723241989" />
+      <entry key="M5" value="8.261930676105516" />
+      <entry key="M10" value="13.820082959316704" />
+      <entry key="M15" value="18.170158489793167" />
+      <entry key="M30" value="31.736796119647632" />
+      <entry key="H1" value="54.86272523342579" />
+      <entry key="H2" value="83.30594782828082" />
+      <entry key="H4" value="114.2969996014294" />
+      <entry key="D1" value="170.5725542060096" />
+      <entry key="W1" value="186.15106748108008" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="9.130381693502763E-104" />
-      <entry key="MS500" value="2.8622843327600636E-21" />
-      <entry key="S2" value="1.1952267647818983E-5" />
-      <entry key="S5" value="0.0190008109432304" />
-      <entry key="S10" value="0.25492559233816925" />
-      <entry key="S30" value="2.1264840379350436" />
-      <entry key="S60" value="4.306105178514635" />
-      <entry key="M2" value="6.432986337138751" />
-      <entry key="M5" value="8.35712563141586" />
-      <entry key="M10" value="9.840530834413304" />
-      <entry key="M15" value="12.18755243533313" />
-      <entry key="M30" value="22.27971034655025" />
-      <entry key="H1" value="39.293575826553784" />
-      <entry key="H2" value="57.748799326112476" />
-      <entry key="H4" value="74.60525468745635" />
-      <entry key="D1" value="100.30374518842355" />
-      <entry key="W1" value="106.82563400694913" />
+      <entry key="MS100" value="2.5449085030995715E-61" />
+      <entry key="MS500" value="7.605616702972001E-13" />
+      <entry key="S2" value="9.376183098126223E-4" />
+      <entry key="S5" value="0.06815017836533208" />
+      <entry key="S10" value="0.32998127709035213" />
+      <entry key="S30" value="1.0645396379939431" />
+      <entry key="S60" value="1.5322102734265033" />
+      <entry key="M2" value="2.494582246700869" />
+      <entry key="M5" value="5.9995963694070005" />
+      <entry key="M10" value="9.83164370772551" />
+      <entry key="M15" value="13.019276120350524" />
+      <entry key="M30" value="23.56362129459435" />
+      <entry key="H1" value="41.15017319636475" />
+      <entry key="H2" value="60.696788577826396" />
+      <entry key="H4" value="78.63059590121537" />
+      <entry key="D1" value="105.86088369435603" />
+      <entry key="W1" value="112.75824818701244" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="9.698168900752309E-4" />
-      <entry key="MS500" value="0.2498927828088504" />
-      <entry key="S2" value="0.831561332701815" />
-      <entry key="S5" value="1.4279502581541397" />
-      <entry key="S10" value="2.6994455673689455" />
-      <entry key="S30" value="7.915964801032562" />
-      <entry key="S60" value="12.701997812180545" />
-      <entry key="M2" value="17.249137482803462" />
-      <entry key="M5" value="21.402628854927666" />
-      <entry key="M10" value="24.683669677767185" />
-      <entry key="M15" value="29.90829632789934" />
-      <entry key="M30" value="52.480611201227426" />
-      <entry key="H1" value="91.71994705840333" />
-      <entry key="H2" value="137.26359387733547" />
-      <entry key="H4" value="183.7861920870171" />
-      <entry key="D1" value="263.5934564601439" />
-      <entry key="W1" value="285.0885049815888" />
+      <entry key="MS100" value="0.8705505632961241" />
+      <entry key="MS500" value="0.9726549474123788" />
+      <entry key="S2" value="0.993984451639044" />
+      <entry key="S5" value="1.0935980471652305" />
+      <entry key="S10" value="1.4985793187036898" />
+      <entry key="S30" value="2.6356532339759506" />
+      <entry key="S60" value="3.4793921178926137" />
+      <entry key="M2" value="5.65646272245086" />
+      <entry key="M5" value="14.224465213999387" />
+      <entry key="M10" value="23.62080807662772" />
+      <entry key="M15" value="31.161649286366192" />
+      <entry key="M30" value="55.27436588314141" />
+      <entry key="H1" value="95.98951366441823" />
+      <entry key="H2" value="143.9850708896962" />
+      <entry key="H4" value="192.91586052375226" />
+      <entry key="D1" value="276.4307018153985" />
+      <entry key="W1" value="298.9088956867679" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -177,7 +172,9 @@
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/lijiaqi/Documents/Java学习/my-project/pom.xml",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.jshint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.jshint": "",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
@@ -313,8 +310,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.26222.65" />
-        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.26222.65" />
+        <option value="bundled-jdk-30f59d01ecdd-63390994e64e-intellij.indexing.shared.core-IU-262.8665.258" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.8665.258" />
       </set>
     </attachedChunks>
   </component>

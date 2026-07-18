@@ -1,184 +1,180 @@
-import { useEffect, useState } from "react"
-import { empApi } from "@/api/emps"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalTitle,
-} from "@/components/ui/modal"
-import { GENDER_OPTIONS, genderText, jobText } from "@/types/employee"
-import type { Employee } from "@/types/employee"
-import EmployeeFormModal from "@/components/dept/EmployeeFormModal"
-import { Pagination } from "@/components/ui/pagination"
-import { cn } from "@/lib/utils"
-import dayjs from "dayjs"
+import { useEffect, useState } from "react";
+import { empApi } from "@/api/emps";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Modal, ModalContent, ModalHeader, ModalFooter, ModalTitle } from "@/components/ui/modal";
+import { GENDER_OPTIONS, genderText, jobText } from "@/types/employee";
+import type { Employee } from "@/types/employee";
+import EmployeeFormModal from "@/components/dept/EmployeeFormModal";
+import { Pagination } from "@/components/ui/pagination";
+import { cn } from "@/lib/utils";
+import dayjs from "dayjs";
 
-const selectClass =
-  "flex h-9 w-full rounded-md border border-gray-300 bg-white px-3 text-sm text-gray-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+const selectClass = "flex h-9 w-full rounded-md border border-gray-300 bg-white px-3 text-sm text-gray-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500";
 
 export default function EmployeeManagePage() {
   // 员工列表数据（后端分页返回 { total, records }）
-  const [employeeList, setEmployeeList] = useState<Employee[]>([])
-  const [loading, setLoading] = useState(false)
+  const [employeeList, setEmployeeList] = useState<Employee[]>([]);
+  const [loading, setLoading] = useState(false);
 
   // 分页状态
-  const [page, setPage] = useState(1)
-  const [pageSize, setPageSize] = useState(10)
-  const [total, setTotal] = useState(0)
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [total, setTotal] = useState(0);
 
   // 加载员工列表
   const loadEmployees = (targetPage = page, targetSize = pageSize) => {
-    setLoading(true)
+    setLoading(true);
     empApi
       .getPage(targetPage, targetSize)
       .then((res) => {
-        setEmployeeList(res.data?.records ?? [])
-        setTotal(res.data?.total ?? 0)
+        setEmployeeList(res.data?.records ?? []);
+        setTotal(res.data?.total ?? 0);
       })
       .catch(() => {
         /* 错误提示由 http 响应拦截器统一处理 */
       })
-      .finally(() => setLoading(false))
-  }
+      .finally(() => setLoading(false));
+  };
 
   // 页码或每页条数变化时重新加载
   const handlePageChange = (nextPage: number, nextSize: number) => {
-    setPage(nextPage)
-    setPageSize(nextSize)
-    setSelectedIds(new Set())
-    loadEmployees(nextPage, nextSize)
-  }
+    setPage(nextPage);
+    setPageSize(nextSize);
+    setSelectedIds(new Set());
+    loadEmployees(nextPage, nextSize);
+  };
+
+  // 新增/编辑保存成功后回到第一页（列表按更新时间降序，改动的记录会排到最前）
+  const handleSaved = () => {
+    setPage(1);
+    setSelectedIds(new Set());
+    loadEmployees(1, pageSize);
+  };
 
   useEffect(() => {
-    loadEmployees(1, pageSize)
+    loadEmployees(1, pageSize);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   // 选中行
-  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set())
+  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
 
   // 批量删除确认框
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false)
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
   // 单个删除确认框（记录待删除的员工，用于在确认信息中展示姓名）
-  const [deletingEmp, setDeletingEmp] = useState<Employee | null>(null)
+  const [deletingEmp, setDeletingEmp] = useState<Employee | null>(null);
 
   // 新增/编辑表单 Modal
-  const [isFormOpen, setIsFormOpen] = useState(false)
-  const [formType, setFormType] = useState<"add" | "edit">("add")
-  const [editingEmp, setEditingEmp] = useState<Employee | null>(null)
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [formType, setFormType] = useState<"add" | "edit">("add");
+  const [editingEmp, setEditingEmp] = useState<Employee | null>(null);
 
-  const allChecked =
-    employeeList.length > 0 && selectedIds.size === employeeList.length
+  const allChecked = employeeList.length > 0 && selectedIds.size === employeeList.length;
 
   const toggleAll = () => {
     if (allChecked) {
-      setSelectedIds(new Set())
+      setSelectedIds(new Set());
     } else {
-      setSelectedIds(new Set(employeeList.map((e) => e.id!).filter(Boolean)))
+      setSelectedIds(new Set(employeeList.map((e) => e.id!).filter(Boolean)));
     }
-  }
+  };
 
   const toggleOne = (id: number) => {
     setSelectedIds((prev) => {
-      const next = new Set(prev)
+      const next = new Set(prev);
       if (next.has(id)) {
-        next.delete(id)
+        next.delete(id);
       } else {
-        next.add(id)
+        next.add(id);
       }
-      return next
-    })
-  }
+      return next;
+    });
+  };
 
   const handleAdd = () => {
-    setFormType("add")
-    setEditingEmp(null)
-    setIsFormOpen(true)
-  }
+    setFormType("add");
+    setEditingEmp(null);
+    setIsFormOpen(true);
+  };
 
   const handleEdit = (id: number) => {
     // 调用 getById 获取最新数据
     empApi
       .getById(id)
       .then((res) => {
-        setFormType("edit")
-        setEditingEmp(res.data)
-        setIsFormOpen(true)
+        setFormType("edit");
+        setEditingEmp(res.data);
+        setIsFormOpen(true);
       })
       .catch(() => {
         /* 错误提示由 http 响应拦截器统一处理 */
-      })
-  }
+      });
+  };
 
   // 点击「删除」，弹出确认框（记录待删除员工以在确认信息中展示姓名）
   const handleDelete = (id: number) => {
-    const emp = employeeList.find((e) => e.id === id)
-    if (!emp) return
-    setDeletingEmp(emp)
-  }
+    const emp = employeeList.find((e) => e.id === id);
+    if (!emp) return;
+    setDeletingEmp(emp);
+  };
 
   // 删除若干条后当前页可能剩余不足，必要时回退到上一页
   const reloadAfterDelete = (deletedCount: number) => {
-    const remaining = total - deletedCount
-    const lastPage = Math.max(1, Math.ceil(remaining / pageSize))
-    const targetPage = Math.min(page, lastPage)
-    setPage(targetPage)
-    loadEmployees(targetPage, pageSize)
-  }
+    const remaining = total - deletedCount;
+    const lastPage = Math.max(1, Math.ceil(remaining / pageSize));
+    const targetPage = Math.min(page, lastPage);
+    setPage(targetPage);
+    loadEmployees(targetPage, pageSize);
+  };
 
   // 确认删除单个员工
   const confirmDelete = () => {
-    if (!deletingEmp?.id) return
+    if (!deletingEmp?.id) return;
     empApi
       .delete(deletingEmp.id)
       .then(() => {
-        setDeletingEmp(null)
-        reloadAfterDelete(1)
+        setDeletingEmp(null);
+        reloadAfterDelete(1);
       })
       .catch(() => {
         /* 错误提示由 http 响应拦截器统一处理 */
-      })
-  }
+      });
+  };
 
   const confirmBatchDelete = () => {
-    const ids = Array.from(selectedIds)
-    Promise.allSettled(ids.map((id) => empApi.delete(id)))
-      .then((results) => {
-        // 统计真正成功删除的条数
-        const successCount = results.filter(r => r.status === 'fulfilled').length
-        const failCount = results.filter(r => r.status === 'rejected').length
+    const ids = Array.from(selectedIds);
+    Promise.allSettled(ids.map((id) => empApi.delete(id))).then((results) => {
+      // 统计真正成功删除的条数
+      const successCount = results.filter((r) => r.status === "fulfilled").length;
+      const failCount = results.filter((r) => r.status === "rejected").length;
 
-        // 关闭确认框，清空选中状态
-        setSelectedIds(new Set())
-        setIsDeleteOpen(false)
+      // 关闭确认框，清空选中状态
+      setSelectedIds(new Set());
+      setIsDeleteOpen(false);
 
-        // 即使部分失败也刷新列表（避免界面显示已删除的记录）
-        reloadAfterDelete(successCount)
+      // 即使部分失败也刷新列表（避免界面显示已删除的记录）
+      reloadAfterDelete(successCount);
 
-        // 有失败时额外提示用户（成功的提示已由响应拦截器处理）
-        if (failCount > 0 && successCount > 0) {
-          // 这里可以加 toast 提示，比如 toast.warning(`成功删除 ${successCount} 条，${failCount} 条失败`)
-          console.warn(`批量删除：成功 ${successCount} 条，失败 ${failCount} 条`)
-        }
-      })
-  }
+      // 有失败时额外提示用户（成功的提示已由响应拦截器处理）
+      if (failCount > 0 && successCount > 0) {
+        // 这里可以加 toast 提示，比如 toast.warning(`成功删除 ${successCount} 条，${failCount} 条失败`)
+        console.warn(`批量删除：成功 ${successCount} 条，失败 ${failCount} 条`);
+      }
+    });
+  };
 
   const handleBatchDelete = () => {
-    if (selectedIds.size === 0) return
-    setIsDeleteOpen(true)
-  }
+    if (selectedIds.size === 0) return;
+    setIsDeleteOpen(true);
+  };
 
   return (
     <div className="space-y-4">
       {/* 页面标题 */}
-      <h1 className="border-l-4 border-blue-500 pl-3 text-lg font-semibold text-gray-800">
-        员工管理
-      </h1>
+      <h1 className="border-l-4 border-blue-500 pl-3 text-lg font-semibold text-gray-800">员工管理</h1>
 
       {/* 筛选栏（静态 UI，逻辑待接口就绪后接入） */}
       <Card>
@@ -222,58 +218,30 @@ export default function EmployeeManagePage() {
           {/* 工具栏 */}
           <div className="mb-4 flex items-center gap-2">
             <Button onClick={handleAdd}>+ 新增员工</Button>
-            <Button
-              variant="destructive"
-              onClick={handleBatchDelete}
-              disabled={selectedIds.size === 0}
-            >
-              - 批量删除
+            <Button variant="destructive" onClick={handleBatchDelete} disabled={selectedIds.size === 0}>
+              批量删除
             </Button>
           </div>
 
-          <EmployeeTable
-            list={employeeList}
-            loading={loading}
-            allChecked={allChecked}
-            selectedIds={selectedIds}
-            onToggleAll={toggleAll}
-            onToggleOne={toggleOne}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-          />
+          <EmployeeTable list={employeeList} loading={loading} allChecked={allChecked} selectedIds={selectedIds} onToggleAll={toggleAll} onToggleOne={toggleOne} onEdit={handleEdit} onDelete={handleDelete} />
 
           {/* 分页 */}
-          <Pagination
-            className="mt-4"
-            page={page}
-            pageSize={pageSize}
-            total={total}
-            onChange={handlePageChange}
-          />
+          <Pagination className="mt-4" page={page} pageSize={pageSize} total={total} onChange={handlePageChange} />
         </CardContent>
       </Card>
 
       {/* 新增/编辑员工表单 */}
-      <EmployeeFormModal
-        open={isFormOpen}
-        onOpenChange={setIsFormOpen}
-        type={formType}
-        employee={editingEmp}
-        onSaved={loadEmployees}
-      />
+      <EmployeeFormModal open={isFormOpen} onOpenChange={setIsFormOpen} type={formType} employee={editingEmp} onSaved={handleSaved} />
 
       {/* 单个删除确认框 */}
       <Modal
         open={deletingEmp !== null}
         onOpenChange={(open) => {
-          if (!open) setDeletingEmp(null)
-        }}
-      >
+          if (!open) setDeletingEmp(null);
+        }}>
         <ModalContent>
           <ModalHeader>
-            <ModalTitle>
-              确定要删除员工「{deletingEmp?.name}」吗？此操作不可撤销。
-            </ModalTitle>
+            <ModalTitle>确定要删除员工「{deletingEmp?.name}」吗？此操作不可撤销。</ModalTitle>
           </ModalHeader>
           <ModalFooter>
             <Button variant="outline" onClick={() => setDeletingEmp(null)}>
@@ -290,49 +258,35 @@ export default function EmployeeManagePage() {
       <Modal open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
         <ModalContent>
           <ModalHeader>
-            <ModalTitle>
-              确定要删除选中的 {selectedIds.size} 名员工吗？此操作不可撤销。
-            </ModalTitle>
+            <ModalTitle>确定要删除选中的 {selectedIds.size} 名员工吗？此操作不可撤销。</ModalTitle>
           </ModalHeader>
           <ModalFooter>
             <Button variant="outline" onClick={() => setIsDeleteOpen(false)}>
               取消
             </Button>
-            <Button
-              variant="destructive"
-              onClick={confirmBatchDelete}
-            >
+            <Button variant="destructive" onClick={confirmBatchDelete}>
               删除
             </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
     </div>
-  )
+  );
 }
 
 interface EmployeeTableProps {
-  list: Employee[]
-  loading: boolean
-  allChecked: boolean
-  selectedIds: Set<number>
-  onToggleAll: () => void
-  onToggleOne: (id: number) => void
-  onEdit: (id: number) => void
-  onDelete: (id: number) => void
+  list: Employee[];
+  loading: boolean;
+  allChecked: boolean;
+  selectedIds: Set<number>;
+  onToggleAll: () => void;
+  onToggleOne: (id: number) => void;
+  onEdit: (id: number) => void;
+  onDelete: (id: number) => void;
 }
 
-function EmployeeTable({
-  list,
-  loading,
-  allChecked,
-  selectedIds,
-  onToggleAll,
-  onToggleOne,
-  onEdit,
-  onDelete,
-}: EmployeeTableProps) {
-  const thClass = "p-3 text-left text-sm font-semibold text-gray-700"
+function EmployeeTable({ list, loading, allChecked, selectedIds, onToggleAll, onToggleOne, onEdit, onDelete }: EmployeeTableProps) {
+  const thClass = "p-3 text-left text-sm font-semibold text-gray-700";
 
   return (
     <div className="overflow-x-auto rounded-md border border-gray-200">
@@ -340,12 +294,7 @@ function EmployeeTable({
         <thead>
           <tr className="border-b border-gray-200 bg-gray-50">
             <th className="w-12 p-3 text-center">
-              <input
-                type="checkbox"
-                checked={allChecked}
-                onChange={onToggleAll}
-                className="size-4 cursor-pointer align-middle accent-blue-600"
-              />
+              <input type="checkbox" checked={allChecked} onChange={onToggleAll} className="size-4 cursor-pointer align-middle accent-blue-600" />
             </th>
             <th className={thClass}>姓名</th>
             <th className={thClass}>性别</th>
@@ -372,59 +321,23 @@ function EmployeeTable({
             </tr>
           ) : (
             list.map((emp) => (
-              <tr
-                key={emp.id}
-                className="border-b border-gray-100 last:border-0 hover:bg-gray-50"
-              >
+              <tr key={emp.id} className="border-b border-gray-100 last:border-0 hover:bg-gray-50">
                 <td className="p-3 text-center">
-                  <input
-                    type="checkbox"
-                    checked={selectedIds.has(emp.id!)}
-                    onChange={() => onToggleOne(emp.id!)}
-                    className="size-4 cursor-pointer align-middle accent-blue-600"
-                  />
+                  <input type="checkbox" checked={selectedIds.has(emp.id!)} onChange={() => onToggleOne(emp.id!)} className="size-4 cursor-pointer align-middle accent-blue-600" />
                 </td>
                 <td className="p-3 text-sm text-gray-800">{emp.name}</td>
                 <td className="p-3 text-sm text-gray-800">{genderText(emp.gender)}</td>
-                <td className="p-3">
-                  {emp.image ? (
-                    <img
-                      src={emp.image}
-                      alt={emp.name}
-                      className="size-9 rounded object-cover"
-                    />
-                  ) : (
-                    <div className="flex size-9 items-center justify-center rounded bg-gray-100 text-xs text-gray-400">
-                      无
-                    </div>
-                  )}
-                </td>
-                <td className="p-3 text-sm text-gray-800">{emp.deptId ?? "-"}</td>
+                <td className="p-3">{emp.image ? <img src={emp.image} alt={emp.name} className="size-9 rounded object-cover" /> : <div className="flex size-9 items-center justify-center rounded bg-gray-100 text-xs text-gray-400">无</div>}</td>
+                <td className="p-3 text-sm text-gray-800">{emp.deptName ?? "-"}</td>
                 <td className="p-3 text-sm text-gray-800">{jobText(emp.job)}</td>
-                <td className="p-3 text-sm text-gray-800">
-                  {emp.entryDate
-                    ? dayjs(emp.entryDate).format("YYYY-MM-DD")
-                    : "-"}
-                </td>
-                <td className="p-3 text-sm text-gray-800">
-                  {emp.updateTime
-                    ? dayjs(emp.updateTime).format("YYYY-MM-DD HH:mm:ss")
-                    : "-"}
-                </td>
+                <td className="p-3 text-sm text-gray-800">{emp.entryDate ? dayjs(emp.entryDate).format("YYYY-MM-DD") : "-"}</td>
+                <td className="p-3 text-sm text-gray-800">{emp.updateTime ? dayjs(emp.updateTime).format("YYYY-MM-DD HH:mm:ss") : "-"}</td>
                 <td className="p-3">
                   <div className="flex justify-center gap-3 text-sm">
-                    <button
-                      type="button"
-                      onClick={() => onEdit(emp.id!)}
-                      className="text-blue-600 hover:underline"
-                    >
+                    <button type="button" onClick={() => onEdit(emp.id!)} className="text-blue-600 hover:underline">
                       编辑
                     </button>
-                    <button
-                      type="button"
-                      onClick={() => onDelete(emp.id!)}
-                      className="text-red-500 hover:underline"
-                    >
+                    <button type="button" onClick={() => onDelete(emp.id!)} className="text-red-500 hover:underline">
                       删除
                     </button>
                   </div>
@@ -435,5 +348,5 @@ function EmployeeTable({
         </tbody>
       </table>
     </div>
-  )
+  );
 }

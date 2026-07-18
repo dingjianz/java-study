@@ -22,6 +22,7 @@ export interface Employee {
   job: number
   salary: number
   deptId: number
+  deptName: string
   entryDate: string
   createTime: string
   updateTime: string

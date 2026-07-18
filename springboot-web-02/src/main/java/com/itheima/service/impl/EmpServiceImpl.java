@@ -20,12 +20,9 @@ public class EmpServiceImpl implements EmpService {
         Long total = empMapper.count();
         // 当前页数据（page 从 1 开始，转换为 SQL 偏移量）
         int start = (page - 1) * pageSize;
-        List<Emp> records = empMapper.getAllEmp(start, pageSize);
+        List<Emp>  records = empMapper.getAllEmp(start, pageSize);
 
-        PageResult<Emp> pageResult = new PageResult<>();
-        pageResult.setTotal(total);
-        pageResult.setRecords(records);
-        return pageResult;
+        return new PageResult<>(total, records);
     }
 
 

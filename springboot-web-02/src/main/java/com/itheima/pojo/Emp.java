@@ -26,4 +26,6 @@ public class Emp {
     private LocalDateTime updateTime;
     private Integer deptId;
     private String image;
+    // 封装部门名称
+    private String deptName;
 }
