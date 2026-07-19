@@ -6,7 +6,6 @@ import com.itheima.service.DeptService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -27,8 +26,6 @@ public class DeptServiceImpl implements DeptService {
     @Override
     public void addDept(Dept dept) {
         // 补全属性
-        dept.setCreateTime(LocalDateTime.now());
-        dept.setUpdateTime(LocalDateTime.now());
         deptMapper.addDept(dept);
     }
 
@@ -40,7 +37,6 @@ public class DeptServiceImpl implements DeptService {
     @Override
     public void updateDept(Dept dept) {
         // 补全属性
-        dept.setUpdateTime(LocalDateTime.now());
         deptMapper.updateDept(dept);
     }
 }

@@ -1,0 +1,28 @@
+# AWS S3 配置示例
+# 复制此文件为 application-s3.yaml 并填入真实的配置信息
+
+aws:
+  s3:
+    # S3 服务地址（根据实际的 S3 服务提供商配置）
+    url: oss-beijing-m8.openstorage.cn
+
+    # 访问密钥（从 S3 服务控制台获取）
+    access-key: YOUR_ACCESS_KEY
+
+    # 密钥（从 S3 服务控制台获取）
+    secret-key: YOUR_SECRET_KEY
+
+    # 桶名称（需要提前在 S3 控制台创建）
+    bucket: your-bucket-name
+
+    # 最大连接数
+    max-connections: 200
+
+    # 区域（根据实际的 S3 服务区域配置）
+    region: cn-north-1
+
+# 使用说明：
+# 1. 复制此文件为 application-s3.yaml
+# 2. 填入真实的 access-key、secret-key 和 bucket
+# 3. 在 application.yaml 中添加: spring.profiles.include: s3
+# 4. 或者启动时指定: --spring.profiles.active=s3

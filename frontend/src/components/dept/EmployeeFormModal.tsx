@@ -13,6 +13,7 @@ import type { Employee, EmployeeForm, EmpExpr } from "@/types/employee"
 import type { Dept } from "@/types/dept"
 import { deptApi } from "@/api/dept"
 import { empApi } from "@/api/emps"
+import { uploadApi } from "@/api/upload"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 
@@ -101,7 +102,19 @@ export default function EmployeeFormModal({
     if (!form.gender) return toast.warning("请选择性别")
     if (!form.phone?.trim()) return toast.warning("请输入手机号")
 
-    const apiCall = type === "add" ? empApi.add(form as Employee) : empApi.update(form as Employee)
+    // 过滤掉空的工作经历对象
+    const filteredExprList = (form.exprList ?? []).filter((expr) => {
+      // 只要有任一字段有值，就保留该条记录
+      return (
+        expr.beginDate ||
+        expr.endDate ||
+        expr.company?.trim() ||
+        expr.job?.trim()
+      )
+    })
+
+    const submitData = { ...form, exprList: filteredExprList }
+    const apiCall = type === "add" ? empApi.add(submitData as Employee) : empApi.update(submitData as Employee)
 
     apiCall
       .then(() => {
@@ -263,15 +276,15 @@ export default function EmployeeFormModal({
                   <Input
                     type="date"
                     className="w-36"
-                    value={expr.begin ?? ""}
-                    onChange={(e) => updateExpr(idx, { begin: e.target.value })}
+                    value={expr.beginDate ?? ""}
+                    onChange={(e) => updateExpr(idx, { beginDate: e.target.value })}
                   />
                   <span className="text-sm text-gray-400">到</span>
                   <Input
                     type="date"
                     className="w-36"
-                    value={expr.end ?? ""}
-                    onChange={(e) => updateExpr(idx, { end: e.target.value })}
+                    value={expr.endDate ?? ""}
+                    onChange={(e) => updateExpr(idx, { endDate: e.target.value })}
                   />
                   <span className="text-sm text-gray-600">公司</span>
                   <Input
@@ -327,23 +340,61 @@ interface AvatarUploaderProps {
   onChange: (url: string) => void
 }
 
-/** 头像上传：本地预览。实际上传逻辑待接口就绪后接入 */
+/** 头像上传：上传到 S3 */
 function AvatarUploader({ value, onChange }: AvatarUploaderProps) {
-  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const [uploading, setUploading] = useState(false)
+
+  const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
+
+    // 验证文件大小
     if (file.size > 2 * 1024 * 1024) {
       toast.warning("图片大小不能超过 2M")
       return
     }
-    // TODO: 调用上传接口拿到 URL，这里先用本地预览地址占位
-    const url = URL.createObjectURL(file)
-    onChange(url)
+
+    // 验证文件类型
+    const validTypes = ['image/png', 'image/jpeg', 'image/jpg']
+    if (!validTypes.includes(file.type)) {
+      toast.warning("仅支持 PNG、JPEG、JPG 格式的图片")
+      return
+    }
+
+    try {
+      setUploading(true)
+      // 上传到 S3，使用 "avatars" 前缀
+      const response = await uploadApi.uploadImage(file, 'avatars')
+
+      // 使用公共 URL 作为头像地址
+      const imageUrl = response.data.publicUrl
+      onChange(imageUrl)
+
+      toast.success("头像上传成功")
+    } catch (error) {
+      console.error('头像上传失败:', error)
+      toast.error("头像上传失败，请重试")
+    } finally {
+      setUploading(false)
+      // 清空 input，允许重新选择相同文件
+      e.target.value = ''
+    }
   }
 
   return (
-    <label className="flex size-24 cursor-pointer items-center justify-center overflow-hidden rounded border border-gray-200 bg-gray-50 hover:border-blue-400">
-      {value ? (
+    <label className={cn(
+      "flex size-24 cursor-pointer items-center justify-center overflow-hidden rounded border border-gray-200 bg-gray-50 hover:border-blue-400",
+      uploading && "cursor-not-allowed opacity-60"
+    )}>
+      {uploading ? (
+        <div className="flex flex-col items-center justify-center gap-1">
+          <svg className="size-8 animate-spin text-blue-500" viewBox="0 0 24 24" fill="none">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+          </svg>
+          <span className="text-xs text-gray-500">上传中...</span>
+        </div>
+      ) : value ? (
         <img src={value} alt="头像" className="size-full object-cover" />
       ) : (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="size-10 text-gray-300">
@@ -352,7 +403,13 @@ function AvatarUploader({ value, onChange }: AvatarUploaderProps) {
           <path d="m21 15-5-5L5 21" />
         </svg>
       )}
-      <input type="file" accept="image/png,image/jpeg,image/jpg" className="hidden" onChange={handleFile} />
+      <input
+        type="file"
+        accept="image/png,image/jpeg,image/jpg"
+        className="hidden"
+        onChange={handleFile}
+        disabled={uploading}
+      />
     </label>
   )
 }

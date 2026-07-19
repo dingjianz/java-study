@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -30,7 +31,12 @@ public class Emp {
     private LocalDateTime updateTime;
     private Integer deptId;
     private String image;
+
     // 封装部门名称（非 emp 表字段，来自 join dept 表）
     @TableField(exist = false)
     private String deptName;
+
+    // 封装工作经历
+    @TableField(exist = false)
+    private List<EmpExpr> exprList;
 }

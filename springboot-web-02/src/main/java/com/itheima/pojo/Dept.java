@@ -1,5 +1,7 @@
 package com.itheima.pojo;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +21,8 @@ public class Dept {
     @Size(max = 10, message = "部门名称长度不能超过 {max} 个字符")
     private String name;
 
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 }

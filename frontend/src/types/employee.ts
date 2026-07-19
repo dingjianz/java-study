@@ -1,10 +1,12 @@
 // 工作经历
 export interface EmpExpr {
   id?: number
+  /** 员工id */
+  empId?: number
   /** 开始日期 */
-  begin?: string
+  beginDate?: string
   /** 结束日期 */
-  end?: string
+  endDate?: string
   /** 公司名称 */
   company?: string
   /** 职位 */

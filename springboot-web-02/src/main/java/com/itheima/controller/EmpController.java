@@ -1,6 +1,7 @@
 package com.itheima.controller;
 
 import com.itheima.pojo.Emp;
+import com.itheima.pojo.EmpQueryParam;
 import com.itheima.pojo.Result;
 import com.itheima.service.EmpService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ public class EmpController {
     @Autowired
     private EmpService empService;
 
+    /*
     @GetMapping
     public Result page(@RequestParam(defaultValue = "1") Integer page,
                       @RequestParam(defaultValue = "10") Integer pageSize,
@@ -28,6 +30,13 @@ public class EmpController {
         log.info("分页查询员工信息，page：{}，pageSize：{}，name：{}，gender：{}，begin：{}，end：{}",
                 page, pageSize, name, gender, begin, end);
         return Result.success(empService.page(page, pageSize, name, gender, begin, end));
+    }
+     */
+
+    @GetMapping
+    public Result page(EmpQueryParam empQueryParam) {
+        log.info("分页查询员工信息:{}", empQueryParam);
+        return Result.success(empService.page(empQueryParam));
     }
 
     @GetMapping("/{id}")
@@ -48,6 +57,13 @@ public class EmpController {
     public Result delete(Integer id) {
         log.info("删除员工信息，id：{}", id);
         empService.deleteEmpById(id);
+        return Result.success();
+    }
+
+    @PostMapping
+    public Result add(@RequestBody Emp emp) {
+        log.info("添加员工信息：{}", emp);
+        empService.insertEmp(emp);
         return Result.success();
     }
 }

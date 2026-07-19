@@ -3,23 +3,63 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.itheima.mapper.EmpMapper">
-    <select id="getAllEmp" resultType="com.itheima.pojo.Emp">
+    <!--
+        Emp 的结果映射：
+        - 基本字段依赖 map-underscore-to-camel-case 自动映射
+        - deptName 为 join dept 表得到的额外列
+        - exprList 通过 collection 的嵌套子查询按 emp_id 关联查询工作经历，
+          每个员工仍是一行，不会因 join 导致行数翻倍，对分页友好
+    -->
+    <resultMap id="empResultMap" type="com.itheima.pojo.Emp">
+        <id property="id" column="id"/>
+        <result property="deptName" column="deptName"/>
+        <collection property="exprList"
+                    ofType="com.itheima.pojo.EmpExpr"
+                    column="id"
+                    select="com.itheima.mapper.EmpExprMapper.getByEmpId"/>
+    </resultMap>
+
+    <select id="getAllEmp" resultMap="empResultMap">
         select e.* , d.name deptName
         from emp e
         join dept d on e.dept_id = d.id
         <where>
-            <if test="name != null and name != ''">
-                and e.name like concat('%', #{name}, '%')
+            <if test="query.name != null and query.name != ''">
+                and e.name like concat('%', #{query.name}, '%')
             </if>
-            <if test="gender != null">
-                and e.gender = #{gender}
+            <if test="query.gender != null">
+                and e.gender = #{query.gender}
             </if>
-            <if test="begin != null">
-                and e.entry_date &gt;= #{begin}
+            <if test="query.begin != null">
+                and e.entry_date &gt;= #{query.begin}
             </if>
-            <if test="end != null">
-                and e.entry_date &lt;= #{end}
+            <if test="query.end != null">
+                and e.entry_date &lt;= #{query.end}
             </if>
         </where>
     </select>
+
+    <!--
+        useGeneratedKeys="true"
+        告诉 MyBatis 使用数据库自动生成的主键值（如 MySQL 的 AUTO_INCREMENT）。
+        当设置为 true 时，MyBatis 会在插入记录后，自动获取数据库生成的主键值
+        适用于主键由数据库自增生成的场景
+
+        keyProperty="id"
+        指定将数据库生成的主键值回填到哪个 Java 对象属性中。
+        这里是 id，表示插入成功后，会把数据库生成的主键值赋值给传入的 Emp 对象的 id 属性
+        这样插入后，你就可以直接通过 emp.getId() 获取到数据库生成的主键
+    -->
+    <!-- 单个员工查询：同样带上 deptName 和工作经历 exprList -->
+    <select id="getEmpById" resultMap="empResultMap">
+        select e.* , d.name deptName
+        from emp e
+        join dept d on e.dept_id = d.id
+        where e.id = #{id}
+    </select>
+
+    <insert id="insertEmp" useGeneratedKeys="true" keyProperty="id">
+        insert into emp(username, password, name, gender, phone, job, salary, entry_date, create_time, update_time, dept_id, image)
+        values(#{username}, #{password}, #{name}, #{gender}, #{phone}, #{job}, #{salary}, #{entryDate}, #{createTime}, #{updateTime}, #{deptId}, #{image})
+    </insert>
 </mapper>

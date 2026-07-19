@@ -3,14 +3,12 @@ package com.itheima.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.itheima.pojo.Emp;
+import com.itheima.pojo.EmpQueryParam;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @Mapper
 public interface EmpMapper extends BaseMapper<Emp> {
@@ -23,18 +21,20 @@ public interface EmpMapper extends BaseMapper<Emp> {
     /**
      * 分页查询（支持条件查询）
      */
-    IPage<Emp> getAllEmp(IPage<Emp> page,
+   /* IPage<Emp> getAllEmp(IPage<Emp> page,
                         @Param("name") String name,
                         @Param("gender") Integer gender,
                         @Param("begin") LocalDate begin,
-                        @Param("end") LocalDate end);
+                        @Param("end") LocalDate end);*/
+    IPage<Emp> getAllEmp(IPage<Emp> page, @Param("query") EmpQueryParam query);
 
-    @Select("select * from emp e where id = #{id}")
     Emp getEmpById(Integer id);
 
-    @Update("update emp set name = #{name}, username = #{username}, gender = #{gender}, job = #{job}, entry_date = #{entryDate}, image = #{image}, phone = #{phone}, password = #{password}, update_time = #{updateTime} where id = #{id}")
+    @Update("update emp set name = #{name}, username = #{username}, gender = #{gender}, job = #{job}, salary = #{salary}, dept_id = #{deptId}, entry_date = #{entryDate}, image = #{image}, phone = #{phone}, update_time = #{updateTime} where id = #{id}")
     void updateEmp(Emp emp);
 
     @Delete("delete from emp where id = #{id}")
     void deleteEmpById(Integer id);
+
+    void insertEmp(Emp emp);
 }

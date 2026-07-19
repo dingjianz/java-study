@@ -33,11 +33,12 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(DataIntegrityViolationException.class)
     public Result handleDataIntegrityViolation(DataIntegrityViolationException e) {
+        e.printStackTrace();  // 打印完整堆栈
         String message = e.getMessage();
         if (message != null && message.contains("Data too long")) {
             return Result.error("输入内容过长，请检查后重试");
         }
-        return Result.error("数据校验失败，请检查输入内容");
+        return Result.error("数据校验失败，请检查输入内容：" + message);
     }
 
     /**

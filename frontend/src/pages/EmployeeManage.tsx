@@ -146,17 +146,12 @@ export default function EmployeeManagePage() {
   };
 
   const handleEdit = (id: number) => {
-    // 调用 getById 获取最新数据
-    empApi
-      .getById(id)
-      .then((res) => {
-        setFormType("edit");
-        setEditingEmp(res.data);
-        setIsFormOpen(true);
-      })
-      .catch(() => {
-        /* 错误提示由 http 响应拦截器统一处理 */
-      });
+    // 直接使用列表中的数据，无需调接口
+    const emp = employeeList.find((e) => e.id === id);
+    if (!emp) return;
+    setFormType("edit");
+    setEditingEmp(emp);
+    setIsFormOpen(true);
   };
 
   // 点击「删除」，弹出确认框（记录待删除员工以在确认信息中展示姓名）

@@ -13,3 +13,13 @@ mybatis:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
   mapper-locations: classpath:mapper/*.xml
+
+# AWS S3 配置（使用 digit-cloud-gc 项目的凭证）
+aws:
+  s3:
+    url: oss-beijing-m8.openstorage.cn
+    access-key: GL08C7Y3RZWAEWFDYT3V
+    secret-key: 2fksKTc3NZeWEE1N6Nd3V1MW5uJVRGZVQVab55Ri
+    bucket: cloud-gc
+    max-connections: 200
+    region: cn-north-1
