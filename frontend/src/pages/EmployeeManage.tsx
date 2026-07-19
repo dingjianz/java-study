@@ -23,11 +23,24 @@ export default function EmployeeManagePage() {
   const [pageSize, setPageSize] = useState(10);
   const [total, setTotal] = useState(0);
 
+  // 查询条件状态
+  const [queryName, setQueryName] = useState("");
+  const [queryGender, setQueryGender] = useState<string>("");
+  const [queryBegin, setQueryBegin] = useState("");
+  const [queryEnd, setQueryEnd] = useState("");
+
   // 加载员工列表
   const loadEmployees = (targetPage = page, targetSize = pageSize) => {
     setLoading(true);
     empApi
-      .getPage(targetPage, targetSize)
+      .getPage({
+        page: targetPage,
+        pageSize: targetSize,
+        name: queryName || undefined,
+        gender: queryGender ? Number(queryGender) : undefined,
+        begin: queryBegin || undefined,
+        end: queryEnd || undefined,
+      })
       .then((res) => {
         setEmployeeList(res.data?.records ?? []);
         setTotal(res.data?.total ?? 0);
@@ -57,6 +70,38 @@ export default function EmployeeManagePage() {
     loadEmployees(1, pageSize);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // 处理查询按钮点击
+  const handleQuery = () => {
+    setPage(1);
+    setSelectedIds(new Set());
+    loadEmployees(1, pageSize);
+  };
+
+  // 处理清空按钮点击
+  const handleReset = () => {
+    setQueryName("");
+    setQueryGender("");
+    setQueryBegin("");
+    setQueryEnd("");
+    setPage(1);
+    setSelectedIds(new Set());
+    // 清空条件后需要重新加载，但状态更新是异步的，所以直接调用 API
+    setLoading(true);
+    empApi
+      .getPage({
+        page: 1,
+        pageSize: pageSize,
+      })
+      .then((res) => {
+        setEmployeeList(res.data?.records ?? []);
+        setTotal(res.data?.total ?? 0);
+      })
+      .catch(() => {
+        /* 错误提示由 http 响应拦截器统一处理 */
+      })
+      .finally(() => setLoading(false));
+  };
 
   // 选中行
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
@@ -176,18 +221,28 @@ export default function EmployeeManagePage() {
       {/* 页面标题 */}
       <h1 className="border-l-4 border-blue-500 pl-3 text-lg font-semibold text-gray-800">员工管理</h1>
 
-      {/* 筛选栏（静态 UI，逻辑待接口就绪后接入） */}
+      {/* 筛选栏 */}
       <Card>
         <CardContent className="p-4 pt-4">
           <div className="flex flex-wrap items-end gap-x-6 gap-y-3">
             <div className="flex items-center gap-2">
               <label className="whitespace-nowrap text-sm text-gray-600">姓名</label>
-              <Input className="w-48" placeholder="请输入员工姓名" />
+              <Input
+                className="w-48"
+                placeholder="请输入员工姓名"
+                value={queryName}
+                onChange={(e) => setQueryName(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleQuery()}
+              />
             </div>
 
             <div className="flex items-center gap-2">
               <label className="whitespace-nowrap text-sm text-gray-600">性别</label>
-              <select className={cn(selectClass, "w-40")} defaultValue="">
+              <select
+                className={cn(selectClass, "w-40")}
+                value={queryGender}
+                onChange={(e) => setQueryGender(e.target.value)}
+              >
                 <option value="">请选择</option>
                 {GENDER_OPTIONS.map((o) => (
                   <option key={o.value} value={o.value}>
@@ -199,14 +254,24 @@ export default function EmployeeManagePage() {
 
             <div className="flex items-center gap-2">
               <label className="whitespace-nowrap text-sm text-gray-600">入职时间</label>
-              <Input type="date" className="w-40" />
+              <Input
+                type="date"
+                className="w-40"
+                value={queryBegin}
+                onChange={(e) => setQueryBegin(e.target.value)}
+              />
               <span className="text-sm text-gray-400">到</span>
-              <Input type="date" className="w-40" />
+              <Input
+                type="date"
+                className="w-40"
+                value={queryEnd}
+                onChange={(e) => setQueryEnd(e.target.value)}
+              />
             </div>
 
             <div className="flex items-center gap-2">
-              <Button>查询</Button>
-              <Button variant="outline">清空</Button>
+              <Button onClick={handleQuery}>查询</Button>
+              <Button variant="outline" onClick={handleReset}>清空</Button>
             </div>
           </div>
         </CardContent>

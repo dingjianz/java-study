@@ -11,5 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 public class PageResult<T> {
     private long total;
+    private long current;
     private List<T> records;
 }

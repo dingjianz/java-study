@@ -1,5 +1,7 @@
 package com.itheima.pojo;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,10 +24,13 @@ public class Emp {
     private Integer job;
     private Integer salary;
     private LocalDate entryDate;
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
     private Integer deptId;
     private String image;
-    // 封装部门名称
+    // 封装部门名称（非 emp 表字段，来自 join dept 表）
+    @TableField(exist = false)
     private String deptName;
 }

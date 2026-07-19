@@ -2,12 +2,22 @@ import { request } from '@/utils/http'
 import type { Employee } from '@/types/employee'
 import type { PageResult } from '@/types/dept'
 
+// 员工查询参数
+export interface EmpQueryParams {
+  page: number
+  pageSize: number
+  name?: string
+  gender?: number
+  begin?: string
+  end?: string
+}
+
 // 员工 API
 export const empApi = {
     // 分页查询员工列表
-    getPage: (page: number, pageSize: number) => {
+    getPage: (params: EmpQueryParams) => {
       return request.get<PageResult<Employee>>('/emps', {
-        params: { page, pageSize }
+        params
       })
     },
     

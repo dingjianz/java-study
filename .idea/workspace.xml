@@ -5,16 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e9715d0-73fa-4306-9c24-1f84a51c2c59" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/config/mybatis/MybatisPlusConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/resources/mapper/EmpMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/api/emps.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/api/emps.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/EmployeeManage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/EmployeeManage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/types/employee.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/types/employee.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-study.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/config/mybatis/MybatisPlusConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/config/mybatis/MybatisPlusConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/EmpController.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/EmpController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/mapper/EmpMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/mapper/EmpMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/Emp.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/Emp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/PageResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/PageResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/EmpService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/EmpService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/EmpServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/EmpServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -165,7 +165,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.SpringDemoApplication.executor": "Debug",
     "Spring Boot.SpringbootWeb01Application.executor": "Run",
-    "Spring Boot.SpringbootWeb02Application.executor": "Run",
+    "Spring Boot.SpringbootWeb02Application.executor": "Debug",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "master",
@@ -180,7 +180,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.com.intellij.openapi.options.colors.pages.DefaultLanguageColorsPage"
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
   },
   "keyToStringList": {
     "DatabaseDriversLRU": [
