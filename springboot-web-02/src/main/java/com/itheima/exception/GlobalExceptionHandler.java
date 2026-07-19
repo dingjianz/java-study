@@ -2,6 +2,7 @@ package com.itheima.exception;
 
 import com.itheima.pojo.Result;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -28,17 +29,34 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * 处理唯一约束冲突异常（如 username 重复）。
+     * DuplicateKeyException 是 DataIntegrityViolationException 的子类，
+     * 需放在其之前，Spring 会优先匹配更具体的异常类型。
+     * 从底层报错信息中解析出冲突的字段名，给出友好的中文提示，
+     * 避免把原始 SQL 错误（如 Duplicate entry '1' for key 'emp.username'）暴露给前端。
+     */
+    @ExceptionHandler(DuplicateKeyException.class)
+    public Result handleDuplicateKey(DuplicateKeyException e) {
+        String message = e.getMessage();
+        if (message != null && message.contains("username")) {
+            return Result.error("用户名已存在，请更换后重试");
+        }
+        return Result.error("数据已存在，请勿重复添加");
+    }
+
+    /**
      * 兜底处理数据库完整性约束异常。
      * 正常情况下参数校验会提前拦截，这里作为最后防线（如绕过校验的直接写库场景）。
      */
     @ExceptionHandler(DataIntegrityViolationException.class)
     public Result handleDataIntegrityViolation(DataIntegrityViolationException e) {
-        e.printStackTrace();  // 打印完整堆栈
+        e.printStackTrace();  // 打印完整堆栈到服务端日志，便于排查
         String message = e.getMessage();
         if (message != null && message.contains("Data too long")) {
             return Result.error("输入内容过长，请检查后重试");
         }
-        return Result.error("数据校验失败，请检查输入内容：" + message);
+        // 不把原始 SQL 错误信息返回给前端，避免暴露表结构等敏感信息
+        return Result.error("数据校验失败，请检查输入内容");
     }
 
     /**

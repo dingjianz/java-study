@@ -97,10 +97,6 @@ public class EmpServiceImpl implements EmpService {
             emp.setPassword("123456");
         }
 
-        // 设置创建时间和更新时间
-        emp.setCreateTime(LocalDateTime.now());
-        emp.setUpdateTime(LocalDateTime.now());
-
         // 插入员工基本信息
         empMapper.insertEmp(emp);
 

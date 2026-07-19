@@ -4,11 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.itheima.pojo.Emp;
 import com.itheima.pojo.EmpQueryParam;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface EmpMapper extends BaseMapper<Emp> {
@@ -36,5 +32,6 @@ public interface EmpMapper extends BaseMapper<Emp> {
     @Delete("delete from emp where id = #{id}")
     void deleteEmpById(Integer id);
 
+//    @Options(useGeneratedKeys = true, keyProperty = "id") // .xml 文件中已经配置了
     void insertEmp(Emp emp);
 }

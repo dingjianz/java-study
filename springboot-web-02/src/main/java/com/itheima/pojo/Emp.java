@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Emp {
-    private Integer id;
+    private Integer id; // 主键id
     private String username;
     private String password;
     private String name;

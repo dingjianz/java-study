@@ -5,41 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e9715d0-73fa-4306-9c24-1f84a51c2c59" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/AVATAR_UPLOAD_COMPLETE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EMPLOYEE_ADD_SUMMARY.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/AVATAR_UPLOAD_GUIDE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/EMPLOYEE_ADD_FEATURE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/api/upload.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/S3_CONFIG_DONE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/S3_CONFIG_FIX.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/S3_IMPLEMENTATION_SUMMARY.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/S3_UPLOAD_GUIDE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/config/S3Config.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/config/S3Properties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/FileUploadController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/EmpQueryParam.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/S3Service.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/resources/application-s3.yaml.example" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/resources/mapper/EmpExprMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/dept/EmployeeFormModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/dept/EmployeeFormModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/EmployeeManage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/EmployeeManage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/types/employee.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/types/employee.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/EmpController.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/EmpController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/S3_CONFIG_DONE.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/S3_CONFIG_FIX.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/S3_IMPLEMENTATION_SUMMARY.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/S3_UPLOAD_GUIDE.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/mapper/EmpExprMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/mapper/EmpExprMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/mapper/EmpMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/mapper/EmpMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/Dept.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/Dept.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/Emp.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/Emp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/EmpExprService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/EmpExprService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/EmpService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/EmpService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/DeptServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/DeptServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/EmpExprServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/EmpExprServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/EmpServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/EmpServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/resources/mapper/EmpMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/resources/mapper/EmpMapper.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,59 +134,59 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
-    "Application.BinarySearchDemo.executor": "Run",
-    "Application.LombokDemo.executor": "Debug",
-    "Application.SpringDemoApplication.executor": "Run",
-    "Application.Test.executor": "Run",
-    "Application.Test2.executor": "Run",
-    "Application.UserService.executor": "Run",
-    "JUnit.JdbcDemoTest.testSelect.executor": "Run",
-    "JUnit.JdbcDemoTest.testUpdate.executor": "Run",
-    "JUnit.MybatisDemoApplicationTests.insertUser.executor": "Run",
-    "JUnit.MybatisDemoApplicationTests.testDeleteById.executor": "Run",
-    "JUnit.MybatisDemoApplicationTests.testFindAll.executor": "Run",
-    "JUnit.MybatisDemoApplicationTests.testFindByUsernameAndPassword.executor": "Run",
-    "JUnit.MybatisDemoApplicationTests.testUpdateUser.executor": "Run",
-    "JUnit.SpringDemoApplicationTests.contextLoads.executor": "Run",
-    "JUnit.SpringDemoApplicationTests.executor": "Debug",
-    "JUnit.SpringbootWeb02ApplicationTests.contextLoads.executor": "Run",
-    "JUnit.UserServiceTest.executor": "Run",
-    "Maven.java-study [clean].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.SpringDemoApplication.executor": "Debug",
-    "Spring Boot.SpringbootWeb01Application.executor": "Run",
-    "Spring Boot.SpringbootWeb02Application.executor": "Debug",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/lijiaqi/Documents/Java学习/my-project/pom.xml",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.jshint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.jshint": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;Application.BinarySearchDemo.executor&quot;: &quot;Run&quot;,
+    &quot;Application.LombokDemo.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.SpringDemoApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.UserService.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.JdbcDemoTest.testSelect.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.JdbcDemoTest.testUpdate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MybatisDemoApplicationTests.insertUser.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MybatisDemoApplicationTests.testDeleteById.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MybatisDemoApplicationTests.testFindAll.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MybatisDemoApplicationTests.testFindByUsernameAndPassword.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MybatisDemoApplicationTests.testUpdateUser.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SpringDemoApplicationTests.contextLoads.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SpringDemoApplicationTests.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.SpringbootWeb02ApplicationTests.contextLoads.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.java-study [clean].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.SpringDemoApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Spring Boot.SpringbootWeb01Application.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.SpringbootWeb02Application.executor&quot;: &quot;Debug&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/lijiaqi/Documents/Java学习/my-project/pom.xml&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.jshint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.jshint&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/HelloWorld/src/com/itheima/threadDemo" />
