@@ -102,16 +102,25 @@ export default function EmployeeFormModal({
     if (!form.gender) return toast.warning("请选择性别")
     if (!form.phone?.trim()) return toast.warning("请输入手机号")
 
-    // 过滤掉空的工作经历对象
-    const filteredExprList = (form.exprList ?? []).filter((expr) => {
-      // 只要有任一字段有值，就保留该条记录
-      return (
-        expr.beginDate ||
-        expr.endDate ||
-        expr.company?.trim() ||
-        expr.job?.trim()
-      )
-    })
+    // 工作经历：完全空白的记录自动忽略；只要填了任一字段，就必须四项都填完整
+    const exprList = form.exprList ?? []
+    const filteredExprList: EmpExpr[] = []
+    for (let i = 0; i < exprList.length; i++) {
+      const expr = exprList[i]
+      const filled = [
+        expr.beginDate,
+        expr.endDate,
+        expr.company?.trim(),
+        expr.job?.trim(),
+      ].filter(Boolean)
+      // 完全没填，跳过这条空记录
+      if (filled.length === 0) continue
+      // 填了一部分，视为不完整，阻止保存
+      if (filled.length < 4) {
+        return toast.warning(`请完整填写第 ${i + 1} 条工作经历`)
+      }
+      filteredExprList.push(expr)
+    }
 
     const submitData = { ...form, exprList: filteredExprList }
     const apiCall = type === "add" ? empApi.add(submitData as Employee) : empApi.update(submitData as Employee)
@@ -271,39 +280,39 @@ export default function EmployeeFormModal({
                 <p className="text-xs text-gray-400">暂无工作经历，点击下方按钮添加</p>
               )}
               {(form.exprList ?? []).map((expr, idx) => (
-                <div key={idx} className="flex flex-wrap items-center gap-2">
-                  <span className="text-sm text-gray-600">时间</span>
+                <div key={idx} className="flex flex-nowrap items-center gap-1.5">
+                  <span className="shrink-0 text-sm text-gray-600">时间</span>
                   <Input
                     type="date"
-                    className="w-36"
+                    className="min-w-0 flex-[3_1_0%] px-2"
                     value={expr.beginDate ?? ""}
                     onChange={(e) => updateExpr(idx, { beginDate: e.target.value })}
                   />
-                  <span className="text-sm text-gray-400">到</span>
+                  <span className="shrink-0 text-sm text-gray-400">到</span>
                   <Input
                     type="date"
-                    className="w-36"
+                    className="min-w-0 flex-[3_1_0%] px-2"
                     value={expr.endDate ?? ""}
                     onChange={(e) => updateExpr(idx, { endDate: e.target.value })}
                   />
-                  <span className="text-sm text-gray-600">公司</span>
+                  <span className="shrink-0 text-sm text-gray-600">公司</span>
                   <Input
-                    className="w-36"
-                    placeholder="请输入公司的名字"
+                    className="min-w-0 flex-[2_1_0%] px-2"
+                    placeholder="公司名称"
                     value={expr.company ?? ""}
                     onChange={(e) => updateExpr(idx, { company: e.target.value })}
                   />
-                  <span className="text-sm text-gray-600">职位</span>
+                  <span className="shrink-0 text-sm text-gray-600">职位</span>
                   <Input
-                    className="w-28"
-                    placeholder="请输入职位"
+                    className="min-w-0 flex-[2_1_0%] px-2"
+                    placeholder="职位"
                     value={expr.job ?? ""}
                     onChange={(e) => updateExpr(idx, { job: e.target.value })}
                   />
                   <button
                     type="button"
                     onClick={() => removeExpr(idx)}
-                    className="text-sm text-red-500 hover:underline"
+                    className="shrink-0 text-sm text-red-500 hover:underline"
                   >
                     删除
                   </button>

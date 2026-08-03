@@ -2,6 +2,7 @@ package com.itheima.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.mapper.EmpMapper;
 import com.itheima.pojo.Emp;
@@ -70,17 +71,16 @@ public class EmpServiceImpl implements EmpService {
     @Transactional(rollbackFor = Exception.class)
     public void updateEmp(Emp emp) {
         // 更新员工基本信息
-        emp.setUpdateTime(LocalDateTime.now());
         empMapper.updateEmp(emp);
 
         // 工作经历采用「先删后插」：先删掉该员工的旧工作经历
         empExprService.deleteByEmpId(emp.getId());
 
         // 再插入新的工作经历（过滤掉空记录后批量插入）
-        List<EmpExpr> validExprList = filterValidExpr(emp.getExprList());
-        if (!validExprList.isEmpty()) {
-            validExprList.forEach(expr -> expr.setEmpId(emp.getId()));
-            empExprService.insertBatch(validExprList);
+        List<EmpExpr> exprList = emp.getExprList();
+        if (!CollectionUtils.isEmpty(exprList)) {
+            exprList.forEach(expr -> expr.setEmpId(emp.getId()));
+            empExprService.insertBatch(exprList);
         }
     }
 
@@ -90,7 +90,15 @@ public class EmpServiceImpl implements EmpService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class) // 事务管理
+    /*
+    @Transactional: Spring 事务管理的注解，会在方法运行之前，开启事务
+    运行完毕之后，根据运行的结果，来提交或回滚事务。
+    位置：方法上 类上 接口上
+
+    默认 出现运行时异常 RuntimeException 才会回滚
+    rollbackFor = Exception.class 所有的异常都会回滚
+     */
     public void insertEmp(Emp emp) {
         // 设置默认密码（前端不传递密码）
         if (emp.getPassword() == null || emp.getPassword().isEmpty()) {
@@ -100,29 +108,11 @@ public class EmpServiceImpl implements EmpService {
         // 插入员工基本信息
         empMapper.insertEmp(emp);
 
-        // 保存工作经历（过滤掉空记录后批量插入）
-        List<EmpExpr> validExprList = filterValidExpr(emp.getExprList());
-        if (!validExprList.isEmpty()) {
-            // 设置每条工作经历的 empId
-            validExprList.forEach(expr -> expr.setEmpId(emp.getId()));
-            // 批量插入工作经历
-            empExprService.insertBatch(validExprList);
-        }
-    }
-
-    /**
-     * 过滤掉空的工作经历对象（所有字段都为空的记录）。
-     * 前端表单可能提交空行，这里统一清洗，新增和更新都复用。
-     */
-    private List<EmpExpr> filterValidExpr(List<EmpExpr> exprList) {
-        if (exprList == null || exprList.isEmpty()) {
-            return List.of();
-        }
-        return exprList.stream()
-                .filter(expr -> expr.getBeginDate() != null
-                        || expr.getEndDate() != null
-                        || (expr.getCompany() != null && !expr.getCompany().trim().isEmpty())
-                        || (expr.getJob() != null && !expr.getJob().trim().isEmpty()))
-                .toList();
+      Integer empId = emp.getId();
+      List<EmpExpr> exprList = emp.getExprList();
+      if (!CollectionUtils.isEmpty(exprList)) {
+          exprList.forEach(expr -> expr.setEmpId(empId));
+          empExprService.insertBatch(exprList);
+      }
     }
 }
