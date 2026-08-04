@@ -25,6 +25,9 @@ public class EmpLogServiceImpl implements EmpLogService {
 
     @Override
     public void insert(String info) {
-        empLogMapper.insert(info);
+        // operateTime 交给 MyMetaObjectHandler 自动填充，这里只组装业务字段
+        EmpLog empLog = new EmpLog();
+        empLog.setInfo(info);
+        empLogMapper.insert(empLog);
     }
 }

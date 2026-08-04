@@ -92,8 +92,10 @@ public class EmpServiceImpl implements EmpService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateEmp(Emp emp) {
-        // 更新员工基本信息
-        empMapper.updateEmp(emp);
+        // 更新员工基本信息：updateById 只更新非 null 字段，
+        // 所以 password、createTime 不会被误覆盖（与原来手写 SQL 的行为一致）；
+        // updateTime 由 MyMetaObjectHandler 自动填充
+        empMapper.updateById(emp);
 
         // 工作经历采用「先删后插」：先删掉该员工的旧工作经历
         empExprService.deleteByEmpId(emp.getId());
@@ -127,8 +129,9 @@ public class EmpServiceImpl implements EmpService {
             emp.setPassword("123456");
         }
 
-        // 插入员工基本信息
-        empMapper.insertEmp(emp);
+        // 插入员工基本信息：createTime、updateTime 由 MyMetaObjectHandler 自动填充，
+        // 自增主键会回填到 emp.id 上，供下面的工作经历使用
+        empMapper.insert(emp);
 
       Integer empId = emp.getId();
       List<EmpExpr> exprList = emp.getExprList();

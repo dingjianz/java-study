@@ -1,6 +1,5 @@
 package com.itheima.controller;
 
-import com.amazonaws.services.s3.model.S3Object;
 import com.itheima.pojo.Result;
 import com.itheima.service.S3Service;
 import lombok.RequiredArgsConstructor;
@@ -113,13 +112,9 @@ public class FileUploadController {
     public ResponseEntity<byte[]> download(@RequestParam("key") String key) {
         log.info("开始下载文件: key={}", key);
 
-        try {
-            S3Object s3Object = s3Service.downloadFile(key);
-            InputStream inputStream = s3Object.getObjectContent();
-
-            // 读取文件内容
+        try (InputStream inputStream = s3Service.downloadFile(key)) {
+            // 读取文件内容（ResponseInputStream 本身就是 InputStream）
             byte[] content = inputStream.readAllBytes();
-            inputStream.close();
 
             // 获取文件名
             String fileName = key.substring(key.lastIndexOf("/") + 1);

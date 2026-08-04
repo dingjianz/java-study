@@ -26,12 +26,10 @@ public interface EmpMapper extends BaseMapper<Emp> {
 
     Emp getEmpById(Integer id);
 
-    @Update("update emp set name = #{name}, username = #{username}, gender = #{gender}, job = #{job}, salary = #{salary}, dept_id = #{deptId}, entry_date = #{entryDate}, image = #{image}, phone = #{phone}, update_time = #{updateTime} where id = #{id}")
-    void updateEmp(Emp emp);
-
     @Delete("delete from emp where id = #{id}")
     void deleteEmpById(Integer id);
 
-//    @Options(useGeneratedKeys = true, keyProperty = "id") // .xml 文件中已经配置了
-    void insertEmp(Emp emp);
+    // 新增/修改直接用 BaseMapper 的 insert / updateById，
+    // 这样 create_time、update_time 才会被 MyMetaObjectHandler 自动填充；
+    // insert 也会把自增主键回填到实体的 id 上
 }

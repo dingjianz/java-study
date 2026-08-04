@@ -1,7 +1,9 @@
 package com.itheima.pojo;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,6 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class Dept {
+    @TableId(type = IdType.AUTO) // 主键由数据库自增生成，不用 MP 默认的雪花 ID
     private Integer id;
 
     // 部门名称长度限制与数据库 varchar(10) 保持一致，超出时返回带限制值的错误提示

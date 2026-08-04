@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.itheima.pojo.EmpExpr;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -17,8 +16,8 @@ public interface EmpExprMapper extends BaseMapper<EmpExpr> {
 
     /**
      * 根据员工 id 查询其工作经历列表（供 Emp 关联查询的 collection 使用）
+     * SQL 定义见 EmpExprMapper.xml，按 begin_date 倒序返回
      */
-    @Select("select * from emp_expr where emp_id = #{empId}")
     List<EmpExpr> getByEmpId(Integer empId);
 
     /**

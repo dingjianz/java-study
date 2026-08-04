@@ -1,36 +1,45 @@
 package com.itheima.service;
 
-import com.amazonaws.AmazonClientException;
-import com.amazonaws.HttpMethod;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.*;
 import com.itheima.config.S3Properties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.core.ResponseInputStream;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectResponse;
+import software.amazon.awssdk.services.s3.model.HeadObjectRequest;
+import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
+import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
+import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
+import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.PutObjectResponse;
+import software.amazon.awssdk.services.s3.presigner.S3Presigner;
+import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
+import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.UUID;
 
 /**
- * S3 文件服务
+ * S3 文件服务（AWS SDK for Java 2.x）
  */
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class S3Service {
 
-    private final AmazonS3 amazonS3;
+    private final S3Client s3Client;
+    private final S3Presigner s3Presigner;
     private final S3Properties s3Properties;
 
-    private static final int DEFAULT_STREAM_BUFFER_SIZE = 20 * (1 << 20);  // 20MB
     private static final long SEVEN_DAYS_MILLS = 7 * 24 * 60 * 60 * 1000L; // 7天
 
     /**
@@ -44,20 +53,16 @@ public class S3Service {
         String fileName = file.getOriginalFilename();
         String key = generateS3Key(prefix, fileName);
 
-        ObjectMetadata metadata = new ObjectMetadata();
-        metadata.setContentLength(file.getSize());
-        metadata.setContentType(file.getContentType());
+        PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                .bucket(s3Properties.getBucket())
+                .key(key)
+                .contentType(file.getContentType())
+                .contentLength(file.getSize())
+                .acl(ObjectCannedACL.PUBLIC_READ_WRITE)
+                .build();
 
-        PutObjectRequest putObjectRequest = new PutObjectRequest(
-                s3Properties.getBucket(),
-                key,
-                file.getInputStream(),
-                metadata
-        ).withCannedAcl(CannedAccessControlList.PublicReadWrite);
-
-        putObjectRequest.getRequestClientOptions().setReadLimit(DEFAULT_STREAM_BUFFER_SIZE);
-
-        amazonS3.putObject(putObjectRequest);
+        s3Client.putObject(putObjectRequest,
+                RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
 
         log.info("文件上传成功: bucket={}, key={}", s3Properties.getBucket(), key);
         return key;
@@ -69,34 +74,36 @@ public class S3Service {
      * @param inputStream 输入流
      * @param key         S3 key
      * @param contentType 内容类型
-     * @return PutObjectResult
+     * @return PutObjectResponse
      */
-    public PutObjectResult uploadStream(InputStream inputStream, String key, String contentType) {
-        ObjectMetadata metadata = new ObjectMetadata();
+    public PutObjectResponse uploadStream(InputStream inputStream, String key, String contentType) throws IOException {
+        // 2.x 上传流需要提前知道内容长度，故先读入字节数组
+        byte[] bytes = inputStream.readAllBytes();
+
+        PutObjectRequest.Builder builder = PutObjectRequest.builder()
+                .bucket(s3Properties.getBucket())
+                .key(key)
+                .contentLength((long) bytes.length)
+                .acl(ObjectCannedACL.PUBLIC_READ_WRITE);
         if (contentType != null && !contentType.isEmpty()) {
-            metadata.setContentType(contentType);
+            builder.contentType(contentType);
         }
 
-        PutObjectRequest putObjectRequest = new PutObjectRequest(
-                s3Properties.getBucket(),
-                key,
-                inputStream,
-                metadata
-        ).withCannedAcl(CannedAccessControlList.PublicReadWrite);
-
-        putObjectRequest.getRequestClientOptions().setReadLimit(DEFAULT_STREAM_BUFFER_SIZE);
-
-        return amazonS3.putObject(putObjectRequest);
+        return s3Client.putObject(builder.build(), RequestBody.fromBytes(bytes));
     }
 
     /**
      * 下载文件
      *
      * @param key S3 key
-     * @return S3Object
+     * @return 文件响应流（本身即 InputStream）
      */
-    public S3Object downloadFile(String key) {
-        return amazonS3.getObject(s3Properties.getBucket(), key);
+    public ResponseInputStream<GetObjectResponse> downloadFile(String key) {
+        GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+                .bucket(s3Properties.getBucket())
+                .key(key)
+                .build();
+        return s3Client.getObject(getObjectRequest);
     }
 
     /**
@@ -105,7 +112,9 @@ public class S3Service {
      * @param key S3 key
      */
     public void deleteFile(String key) {
-        amazonS3.deleteObject(s3Properties.getBucket(), key);
+        s3Client.deleteObject(builder -> builder
+                .bucket(s3Properties.getBucket())
+                .key(key));
         log.info("文件删除成功: bucket={}, key={}", s3Properties.getBucket(), key);
     }
 
@@ -116,7 +125,16 @@ public class S3Service {
      * @return 是否存在
      */
     public boolean fileExists(String key) {
-        return amazonS3.doesObjectExist(s3Properties.getBucket(), key);
+        try {
+            HeadObjectRequest headObjectRequest = HeadObjectRequest.builder()
+                    .bucket(s3Properties.getBucket())
+                    .key(key)
+                    .build();
+            s3Client.headObject(headObjectRequest);
+            return true;
+        } catch (NoSuchKeyException e) {
+            return false;
+        }
     }
 
     /**
@@ -137,16 +155,18 @@ public class S3Service {
      * @return 预签名 URL
      */
     public String generatePresignedUrl(String key, long expireTime) {
-        Date expiration = new Date(System.currentTimeMillis() + expireTime);
-        GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(
-                s3Properties.getBucket(),
-                key
-        )
-                .withMethod(HttpMethod.GET)
-                .withExpiration(expiration);
+        GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+                .bucket(s3Properties.getBucket())
+                .key(key)
+                .build();
 
-        URL url = amazonS3.generatePresignedUrl(request);
-        return url.toString();
+        GetObjectPresignRequest presignRequest = GetObjectPresignRequest.builder()
+                .signatureDuration(Duration.ofMillis(expireTime))
+                .getObjectRequest(getObjectRequest)
+                .build();
+
+        PresignedGetObjectRequest presignedRequest = s3Presigner.presignGetObject(presignRequest);
+        return presignedRequest.url().toString();
     }
 
     /**
@@ -164,24 +184,17 @@ public class S3Service {
     }
 
     /**
-     * 创建文件夹
+     * 创建文件夹（上传一个以 "/" 结尾的空对象）
      *
      * @param folderPath 文件夹路径
      */
-    public void createFolder(String folderPath) throws AmazonClientException {
-        ObjectMetadata metadata = new ObjectMetadata();
-        metadata.setContentLength(0);
-
-        String suffix = "/";
-        InputStream emptyContent = new ByteArrayInputStream(new byte[0]);
-
-        PutObjectRequest putObjectRequest = new PutObjectRequest(
-                s3Properties.getBucket(),
-                folderPath + suffix,
-                emptyContent,
-                metadata
-        );
-        amazonS3.putObject(putObjectRequest);
+    public void createFolder(String folderPath) {
+        PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                .bucket(s3Properties.getBucket())
+                .key(folderPath + "/")
+                .contentLength(0L)
+                .build();
+        s3Client.putObject(putObjectRequest, RequestBody.empty());
 
         log.info("文件夹创建成功: bucket={}, folder={}", s3Properties.getBucket(), folderPath);
     }
@@ -190,10 +203,14 @@ public class S3Service {
      * 列出指定前缀的所有对象
      *
      * @param prefix 前缀
-     * @return ObjectListing
+     * @return ListObjectsV2Response
      */
-    public ObjectListing listObjects(String prefix) {
-        return amazonS3.listObjects(s3Properties.getBucket(), prefix);
+    public ListObjectsV2Response listObjects(String prefix) {
+        ListObjectsV2Request request = ListObjectsV2Request.builder()
+                .bucket(s3Properties.getBucket())
+                .prefix(prefix)
+                .build();
+        return s3Client.listObjectsV2(request);
     }
 
     /**

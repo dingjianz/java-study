@@ -25,8 +25,8 @@ public class DeptServiceImpl implements DeptService {
 
     @Override
     public void addDept(Dept dept) {
-        // 补全属性
-        deptMapper.addDept(dept);
+        // createTime、updateTime 由 MyMetaObjectHandler 自动填充
+        deptMapper.insert(dept);
     }
 
     @Override
@@ -36,7 +36,8 @@ public class DeptServiceImpl implements DeptService {
 
     @Override
     public void updateDept(Dept dept) {
-        // 补全属性
-        deptMapper.updateDept(dept);
+        // updateById 只更新非 null 字段，createTime 不会被覆盖；
+        // updateTime 由 MyMetaObjectHandler 自动填充
+        deptMapper.updateById(dept);
     }
 }

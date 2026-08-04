@@ -3,6 +3,7 @@ package com.itheima.controller;
 import com.itheima.pojo.Emp;
 import com.itheima.pojo.EmpQueryParam;
 import com.itheima.pojo.Result;
+import com.itheima.service.EmpLogService;
 import com.itheima.service.EmpService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ import java.time.LocalDateTime;
 public class EmpController {
     @Autowired
     private EmpService empService;
+
+    @Autowired
+    private EmpLogService empLogService;
 
     /*
     @GetMapping
@@ -36,18 +40,21 @@ public class EmpController {
     @GetMapping
     public Result page(EmpQueryParam empQueryParam) {
         log.info("分页查询员工信息:{}", empQueryParam);
+        empLogService.insert("分页查询员工信息");
         return Result.success(empService.page(empQueryParam));
     }
 
     @GetMapping("/{id}")
     public Result getById(@PathVariable Integer id) {
         log.info("查询员工信息，id：{}", id);
+        empLogService.insert("查询员工信息");
         return Result.success(empService.getEmpById(id));
     }
 
     @PutMapping
     public Result update(@RequestBody Emp emp) {
         log.info("更新员工信息：{}", emp);
+        empLogService.insert("更新员工信息");
         emp.setUpdateTime(LocalDateTime.now());
         empService.updateEmp(emp);
         return Result.success();
@@ -56,6 +63,7 @@ public class EmpController {
     @DeleteMapping
     public Result delete(Integer id) {
         log.info("删除员工信息，id：{}", id);
+        empLogService.insert("删除员工信息");
         empService.deleteEmpById(id);
         return Result.success();
     }
@@ -63,6 +71,7 @@ public class EmpController {
     @PostMapping
     public Result add(@RequestBody Emp emp) {
         log.info("添加员工信息：{}", emp);
+        empLogService.insert("添加员工信息");
         empService.insertEmp(emp);
         return Result.success();
     }
