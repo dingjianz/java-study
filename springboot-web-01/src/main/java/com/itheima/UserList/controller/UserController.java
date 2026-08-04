@@ -37,7 +37,7 @@ public class UserController {
             声明bean的时候，可以通过注解的value属性指定bean的名字，如果没有置顶，默认为类名首字母小写。
             eg: @Component("xxYyyy")
 
-            前面声明bean的四大注解，要想生效，还需要被组件扫描注解 @COmponentScan 扫描
+            前面声明bean的四大注解，要想生效，还需要被组件扫描注解 @ComponentScan 扫描
             该注解虽然没有显示配置，但是实际上已经包含在了启动类声明注解 @SpringBootApplication 中，
             默认的扫描的范围是启动类所在包及其子包。
 

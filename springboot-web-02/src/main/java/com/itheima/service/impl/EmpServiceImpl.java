@@ -52,11 +52,33 @@ public class EmpServiceImpl implements EmpService {
 
     @Override
     public PageResult<Emp> page(EmpQueryParam empQueryParam) {
+        /*
+         * MyBatis-Plus 分页原理（拦截器 + SQL 改写）：
+         *
+         * 1. new Page<>(当前页, 每页条数) 本身不查数据库，它只是一个「分页参数载体」，
+         *    同时也是查询结果的接收容器（实现了 IPage 接口）。
+         *
+         * 2. 关键在于 MybatisPlusConfig 中注册的 PaginationInnerInterceptor 分页插件。
+         *    它拦截 MyBatis 执行 SQL 的过程，发现 Mapper 方法的第一个参数是 IPage 类型时，
+         *    自动把 XML 里那条「原始 SQL」改写成两条 SQL 执行：
+         *      ① COUNT 语句：select count(*) from (原始SQL)  —— 得到 total 总记录数
+         *      ② 分页语句：原始SQL + order by ... limit ?, ?  —— 得到当前页数据
+         *    其中 limit 的偏移量由插件自动计算：offset = (page - 1) * pageSize。
+         *    所以我们不用像传统写法那样手动算 start，也不用自己写 count 语句。
+         *
+         * 3. limit 语法与数据库方言相关，因此配置插件时指定了 DbType.MYSQL，
+         *    插件据此生成对应方言的分页 SQL（Oracle 用 rownum、PostgreSQL 用 limit offset 等）。
+         *
+         * 4. 查询完成后，插件把 total / current / records 回填到这个 page 对象里，
+         *    所以下面从返回的 IPage 上就能直接取到总数和当前页数据。
+         */
         Page<Emp> page = new Page<>(empQueryParam.getPage(), empQueryParam.getPageSize());
+        // 排序条件也交给插件拼接（追加到分页 SQL 的 order by 中，不会污染 COUNT 语句）
         // 按更新时间降序；join 查询用别名 e 限定列名，避免歧义
         page.addOrder(OrderItem.desc("e.update_time"));
 
         // 直接将查询参数传递给 Mapper，由 XML 动态 SQL 处理
+        // 注意：page 必须作为第一个参数传入，插件才能识别并改写 SQL；返回的即是被回填后的分页对象
         IPage<Emp> empIPage = empMapper.getAllEmp(page, empQueryParam);
         return new PageResult<>(empIPage.getTotal(), empIPage.getCurrent(), empIPage.getRecords());
     }
