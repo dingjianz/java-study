@@ -119,21 +119,21 @@ public class S3Service {
     }
 
     /**
-     * 判断文件是否存在
+     * 判断文件是否不存在
      *
      * @param key S3 key
-     * @return 是否存在
+     * @return 不存在返回 true
      */
-    public boolean fileExists(String key) {
+    public boolean fileNotExists(String key) {
         try {
             HeadObjectRequest headObjectRequest = HeadObjectRequest.builder()
                     .bucket(s3Properties.getBucket())
                     .key(key)
                     .build();
             s3Client.headObject(headObjectRequest);
-            return true;
-        } catch (NoSuchKeyException e) {
             return false;
+        } catch (NoSuchKeyException e) {
+            return true;
         }
     }
 

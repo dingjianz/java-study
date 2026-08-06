@@ -9,6 +9,8 @@ import com.itheima.pojo.Result;
 import com.itheima.service.EmpLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class EmpLogServiceImpl implements EmpLogService {
@@ -24,6 +26,7 @@ public class EmpLogServiceImpl implements EmpLogService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW) // 日志单独开事务，主业务失败了，日志也可以保留下来。
     public void insert(String info) {
         // operateTime 交给 MyMetaObjectHandler 自动填充，这里只组装业务字段
         EmpLog empLog = new EmpLog();

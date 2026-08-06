@@ -22,7 +22,7 @@ public interface EmpMapper extends BaseMapper<Emp> {
                         @Param("gender") Integer gender,
                         @Param("begin") LocalDate begin,
                         @Param("end") LocalDate end);*/
-    IPage<Emp> getAllEmp(IPage<Emp> page, @Param("query") EmpQueryParam query);
+   // IPage<Emp> getAllEmp(IPage<Emp> page, @Param("query") EmpQueryParam query);
 
     Emp getEmpById(Integer id);
 

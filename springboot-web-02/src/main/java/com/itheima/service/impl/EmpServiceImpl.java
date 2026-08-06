@@ -1,5 +1,6 @@
 package com.itheima.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
@@ -79,7 +80,13 @@ public class EmpServiceImpl implements EmpService {
 
         // 直接将查询参数传递给 Mapper，由 XML 动态 SQL 处理
         // 注意：page 必须作为第一个参数传入，插件才能识别并改写 SQL；返回的即是被回填后的分页对象
-        IPage<Emp> empIPage = empMapper.getAllEmp(page, empQueryParam);
+        // IPage<Emp> empIPage = empMapper.getAllEmp(page, empQueryParam);
+        LambdaQueryWrapper<Emp> empLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        empLambdaQueryWrapper.like(Emp::getName, empQueryParam.getName())
+                .eq(Emp::getGender, empQueryParam.getGender())
+                .ge(Emp::getEntryDate, empQueryParam.getBegin())
+                .le(Emp::getEntryDate, empQueryParam.getEnd());
+        IPage<Emp> empIPage = empMapper.selectPage(page, empLambdaQueryWrapper);
         return new PageResult<>(empIPage.getTotal(), empIPage.getCurrent(), empIPage.getRecords());
     }
 
@@ -122,6 +129,11 @@ public class EmpServiceImpl implements EmpService {
 
     默认 出现运行时异常 RuntimeException 才会回滚
     rollbackFor = Exception.class 所有的异常都会回滚
+
+    propagation: 事务传播行为，控制一个事务方法调用另一个事务方法时，事务应该如何传递。
+    默认值是 Propagation.REQUIRED：有事务就加入当前事务，没有事务就新建事务。
+    Propagation.REQUIRES_NEW：总是新建一个独立事务；如果外层已有事务，会先挂起外层事务，
+    常用于日志、审计等需要独立提交的操作。
      */
     public void insertEmp(Emp emp) {
         // 设置默认密码（前端不传递密码）
@@ -133,11 +145,12 @@ public class EmpServiceImpl implements EmpService {
         // 自增主键会回填到 emp.id 上，供下面的工作经历使用
         empMapper.insert(emp);
 
-      Integer empId = emp.getId();
-      List<EmpExpr> exprList = emp.getExprList();
-      if (!CollectionUtils.isEmpty(exprList)) {
-          exprList.forEach(expr -> expr.setEmpId(empId));
-          empExprService.insertBatch(exprList);
-      }
+        // 处理工作经历（在插入员工后，此时 emp.getId() 已有值）
+        Integer empId = emp.getId();
+        List<EmpExpr> exprList = emp.getExprList();
+        if (!CollectionUtils.isEmpty(exprList)) {
+            exprList.forEach(expr -> expr.setEmpId(empId));
+            empExprService.insertBatch(exprList);
+        }
     }
 }

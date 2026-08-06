@@ -146,7 +146,7 @@ public class FileUploadController {
         log.info("开始删除文件: key={}", key);
 
         try {
-            if (!s3Service.fileExists(key)) {
+            if (s3Service.fileNotExists(key)) {
                 return Result.error("文件不存在");
             }
 
@@ -175,7 +175,7 @@ public class FileUploadController {
         log.info("获取文件 URL: key={}, expireTime={}分钟", key, expireTime);
 
         try {
-            if (!s3Service.fileExists(key)) {
+            if (s3Service.fileNotExists(key)) {
                 return Result.error("文件不存在");
             }
 

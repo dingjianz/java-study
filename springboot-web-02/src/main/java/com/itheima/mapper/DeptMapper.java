@@ -29,7 +29,7 @@ public interface DeptMapper extends BaseMapper<Dept> {
     @Select("select * from dept order by update_time desc ")
      List<Dept> getAllDept();
 
-    @Delete("delete from  dept where id = #{id}")
+    @Delete("delete from dept where id = #{id}")
     void deleteDeptById(Integer id);
 
     @Select("select * from dept where id = #{id}")

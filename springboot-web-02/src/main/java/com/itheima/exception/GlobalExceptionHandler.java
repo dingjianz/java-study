@@ -3,10 +3,13 @@ package com.itheima.exception;
 import com.itheima.pojo.Result;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 /**
  * 全局异常处理器
@@ -57,6 +60,16 @@ public class GlobalExceptionHandler {
         }
         // 不把原始 SQL 错误信息返回给前端，避免暴露表结构等敏感信息
         return Result.error("数据校验失败，请检查输入内容");
+    }
+
+    /**
+     * 处理静态资源未找到异常（如浏览器扩展或第三方 SDK 请求的 sw.js、manifest.json 等）。
+     * 直接返回 404 状态码，不打印堆栈，避免日志噪音。
+     */
+    @ExceptionHandler(NoResourceFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public void handleNoResourceFound(NoResourceFoundException e) {
+        // 静默处理，不返回 JSON，让浏览器收到标准 404
     }
 
     /**
