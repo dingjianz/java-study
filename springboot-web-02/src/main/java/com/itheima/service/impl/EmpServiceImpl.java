@@ -16,6 +16,7 @@ import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -74,18 +75,25 @@ public class EmpServiceImpl implements EmpService {
          *    所以下面从返回的 IPage 上就能直接取到总数和当前页数据。
          */
         Page<Emp> page = new Page<>(empQueryParam.getPage(), empQueryParam.getPageSize());
-        // 排序条件也交给插件拼接（追加到分页 SQL 的 order by 中，不会污染 COUNT 语句）
-        // 按更新时间降序；join 查询用别名 e 限定列名，避免歧义
-        page.addOrder(OrderItem.desc("e.update_time"));
 
         // 直接将查询参数传递给 Mapper，由 XML 动态 SQL 处理
         // 注意：page 必须作为第一个参数传入，插件才能识别并改写 SQL；返回的即是被回填后的分页对象
         // IPage<Emp> empIPage = empMapper.getAllEmp(page, empQueryParam);
         LambdaQueryWrapper<Emp> empLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        empLambdaQueryWrapper.like(Emp::getName, empQueryParam.getName())
-                .eq(Emp::getGender, empQueryParam.getGender())
-                .ge(Emp::getEntryDate, empQueryParam.getBegin())
-                .le(Emp::getEntryDate, empQueryParam.getEnd());
+        // 每个条件都要带上 condition 参数（第一个入参）做判空！
+        // MP 的 like(column, val) 等价于 like(true, column, val)，只要调用了条件就一定拼进 SQL，
+        // 不会像 XML 的 <if test="name != null"> 那样自动忽略 null。
+        // 若不判空，参数全为 null 时会生成 `name like null and gender = null ...`，
+        // 在 MySQL 里结果是 NULL 而非 true，任何一行都匹配不上，导致查出来是空列表。
+        empLambdaQueryWrapper
+                .like(StringUtils.hasText(empQueryParam.getName()), Emp::getName, empQueryParam.getName())
+                .eq(empQueryParam.getGender() != null, Emp::getGender, empQueryParam.getGender())
+                .ge(empQueryParam.getBegin() != null, Emp::getEntryDate, empQueryParam.getBegin())
+                .le(empQueryParam.getEnd() != null, Emp::getEntryDate, empQueryParam.getEnd())
+                // 排序用 Lambda 指定字段，编译期即可校验，也不会写错列名。
+                // 这里是单表查询，不能像 join 查询那样用 "e.update_time" 这种带别名的写法，
+                // 否则 SQL 里没有 e 这个别名，会报 Unknown column 'e.update_time'。
+                .orderByDesc(Emp::getUpdateTime);
         IPage<Emp> empIPage = empMapper.selectPage(page, empLambdaQueryWrapper);
         return new PageResult<>(empIPage.getTotal(), empIPage.getCurrent(), empIPage.getRecords());
     }
@@ -115,9 +123,18 @@ public class EmpServiceImpl implements EmpService {
         }
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteEmpById(Integer id) {
         empMapper.deleteEmpById(id);
+        empExprService.deleteByEmpId(id);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void deleteBatch(List<Integer> ids) {
+        empMapper.deleteByIds(ids);
+        empExprService.deleteByEmpIds(ids);
     }
 
     @Override

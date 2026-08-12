@@ -6,14 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="0e9715d0-73fa-4306-9c24-1f84a51c2c59" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/FileUploadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/FileUploadController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/mapper/DeptMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/mapper/DeptMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/api/emps.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/api/emps.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/EmployeeManage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/EmployeeManage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/EmpController.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/EmpController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/mapper/EmpMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/mapper/EmpMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/S3Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/S3Service.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/EmpLogServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/EmpLogServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/Emp.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/Emp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/EmpExprService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/EmpExprService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/EmpService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/EmpService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/EmpExprServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/EmpExprServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/EmpServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/EmpServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/resources/mapper/EmpMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/resources/mapper/EmpMapper.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -299,8 +302,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-63390994e64e-intellij.indexing.shared.core-IU-262.8665.337" />
-        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.8665.337" />
+        <option value="bundled-jdk-30f59d01ecdd-63390994e64e-intellij.indexing.shared.core-IU-262.8665.258" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.8665.258" />
       </set>
     </attachedChunks>
   </component>

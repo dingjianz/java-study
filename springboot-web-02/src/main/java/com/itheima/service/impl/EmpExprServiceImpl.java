@@ -24,4 +24,9 @@ public class EmpExprServiceImpl implements EmpExprService {
     public void deleteByEmpId(Integer empId) {
         empExprMapper.deleteByEmpId(empId);
     }
+
+    @Override
+    public void deleteByEmpIds(List<Integer> empIds) {
+        empExprMapper.deleteByIds(empIds);
+    }
 }

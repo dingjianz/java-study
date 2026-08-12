@@ -40,6 +40,11 @@ export const empApi = {
 
   // 删除员工
   delete: (id: number) => {
-    return request.delete<void>(`/emps?id=${id}`)
+    return request.delete<void>(`/emps/${id}`)
+  },
+
+  // 批量删除员工
+  deleteBatch: (ids: number[]) => {
+    return request.delete<void>(`/emps?ids=${ids.join(',')}`)
   },
 }

@@ -117,6 +117,11 @@ export default function EmployeeManagePage() {
   const [formType, setFormType] = useState<"add" | "edit">("add");
   const [editingEmp, setEditingEmp] = useState<Employee | null>(null);
 
+  // 重命名 Modal
+  const [isRenameOpen, setIsRenameOpen] = useState(false);
+  const [renamingEmp, setRenamingEmp] = useState<Employee | null>(null);
+  const [newName, setNewName] = useState("");
+
   const allChecked = employeeList.length > 0 && selectedIds.size === employeeList.length;
 
   const toggleAll = () => {
@@ -146,12 +151,48 @@ export default function EmployeeManagePage() {
   };
 
   const handleEdit = (id: number) => {
-    // 直接使用列表中的数据，无需调接口
+    // 调用后端接口获取最新的员工详细信息
+    setLoading(true);
+    empApi
+      .getById(id)
+      .then((res) => {
+        setFormType("edit");
+        setEditingEmp(res.data);
+        setIsFormOpen(true);
+      })
+      .catch(() => {
+        /* 错误提示由 http 响应拦截器统一处理 */
+      })
+      .finally(() => setLoading(false));
+  };
+
+  // 打开重命名对话框
+  const handleRename = (id: number) => {
     const emp = employeeList.find((e) => e.id === id);
     if (!emp) return;
-    setFormType("edit");
-    setEditingEmp(emp);
-    setIsFormOpen(true);
+    setRenamingEmp(emp);
+    setNewName(emp.name);
+    setIsRenameOpen(true);
+  };
+
+  // 确认重命名
+  const confirmRename = () => {
+    if (!renamingEmp?.id || !newName.trim()) return;
+
+    // 只传递 id 和 name 进行重命名
+    setLoading(true);
+    empApi
+      .update({ id: renamingEmp.id, name: newName.trim() } as Employee)
+      .then(() => {
+        setIsRenameOpen(false);
+        setRenamingEmp(null);
+        setNewName("");
+        loadEmployees(page, pageSize);
+      })
+      .catch(() => {
+        /* 错误提示由 http 响应拦截器统一处理 */
+      })
+      .finally(() => setLoading(false));
   };
 
   // 点击「删除」，弹出确认框（记录待删除员工以在确认信息中展示姓名）
@@ -186,24 +227,20 @@ export default function EmployeeManagePage() {
 
   const confirmBatchDelete = () => {
     const ids = Array.from(selectedIds);
-    Promise.allSettled(ids.map((id) => empApi.delete(id))).then((results) => {
-      // 统计真正成功删除的条数
-      const successCount = results.filter((r) => r.status === "fulfilled").length;
-      const failCount = results.filter((r) => r.status === "rejected").length;
+    empApi
+      .deleteBatch(ids)
+      .then(() => {
+        // 关闭确认框，清空选中状态
+        setSelectedIds(new Set());
+        setIsDeleteOpen(false);
 
-      // 关闭确认框，清空选中状态
-      setSelectedIds(new Set());
-      setIsDeleteOpen(false);
-
-      // 即使部分失败也刷新列表（避免界面显示已删除的记录）
-      reloadAfterDelete(successCount);
-
-      // 有失败时额外提示用户（成功的提示已由响应拦截器处理）
-      if (failCount > 0 && successCount > 0) {
-        // 这里可以加 toast 提示，比如 toast.warning(`成功删除 ${successCount} 条，${failCount} 条失败`)
-        console.warn(`批量删除：成功 ${successCount} 条，失败 ${failCount} 条`);
-      }
-    });
+        // 刷新列表
+        reloadAfterDelete(ids.length);
+      })
+      .catch(() => {
+        // 错误提示由 http 响应拦截器统一处理
+        setIsDeleteOpen(false);
+      });
   };
 
   const handleBatchDelete = () => {
@@ -283,7 +320,7 @@ export default function EmployeeManagePage() {
             </Button>
           </div>
 
-          <EmployeeTable list={employeeList} loading={loading} allChecked={allChecked} selectedIds={selectedIds} onToggleAll={toggleAll} onToggleOne={toggleOne} onEdit={handleEdit} onDelete={handleDelete} />
+          <EmployeeTable list={employeeList} loading={loading} allChecked={allChecked} selectedIds={selectedIds} onToggleAll={toggleAll} onToggleOne={toggleOne} onEdit={handleEdit} onRename={handleRename} onDelete={handleDelete} />
 
           {/* 分页 */}
           <Pagination className="mt-4" page={page} pageSize={pageSize} total={total} onChange={handlePageChange} />
@@ -292,6 +329,47 @@ export default function EmployeeManagePage() {
 
       {/* 新增/编辑员工表单 */}
       <EmployeeFormModal open={isFormOpen} onOpenChange={setIsFormOpen} type={formType} employee={editingEmp} onSaved={handleSaved} />
+
+      {/* 重命名对话框 */}
+      <Modal
+        open={isRenameOpen}
+        onOpenChange={(open) => {
+          if (!open) {
+            setIsRenameOpen(false);
+            setRenamingEmp(null);
+            setNewName("");
+          }
+        }}>
+        <ModalContent>
+          <ModalHeader>
+            <ModalTitle>重命名员工</ModalTitle>
+          </ModalHeader>
+          <div className="space-y-2 px-6 py-4">
+            <label className="text-sm text-gray-600">姓名</label>
+            <Input
+              autoFocus
+              value={newName}
+              placeholder="请输入新的姓名"
+              onChange={(e) => setNewName(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && confirmRename()}
+            />
+          </div>
+          <ModalFooter>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setIsRenameOpen(false);
+                setRenamingEmp(null);
+                setNewName("");
+              }}>
+              取消
+            </Button>
+            <Button onClick={confirmRename} disabled={!newName.trim() || newName.trim() === renamingEmp?.name}>
+              保存
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
 
       {/* 单个删除确认框 */}
       <Modal
@@ -342,10 +420,11 @@ interface EmployeeTableProps {
   onToggleAll: () => void;
   onToggleOne: (id: number) => void;
   onEdit: (id: number) => void;
+  onRename: (id: number) => void;
   onDelete: (id: number) => void;
 }
 
-function EmployeeTable({ list, loading, allChecked, selectedIds, onToggleAll, onToggleOne, onEdit, onDelete }: EmployeeTableProps) {
+function EmployeeTable({ list, loading, allChecked, selectedIds, onToggleAll, onToggleOne, onEdit, onRename, onDelete }: EmployeeTableProps) {
   const thClass = "p-3 text-left text-sm font-semibold text-gray-700";
 
   return (
@@ -396,6 +475,9 @@ function EmployeeTable({ list, loading, allChecked, selectedIds, onToggleAll, on
                   <div className="flex justify-center gap-3 text-sm">
                     <button type="button" onClick={() => onEdit(emp.id!)} className="text-blue-600 hover:underline">
                       编辑
+                    </button>
+                    <button type="button" onClick={() => onRename(emp.id!)} className="text-green-600 hover:underline">
+                      重命名
                     </button>
                     <button type="button" onClick={() => onDelete(emp.id!)} className="text-red-500 hover:underline">
                       删除

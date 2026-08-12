@@ -17,12 +17,7 @@ public interface EmpMapper extends BaseMapper<Emp> {
     /**
      * 分页查询（支持条件查询）
      */
-   /* IPage<Emp> getAllEmp(IPage<Emp> page,
-                        @Param("name") String name,
-                        @Param("gender") Integer gender,
-                        @Param("begin") LocalDate begin,
-                        @Param("end") LocalDate end);*/
-   // IPage<Emp> getAllEmp(IPage<Emp> page, @Param("query") EmpQueryParam query);
+    IPage<Emp> getAllEmp(IPage<Emp> page, @Param("query") EmpQueryParam query);
 
     Emp getEmpById(Integer id);
 

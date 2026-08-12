@@ -26,9 +26,8 @@ public class Emp {
     private String name;
     private Integer gender; // 性别： 1男/2女
 
-    // updateById 默认只更新非 null 字段，而手机号/头像允许被清空，
-    // 所以显式声明为 ALWAYS，让 null 也能写进库里
-    @TableField(updateStrategy = FieldStrategy.ALWAYS)
+    // phone 在库里是 NOT NULL UNIQUE，不能被清空，
+    // 所以沿用 updateById 默认策略：为 null 时不参与更新
     private String phone;
     private Integer job;
     private Integer salary;
@@ -39,6 +38,7 @@ public class Emp {
     private LocalDateTime updateTime;
     private Integer deptId;
 
+    // image 是可空列，允许把头像清空，故传 null 时也写进库
     @TableField(updateStrategy = FieldStrategy.ALWAYS)
     private String image;
 

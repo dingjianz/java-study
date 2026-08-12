@@ -12,7 +12,6 @@
     -->
     <resultMap id="empResultMap" type="com.itheima.pojo.Emp">
         <id property="id" column="id"/>
-        <result property="deptName" column="deptName"/>
         <collection property="exprList"
                     ofType="com.itheima.pojo.EmpExpr"
                     column="id"
@@ -52,5 +51,43 @@
         - 自增主键回填由 Emp 上的 @TableId(type = IdType.AUTO) 负责，
           等价于手写 XML 时的 useGeneratedKeys="true" keyProperty="id"
         - create_time / update_time 由 MyMetaObjectHandler 自动填充
+    -->
+
+    <!--
+        【方案一：MyBatis-Plus updateById + FieldStrategy（当前使用）】
+        在 Emp 实体上配置每个字段的更新策略：
+        - 默认策略 DEFAULT/NOT_NULL：字段为 null 时不拼进 SET
+        - ALWAYS 策略：不管 null 与否都拼进 SET（适合可空列且需要"清空"语义的字段，如 image）
+        - NOT_EMPTY 策略：字符串为空串 "" 时也不拼进 SET
+
+        优点：注解配置，无需写 XML；缺点：策略是字段级的，不能针对某次调用单独调整
+
+        【方案二：手写动态 SQL（备选，已注释）】
+        用 <if test="..."> 逐字段判断，灵活度更高，可以同时判断 null 和空串。
+        若需启用，把下面的 update 标签取消注释，并在 EmpMapper 接口里声明：
+        void updateByIdDynamic(Emp emp);
+
+        两种方案效果相同，选一种即可。当前项目用方案一，phone 已改回默认策略（null 不更新），
+        image 保持 ALWAYS（允许清空头像）。
+    -->
+    <!--
+    <update id="updateByIdDynamic">
+        update emp
+        // <set> 替换set关键字，去除字段之后多余的逗号(，)
+        <set>
+            <if test="username != null and username != ''">username = #{username},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="phone != null and phone != ''">phone = #{phone},</if>
+            <if test="job != null">job = #{job},</if>
+            <if test="salary != null">salary = #{salary},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="entryDate != null">entry_date = #{entryDate},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="updateTime != null">update_time = #{updateTime}</if>
+        </set>
+        where id = #{id}
+    </update>
     -->
 </mapper>
