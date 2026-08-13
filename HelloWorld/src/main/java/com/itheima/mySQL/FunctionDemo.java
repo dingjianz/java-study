@@ -95,6 +95,8 @@ public class FunctionDemo {
            case [expr] when [value1] then [res1] ... else [default] end : 如果expr等于value1，则返回res1，... 否则返回default默认值
 
            ----------- 函数演示 ----------
+            select
+           if(gender = 1, '男', '女') as pos, count(*) as num from emp;
            select if(1 > 2, 'true', 'false'); // false
            select if(1 < 2, 'true', 'false'); // true
            select ifnull(null, 'hello'); // hello

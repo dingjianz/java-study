@@ -58,6 +58,12 @@
             count(*) as num
         from emp group by job order by num
     </select>
+    <select id="countEmpGenderData" resultType="java.util.Map">
+        select
+           if(gender = 1, '男', '女') as name,
+                 count(*) as value
+            from emp GROUP BY gender
+    </select>
 
     <!--
         原来这里有一条 insertEmp，已改用 BaseMapper.insert(emp)：

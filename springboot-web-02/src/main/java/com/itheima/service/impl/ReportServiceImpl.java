@@ -2,7 +2,6 @@ package com.itheima.service.impl;
 
 import com.itheima.mapper.EmpMapper;
 import com.itheima.pojo.JobOption;
-import com.itheima.service.EmpService;
 import com.itheima.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,5 +27,10 @@ public class ReportServiceImpl implements ReportService {
                 .toList();
 
         return new JobOption(jobList, dataList);
+    }
+
+    @Override
+    public List<Map<String, Object>> getGenderData() {
+        return empMapper.countEmpGenderData();
     }
 }

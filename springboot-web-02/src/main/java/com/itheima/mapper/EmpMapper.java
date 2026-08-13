@@ -29,6 +29,8 @@ public interface EmpMapper extends BaseMapper<Emp> {
 
     List<Map<String, Object>> countEmpJobData();
 
+    List<Map<String, Object>> countEmpGenderData();
+
     // 新增/修改直接用 BaseMapper 的 insert / updateById，
     // 这样 create_time、update_time 才会被 MyMetaObjectHandler 自动填充；
     // insert 也会把自增主键回填到实体的 id 上
