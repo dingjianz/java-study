@@ -42,8 +42,8 @@ export default function EmployeeManagePage() {
         end: queryEnd || undefined,
       })
       .then((res) => {
-        setEmployeeList(res.data?.records ?? []);
-        setTotal(res.data?.total ?? 0);
+        setEmployeeList(res.records ?? []);
+        setTotal(res.total ?? 0);
       })
       .catch(() => {
         /* 错误提示由 http 响应拦截器统一处理 */
@@ -94,8 +94,8 @@ export default function EmployeeManagePage() {
         pageSize: pageSize,
       })
       .then((res) => {
-        setEmployeeList(res.data?.records ?? []);
-        setTotal(res.data?.total ?? 0);
+        setEmployeeList(res.records ?? []);
+        setTotal(res.total ?? 0);
       })
       .catch(() => {
         /* 错误提示由 http 响应拦截器统一处理 */
@@ -157,7 +157,7 @@ export default function EmployeeManagePage() {
       .getById(id)
       .then((res) => {
         setFormType("edit");
-        setEditingEmp(res.data);
+        setEditingEmp(res);
         setIsFormOpen(true);
       })
       .catch(() => {

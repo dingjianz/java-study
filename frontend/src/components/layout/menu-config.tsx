@@ -73,4 +73,4 @@ export const menuConfig: MenuItem[] = [
 ]
 
 // 已实现的路由集合，其余跳占位页
-export const IMPLEMENTED_PATHS = new Set<string>(["/admin/dept", "/admin/employee"])
+export const IMPLEMENTED_PATHS = new Set<string>(["/admin/dept", "/admin/employee", "/admin/stat/employee"])

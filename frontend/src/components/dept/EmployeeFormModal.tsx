@@ -73,7 +73,7 @@ export default function EmployeeFormModal({
     if (!open) return
     deptApi
       .getAll()
-      .then((res) => setDeptList(res.data))
+      .then((res) => setDeptList(res))
       .catch(() => {
         /* 拉取失败时下拉为空，联调时后端就绪即可 */
       })

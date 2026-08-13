@@ -6,6 +6,9 @@ import com.itheima.pojo.Emp;
 import com.itheima.pojo.EmpQueryParam;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+import java.util.Map;
+
 @Mapper
 public interface EmpMapper extends BaseMapper<Emp> {
     /**
@@ -23,6 +26,8 @@ public interface EmpMapper extends BaseMapper<Emp> {
 
     @Delete("delete from emp where id = #{id}")
     void deleteEmpById(Integer id);
+
+    List<Map<String, Object>> countEmpJobData();
 
     // 新增/修改直接用 BaseMapper 的 insert / updateById，
     // 这样 create_time、update_time 才会被 MyMetaObjectHandler 自动填充；

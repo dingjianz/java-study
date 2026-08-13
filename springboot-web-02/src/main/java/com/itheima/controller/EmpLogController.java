@@ -1,9 +1,11 @@
 package com.itheima.controller;
 
 import com.itheima.pojo.EmpLog;
+import com.itheima.pojo.JobOption;
 import com.itheima.pojo.PageResult;
 import com.itheima.pojo.Result;
 import com.itheima.service.EmpLogService;
+import com.itheima.service.ReportService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

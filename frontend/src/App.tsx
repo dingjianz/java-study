@@ -3,6 +3,7 @@ import { Toaster } from 'sonner'
 import AdminLayout from './components/layout/AdminLayout'
 import DeptManagePage from './pages/DeptManage'
 import EmployeeManagePage from './pages/EmployeeManage'
+import EmployeeStatisticsPage from './pages/EmployeeStatistics'
 import PlaceholderPage from './pages/Placeholder'
 import AboutPage from './pages/About'
 import CakeGrowthTest from './pages/CakeGrowthTest'
@@ -25,7 +26,7 @@ function App() {
           <Route path="home" element={<PlaceholderPage />} />
           <Route path="class" element={<PlaceholderPage />} />
           <Route path="student" element={<PlaceholderPage />} />
-          <Route path="stat/employee" element={<PlaceholderPage />} />
+          <Route path="stat/employee" element={<EmployeeStatisticsPage />} />
           <Route path="stat/student" element={<PlaceholderPage />} />
         </Route>
 

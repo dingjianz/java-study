@@ -5,17 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e9715d0-73fa-4306-9c24-1f84a51c2c59" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/EMPLOYEE_STATISTICS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/api/mock/statistics.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/api/statistics.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/EmployeeStatistics.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/types/statistics.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/ReportController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/JobOption.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/ReportService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/ReportServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/api/emps.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/api/emps.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/EmployeeManage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/EmployeeManage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/EmpController.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/EmpController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pnpm-lock.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/layout/menu-config.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layout/menu-config.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/EmpLogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/controller/EmpLogController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/exception/GlobalExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/mapper/EmpMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/mapper/EmpMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/Emp.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/pojo/Emp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/EmpExprService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/EmpExprService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/EmpService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/EmpService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/EmpExprServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/EmpExprServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/EmpServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/service/impl/EmpServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/resources/mapper/EmpMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/resources/mapper/EmpMapper.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -292,8 +299,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.SpringbootWeb02Application" />
-        <item itemvalue="JUnit.SpringbootWeb02ApplicationTests.contextLoads" />
         <item itemvalue="Spring Boot.SpringbootWeb01Application" />
+        <item itemvalue="JUnit.SpringbootWeb02ApplicationTests.contextLoads" />
         <item itemvalue="JUnit.MybatisDemoApplicationTests.testUpdateUser" />
         <item itemvalue="JUnit.MybatisDemoApplicationTests.testFindByUsernameAndPassword" />
       </list>
@@ -302,8 +309,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-63390994e64e-intellij.indexing.shared.core-IU-262.8665.258" />
-        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.8665.258" />
+        <option value="bundled-jdk-30f59d01ecdd-34e2839f716b-intellij.indexing.shared.core-IU-262.9437.185" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.9437.185" />
       </set>
     </attachedChunks>
   </component>

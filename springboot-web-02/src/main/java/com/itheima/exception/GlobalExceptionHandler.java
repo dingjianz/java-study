@@ -1,6 +1,7 @@
 package com.itheima.exception;
 
 import com.itheima.pojo.Result;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
  * 使用 @RestControllerAdvice 统一捕获 Controller 层抛出的异常，
  * 转换成统一的 Result 错误格式返回，避免直接返回 500 及底层异常堆栈。
  */
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 

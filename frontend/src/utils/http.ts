@@ -96,31 +96,31 @@ http.interceptors.response.use(
   }
 )
 
-// 封装常用请求方法
+// 封装常用请求方法（直接返回业务数据）
 export const request = {
-  async get<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+  async get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
     const response = await http.get<ApiResponse<T>>(url, config)
-    return response.data
+    return response.data.data
   },
 
-  async post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+  async post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
     const response = await http.post<ApiResponse<T>>(url, data, config)
-    return response.data
+    return response.data.data
   },
 
-  async put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+  async put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
     const response = await http.put<ApiResponse<T>>(url, data, config)
-    return response.data
+    return response.data.data
   },
 
-  async delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+  async delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
     const response = await http.delete<ApiResponse<T>>(url, config)
-    return response.data
+    return response.data.data
   },
 
-  async patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+  async patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
     const response = await http.patch<ApiResponse<T>>(url, data, config)
-    return response.data
+    return response.data.data
   },
 }
 

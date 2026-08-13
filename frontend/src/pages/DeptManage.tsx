@@ -26,8 +26,8 @@ export default function DeptManagePage() {
   const loadDeptList = async () => {
     try {
       setLoading(true);
-      const response = await deptApi.getAll();
-      setDeptList(response.data);
+      const depts = await deptApi.getAll();
+      setDeptList(depts);
     } catch (error) {
       console.error("加载部门列表失败：", error);
       console.log("加载部门列表失败");
@@ -57,10 +57,10 @@ export default function DeptManagePage() {
     }
 
     try {
-      const response = await deptApi.getById(dept.id);
+      const deptDetail = await deptApi.getById(dept.id);
       setModalType("edit");
-      setCurrentDept(response.data);
-      setDeptName(response.data.name);
+      setCurrentDept(deptDetail);
+      setDeptName(deptDetail.name);
       setIsModalOpen(true);
     } catch (error) {
       console.error("获取部门详情失败：", error);
