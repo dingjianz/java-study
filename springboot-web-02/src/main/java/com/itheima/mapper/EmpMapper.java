@@ -31,6 +31,9 @@ public interface EmpMapper extends BaseMapper<Emp> {
 
     List<Map<String, Object>> countEmpGenderData();
 
+    @Select("select * from emp where username = #{username} and password = #{password}")
+    Emp selectByUsernameAndPassword(Emp emp);
+
     // 新增/修改直接用 BaseMapper 的 insert / updateById，
     // 这样 create_time、update_time 才会被 MyMetaObjectHandler 自动填充；
     // insert 也会把自增主键回填到实体的 id 上

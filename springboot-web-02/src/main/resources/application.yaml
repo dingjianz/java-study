@@ -21,7 +21,11 @@ mybatis:
 
 logging:
   level:
+    root: info                      # 根级别，未单独指定的包都用这个
+    com.itheima: debug              # 自己的代码开到 debug，log.debug 才会输出
     org.springframework.jdbc.support.JdbcTransactionManager: debug
+  pattern:
+    console: "%d{HH:mm:ss.SSS} %highlight(%-5level) %cyan(%logger{36}) - %msg%n"
 
 
 # AWS S3 配置（使用 digit-cloud-gc 项目的凭证）

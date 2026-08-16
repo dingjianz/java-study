@@ -2,6 +2,7 @@ package com.itheima;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 
 /**
  * 部门表结构及测试数据
@@ -98,6 +99,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
          map-underscore-to-camel-case: true
 
  */
+@ServletComponentScan // 开启了springboot 对 servlet 组件的支持
 @SpringBootApplication
 public class SpringbootWeb02Application {
 

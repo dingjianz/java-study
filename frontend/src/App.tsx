@@ -7,6 +7,7 @@ import EmployeeStatisticsPage from './pages/EmployeeStatistics'
 import PlaceholderPage from './pages/Placeholder'
 import AboutPage from './pages/About'
 import CakeGrowthTest from './pages/CakeGrowthTest'
+import LoginPage from './pages/Login'
 import './index.css'
 
 function App() {
@@ -14,6 +15,9 @@ function App() {
     <BrowserRouter>
       <Toaster position="top-center" richColors />
       <Routes>
+        {/* 登录页面 */}
+        <Route path="/login" element={<LoginPage />} />
+
         {/* 默认进入后台，落到部门管理 */}
         <Route path="/" element={<Navigate to="/admin/dept" replace />} />
 

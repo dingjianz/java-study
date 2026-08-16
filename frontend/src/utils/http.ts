@@ -1,5 +1,6 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse, AxiosError } from 'axios'
 import { toast } from 'sonner'
+import { clearToken, getToken } from './token'
 
 // API 响应数据结构
 export interface ApiResponse<T = any> {
@@ -20,11 +21,11 @@ const http: AxiosInstance = axios.create({
 // 请求拦截器
 http.interceptors.request.use(
   (config) => {
-    // 可以在这里添加 token
-    // const token = localStorage.getItem('token')
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`
-    // }
+    // 除登录接口外，统一携带 token 请求头
+    const token = getToken()
+    if (token && config.url !== '/login') {
+      config.headers.token = token
+    }
     return config
   },
   (error: AxiosError) => {
@@ -62,6 +63,11 @@ http.interceptors.response.use(
           break
         case 401:
           message = '未授权，请重新登录'
+          // token 失效：清理并回到登录页
+          clearToken()
+          if (window.location.pathname !== '/login') {
+            window.location.href = '/login'
+          }
           break
         case 403:
           message = '拒绝访问'

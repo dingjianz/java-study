@@ -54,6 +54,15 @@ export default {
           "5": "hsl(var(--chart-5))",
         },
       },
+      backgroundImage: {
+        'grid-white': 'linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px)',
+      },
+      animation: {
+        'pulse': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      },
+      animationDelay: {
+        '1000': '1000ms',
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
