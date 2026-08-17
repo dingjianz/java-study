@@ -1,6 +1,7 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse, AxiosError } from 'axios'
 import { toast } from 'sonner'
 import { clearToken, getToken } from './token'
+import { useAuthStore } from '@/stores/authStore'
 
 // API 响应数据结构
 export interface ApiResponse<T = any> {
@@ -62,9 +63,10 @@ http.interceptors.response.use(
           message = data?.msg || '请求参数错误'
           break
         case 401:
-          message = '未授权，请重新登录'
-          // token 失效：清理并回到登录页
+          message = '登录已过期，请重新登录'
+          // token 失效：清理 token 与认证状态，回到登录页
           clearToken()
+          useAuthStore.getState().logout()
           if (window.location.pathname !== '/login') {
             window.location.href = '/login'
           }

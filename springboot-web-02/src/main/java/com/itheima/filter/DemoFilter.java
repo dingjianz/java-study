@@ -6,7 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
-@WebFilter(urlPatterns = "/*") // /* 代表拦截所有请求
+
+/*
+    /login 只有访问 /login 的请求才会被拦截
+    /emps/* 只有访问 /emps/ 开头的请求才会被拦截
+    /* 代表拦截所有请求
+ */
+// @WebFilter(urlPatterns = "/*") // /* 代表拦截所有请求 // 注释了 就不会拦截请求了
 @Slf4j
 public class DemoFilter implements Filter {
     /**

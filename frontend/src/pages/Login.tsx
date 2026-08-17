@@ -45,7 +45,9 @@ export default function LoginPage() {
       toast.success('登录成功')
       navigate('/admin/dept')
     } catch (error) {
-      // 错误已由 http.ts 拦截器处理
+      // http.ts 已显示后端返回的错误信息
+      // 如果需要统一为"用户名或密码错误"，可以在这里覆盖
+      toast.error('用户名或密码错误')
       console.error('登录失败:', error)
     } finally {
       setIsLoading(false)

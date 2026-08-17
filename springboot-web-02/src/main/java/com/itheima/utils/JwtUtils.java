@@ -24,4 +24,13 @@ public class JwtUtils {
     }
 
 
+    /**
+     * 解析JWT令牌
+     */
+    public static void parseToken(String token){
+        Jwts.parser()
+                .setSigningKey(SECRET_KEY)
+                .parseClaimsJws(token)
+                .getBody();
+    }
 }

@@ -1,7 +1,25 @@
-import { Outlet } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
+import { toast } from "sonner"
 import Sidebar from "./Sidebar"
+import { useAuthStore } from "@/stores/authStore"
+import { clearToken } from "@/utils/token"
+import { Button } from "@/components/ui/button"
 
 export default function AdminLayout() {
+  const navigate = useNavigate()
+  const { user, logout } = useAuthStore()
+
+  const handleLogout = () => {
+    // 清除 token
+    clearToken()
+    // 清除认证状态
+    logout()
+    // 提示用户
+    toast.success("已退出登录")
+    // 跳转到登录页
+    navigate("/login")
+  }
+
   return (
     <div className="flex h-screen bg-gray-100">
       <Sidebar />
@@ -11,10 +29,18 @@ export default function AdminLayout() {
         <header className="flex h-14 shrink-0 items-center justify-between border-b border-gray-200 bg-white px-6">
           <div className="text-sm text-gray-500">后台管理系统</div>
           <div className="flex items-center gap-3">
-            <span className="text-sm text-gray-600">管理员</span>
+            <span className="text-sm text-gray-600">{user?.name || "管理员"}</span>
             <div className="flex size-8 items-center justify-center rounded-full bg-gray-200 text-sm font-medium text-gray-600">
-              管
+              {user?.name?.[0] || "管"}
             </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleLogout}
+              className="ml-2 text-gray-600 hover:text-gray-900"
+            >
+              退出登录
+            </Button>
           </div>
         </header>
 

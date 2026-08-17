@@ -51,7 +51,7 @@ npm install
 npm run dev
 ```
 
-应用将在 [http://localhost:8082](http://localhost:8082) 启动
+应用将在 [http://localhost:3001](http://localhost:3001) 启动
 
 ### 构建生产版本
 

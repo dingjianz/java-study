@@ -59,7 +59,7 @@ SDK 只需要全局引入一次，自动初始化。
 
 #### 2.2 验证安装
 
-**前提：** 联系 CakeGrowth 技术支持初始化项目，并添加测试域名（如 `http://localhost:8082`）
+**前提：** 联系 CakeGrowth 技术支持初始化项目，并添加测试域名（如 `http://localhost:3001`）
 
 浏览器访问：
 
@@ -774,7 +774,7 @@ await window.CakeGrowth('pageview', { refreshVisitor: true });
 - **`src/types/cakegrowth.d.ts`** - TypeScript 类型声明
 - **`CAKEGROWTH_SDK.md`** - 安装说明文档
 
-**测试页面访问：** `http://localhost:8082/cakegrowth-test`
+**测试页面访问：** `http://localhost:3001/cakegrowth-test`
 
 ---
 

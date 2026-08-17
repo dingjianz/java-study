@@ -137,17 +137,23 @@
     <!-- Logger 配置：定义特定包或类的日志级别 -->
     <!-- ========================================== -->
 
-    <!-- Spring 框架日志：设置为 OFF，完全关闭所有Spring框架日志 -->
-    <logger name="org.springframework" level="OFF"/>
+    <!--
+        Spring 框架日志：设置为 WARN
+        注意：不要设为 OFF。Spring Boot 启动失败的诊断报告
+        （LoggingFailureAnalysisReporter 输出的 "APPLICATION FAILED TO START"）
+        走的正是 org.springframework 这个 logger，设为 OFF 会导致启动异常
+        被完全屏蔽，只看到日志停在 "No active profile set" 后进程静默退出。
+    -->
+    <logger name="org.springframework" level="WARN"/>
 
-    <!-- Spring Boot 启动日志：设置为 OFF，完全关闭启动信息 -->
-    <logger name="org.springframework.boot" level="OFF"/>
+    <!-- Spring Boot 启动日志：WARN，屏蔽常规启动信息但保留告警与错误 -->
+    <logger name="org.springframework.boot" level="WARN"/>
 
-    <!-- Spring Boot Test 日志：设置为 OFF，关闭测试相关的启动信息 -->
-    <logger name="org.springframework.test" level="OFF"/>
+    <!-- Spring Boot Test 日志：WARN -->
+    <logger name="org.springframework.test" level="WARN"/>
 
-    <!-- Spring Context 日志：设置为 OFF，关闭上下文初始化信息 -->
-    <logger name="org.springframework.context" level="OFF"/>
+    <!-- Spring Context 日志：WARN -->
+    <logger name="org.springframework.context" level="WARN"/>
 
     <!-- MyBatis 日志：设置为 OFF，完全关闭 MyBatis 日志 -->
     <logger name="com.itheima.mapper" level="OFF"/>

@@ -23,7 +23,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 cd frontend
 
-# 开发模式（默认端口 8082）
+# 开发模式（默认端口 3001）
 npm run dev
 
 # 生产构建（构建前会进行类型检查）

@@ -58,7 +58,7 @@ frontend/
 ```bash
 npm run dev
 ```
-访问: http://localhost:8082
+访问: http://localhost:3001
 
 ### 构建生产版本
 ```bash

@@ -117,11 +117,11 @@ cd frontend
 npm run dev
 ```
 
-前端运行在 `http://localhost:8082`
+前端运行在 `http://localhost:3001`
 
 ### 3. 测试新增员工
 
-1. 打开浏览器访问 `http://localhost:8082`
+1. 打开浏览器访问 `http://localhost:3001`
 2. 进入「员工管理」页面
 3. 点击「新增员工」按钮
 4. 填写表单：

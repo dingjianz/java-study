@@ -27,7 +27,7 @@ npm run dev
 打开浏览器访问：
 
 ```
-http://localhost:8082/cakegrowth-test
+http://localhost:3001/cakegrowth-test
 ```
 
 ## 测试步骤

@@ -58,7 +58,7 @@ frontend/src/
 前端已实现完整功能，目前使用模拟数据：
 
 1. 启动前端：`npm run dev`
-2. 访问：http://localhost:8082/admin/stat/employee
+2. 访问：http://localhost:3001/admin/stat/employee
 3. 从左侧菜单「数据统计管理 > 员工信息统计」进入
 
 ### 后端对接

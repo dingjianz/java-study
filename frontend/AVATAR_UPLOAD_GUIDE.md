@@ -100,7 +100,7 @@ npm run dev
 
 ### 4. 上传头像
 
-1. 打开员工管理页面 `http://localhost:8082/employees`
+1. 打开员工管理页面 `http://localhost:3001/employees`
 2. 点击「新增员工」或「编辑」按钮
 3. 在表单中找到「头像」区域
 4. 点击头像上传框，选择图片文件
