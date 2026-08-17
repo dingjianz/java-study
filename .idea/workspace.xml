@@ -5,27 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e9715d0-73fa-4306-9c24-1f84a51c2c59" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/config/WebConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/filter/TokenFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/interceptor/DemoInterceptor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/interceptor/TokenInterceptor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/AVATAR_UPLOAD_GUIDE.md" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/AVATAR_UPLOAD_GUIDE.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/CAKEGROWTH_SDK.md" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/CAKEGROWTH_SDK.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/CLAUDE.md" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/CLAUDE.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/EMPLOYEE_ADD_FEATURE.md" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/EMPLOYEE_ADD_FEATURE.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/EMPLOYEE_STATISTICS.md" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/EMPLOYEE_STATISTICS.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/PROJECT_SETUP.md" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/PROJECT_SETUP.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/QUICK_START.md" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/QUICK_START.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/layout/AdminLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layout/AdminLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/cakegrowth-sdk-complete.md" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/lib/cakegrowth-sdk-complete.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/utils/http.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/utils/http.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/vite.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/filter/DemoFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/filter/DemoFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/utils/JwtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/utils/JwtUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/resources/logback-spring.xml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/resources/logback-spring.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-web-02/src/main/java/com/itheima/config/WebConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,7 +175,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.com.intellij.openapi.options.colors.pages.JavaColorSettingsPage",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "ts.external.directory.path": "/Users/lijiaqi/Documents/Java学习/my-project/frontend/node_modules/typescript/lib"
   },
   "keyToStringList": {
