@@ -1,5 +1,6 @@
 package com.itheima.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
@@ -172,6 +173,8 @@ public class EmpServiceImpl implements EmpService {
         }
     }
 
+    /*
+
     @Override
     public LoginInfo login(Emp emp) {
         // 1.调用mapper接口，根据用户名和密码查询员工信息
@@ -186,6 +189,30 @@ public class EmpServiceImpl implements EmpService {
             claims.put("name", e.getName());
             claims.put("username", e.getUsername());
             String token = JwtUtils.generateToken(claims);
+            return new LoginInfo(e.getId(), e.getUsername(), e.getName(), token);
+
+        }
+
+        // 3.不存在，返回null
+        return null;
+    }
+    */
+
+    @Override
+    public LoginInfo login(Emp emp) {
+        // 1.调用mapper接口，根据用户名和密码查询员工信息
+        Emp e = empMapper.selectByUsernameAndPassword(emp);
+
+        // 2.预判是否存在这个员工，如果存在，组装登录成功信息
+        if (e != null) {
+            log.info("登录成功，员工信息：{}", e);
+            // Sa-Token 登录：以员工 id 作为登录标识，框架内部会生成并维护 token
+            StpUtil.login(e.getId());
+            // 把常用信息放进 Session，后续业务可通过 StpUtil.getSession() 取用
+            StpUtil.getSession().set("username", e.getUsername());
+            StpUtil.getSession().set("name", e.getName());
+            // 取出本次登录生成的 token 返回给前端
+            String token = StpUtil.getTokenValue();
             return new LoginInfo(e.getId(), e.getUsername(), e.getName(), token);
 
         }

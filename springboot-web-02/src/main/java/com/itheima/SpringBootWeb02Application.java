@@ -99,12 +99,12 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
          map-underscore-to-camel-case: true
 
  */
-@ServletComponentScan // 开启了springboot 对 servlet 组件的支持
+// @ServletComponentScan // 开启了SpringBoot 对 servlet 组件的支持
 @SpringBootApplication
-public class SpringbootWeb02Application {
+public class SpringBootWeb02Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringbootWeb02Application.class, args);
+        SpringApplication.run(SpringBootWeb02Application.class, args);
     }
 
 }

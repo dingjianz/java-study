@@ -1,6 +1,8 @@
+import { useState } from "react"
 import { Outlet, useNavigate } from "react-router-dom"
 import { toast } from "sonner"
 import Sidebar from "./Sidebar"
+import { authApi } from "@/api/auth"
 import { useAuthStore } from "@/stores/authStore"
 import { clearToken } from "@/utils/token"
 import { Button } from "@/components/ui/button"
@@ -8,16 +10,27 @@ import { Button } from "@/components/ui/button"
 export default function AdminLayout() {
   const navigate = useNavigate()
   const { user, logout } = useAuthStore()
+  const [loggingOut, setLoggingOut] = useState(false)
 
-  const handleLogout = () => {
-    // 清除 token
-    clearToken()
-    // 清除认证状态
-    logout()
-    // 提示用户
-    toast.success("已退出登录")
-    // 跳转到登录页
-    navigate("/login")
+  const handleLogout = async () => {
+    if (loggingOut) return
+    setLoggingOut(true)
+    try {
+      // 通知后端退出登录（失败也要清理本地状态）
+      await authApi.logout()
+    } catch {
+      // 错误提示已由 http 拦截器统一处理
+    } finally {
+      // 清除 token
+      clearToken()
+      // 清除认证状态
+      logout()
+      // 提示用户
+      toast.success("已退出登录")
+      // 跳转到登录页
+      navigate("/login")
+      setLoggingOut(false)
+    }
   }
 
   return (
@@ -37,9 +50,10 @@ export default function AdminLayout() {
               variant="ghost"
               size="sm"
               onClick={handleLogout}
+              disabled={loggingOut}
               className="ml-2 text-gray-600 hover:text-gray-900"
             >
-              退出登录
+              {loggingOut ? "退出中..." : "退出登录"}
             </Button>
           </div>
         </header>

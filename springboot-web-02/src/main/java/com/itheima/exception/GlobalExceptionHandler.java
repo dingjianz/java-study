@@ -1,5 +1,6 @@
 package com.itheima.exception;
 
+import cn.dev33.satoken.exception.NotLoginException;
 import com.itheima.pojo.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -20,6 +21,17 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    /**
+     * 处理 Sa-Token 未登录异常（token 缺失、无效、已过期、被顶下线等）。
+     * 统一响应 401，前端拦截器收到 401 后会清理本地 token 并跳回登录页。
+     */
+    @ExceptionHandler(NotLoginException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public Result handleNotLogin(NotLoginException e) {
+        log.info("未登录或令牌失效：{}", e.getMessage());
+        return Result.error("未登录或登录已过期，请重新登录");
+    }
 
     /**
      * 处理 @Valid 参数校验失败异常。

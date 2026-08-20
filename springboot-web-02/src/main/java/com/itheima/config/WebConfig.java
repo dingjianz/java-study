@@ -1,5 +1,7 @@
 package com.itheima.config;
 
+import cn.dev33.satoken.interceptor.SaInterceptor;
+import cn.dev33.satoken.stp.StpUtil;
 import com.itheima.interceptor.DemoInterceptor;
 import com.itheima.interceptor.TokenInterceptor;
 import jakarta.annotation.Nonnull;
@@ -40,6 +42,12 @@ public class WebConfig implements WebMvcConfigurer {
          * /depts/**       /depts下的任意级路径      能匹配/depts, /depts/1, /depts/1/2
          *                                          不能匹配/emps/1
          */
-        registry.addInterceptor(tokenInterceptor).addPathPatterns("/**").excludePathPatterns("/login");
+        // registry.addInterceptor(tokenInterceptor).addPathPatterns("/**").excludePathPatterns("/login");
+
+         // Sa-Token 登录校验拦截器：校验失败会抛出 NotLoginException，
+        // 由 GlobalExceptionHandler 统一转换成 401 响应
+        registry.addInterceptor(new SaInterceptor(handle -> StpUtil.checkLogin()))
+                .addPathPatterns("/**")
+                .excludePathPatterns("/login", "/logout");
     }
 }
