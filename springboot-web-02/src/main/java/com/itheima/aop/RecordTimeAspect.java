@@ -42,7 +42,7 @@ import java.util.Arrays;
  *    - 目标方法前的通知方法：数字小的先执行
  *    - 目标方法后的通知方法：数字小的后执行
  */
-@Aspect // 表示当前类是一个 AOP 切面类
+// @Aspect // 表示当前类是一个 AOP 切面类
 @Component // 交给 Spring IOC 容器管理
 @Slf4j // Lombok 注解，自动生成日志对象 log
 public class RecordTimeAspect {

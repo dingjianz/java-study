@@ -1,5 +1,6 @@
 package com.itheima.controller;
 
+import com.itheima.anno.Log;
 import com.itheima.pojo.Emp;
 import com.itheima.pojo.EmpQueryParam;
 import com.itheima.pojo.Result;
@@ -38,6 +39,7 @@ public class EmpController {
     }
      */
 
+    @Log
     @GetMapping
     public Result page(EmpQueryParam empQueryParam) {
         log.info("分页查询员工信息:{}", empQueryParam);
@@ -45,6 +47,7 @@ public class EmpController {
         return Result.success(empService.page(empQueryParam));
     }
 
+    @Log
     @GetMapping("/{id}")
     public Result getById(@PathVariable Integer id) {
         log.info("查询员工信息，id：{}", id);
@@ -52,6 +55,7 @@ public class EmpController {
         return Result.success(empService.getEmpById(id));
     }
 
+    @Log
     @PutMapping
     public Result update(@RequestBody Emp emp) {
         log.info("更新员工信息：{}", emp);
@@ -61,6 +65,7 @@ public class EmpController {
         return Result.success();
     }
 
+    @Log
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
         log.info("删除员工信息，id：{}", id);
