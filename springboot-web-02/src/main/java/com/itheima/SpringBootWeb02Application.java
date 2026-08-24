@@ -91,7 +91,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
      @Select("select id, name, create_time createTime, update_time updateTime from dept ...")
      public List<Dept> findAll();
 
-   开启驼峰命名：如果字段名与属性名符合驼峰命名规则，mybatis会自动通过驼峰命名规则映射。
+   开启驼峰命名：如果字段名与属性名符合驼峰命名规则，mybatis 会自动通过驼峰命名规则映射。
 
      application.yml 配置：
      mybatis:
