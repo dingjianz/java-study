@@ -42,7 +42,7 @@ public class EmpController {
     @Log
     @GetMapping
     public Result page(EmpQueryParam empQueryParam) {
-        log.info("分页查询员工信息:{}", empQueryParam);
+        // log.info("分页查询员工信息:{}", empQueryParam);
         empLogService.insert("分页查询员工信息");
         return Result.success(empService.page(empQueryParam));
     }
@@ -50,7 +50,7 @@ public class EmpController {
     @Log
     @GetMapping("/{id}")
     public Result getById(@PathVariable Integer id) {
-        log.info("查询员工信息，id：{}", id);
+        // log.info("查询员工信息，id：{}", id);
         empLogService.insert("查询员工信息");
         return Result.success(empService.getEmpById(id));
     }
@@ -58,7 +58,7 @@ public class EmpController {
     @Log
     @PutMapping
     public Result update(@RequestBody Emp emp) {
-        log.info("更新员工信息：{}", emp);
+        // log.info("更新员工信息：{}", emp);
         empLogService.insert("更新员工信息");
         emp.setUpdateTime(LocalDateTime.now());
         empService.updateEmp(emp);
@@ -68,7 +68,7 @@ public class EmpController {
     @Log
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
-        log.info("删除员工信息，id：{}", id);
+        // log.info("删除员工信息，id：{}", id);
         empLogService.insert("删除员工信息");
         empService.deleteEmpById(id);
         return Result.success();
@@ -76,7 +76,7 @@ public class EmpController {
 
     @DeleteMapping
     public Result deleteBatch(@RequestParam List<Integer> ids) {
-        log.info("批量删除员工信息，ids：{}", ids);
+        // log.info("批量删除员工信息，ids：{}", ids);
         empLogService.insert("批量删除员工信息");
         empService.deleteBatch(ids);
         return Result.success();
@@ -84,7 +84,7 @@ public class EmpController {
 
     @PostMapping
     public Result add(@RequestBody Emp emp) {
-        log.info("添加员工信息：{}", emp);
+        // log.info("添加员工信息：{}", emp);
         empLogService.insert("添加员工信息");
         empService.insertEmp(emp);
         return Result.success();
