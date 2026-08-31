@@ -14,6 +14,8 @@
         <module>maven-study</module>
         <module>spring-demo</module>
         <module>mybatis-demo</module>
+        <module>springboot-web-01</module>
+        <module>springboot-web-02</module>
     </modules>
 
     <properties>

@@ -106,6 +106,30 @@ package com.itheima.linux;
         eg: mv hello.txt hi.txt     将 hello.txt 文件重命名为 hi.txt
         eg: mv hello.txt itcast/    将 hello.txt 文件移动到 itcast 目录下
 
+ tar: 对文件进行打包、解包、压缩、解压缩
+        语法：tar [-zcxvf] fileName [files]
+         说明：
+            包文件后缀为.tar表示只是完成打包，没有压缩
+            包文件后缀为.tar.gz表示使用 gzip 压缩
+        选项：
+            -z 表示使用 gzip 压缩或解压缩
+            -c 表示创建新的归档文件，打包
+            -x 表示从归档文件中提取文件，解包
+            -v 表示显示归档文件中的文件列表
+            -f 表示指定归档文件名
+
+        常用组合：
+            打包：
+                tar -cvf hello.tar hello  将hello文件或目录打包成hello.tar
+            压缩：
+                tar -zcvf hello.tar.gz hello 将hello文件或目录打包压缩成hello.tar.gz
+
+            解包：
+                tar -xvf hello.tar         解包hello.tar文件到当前目录
+            解压缩：
+                tar -zxvf hello.tar.gz     解压缩hello.tar.gz文件到当前目录
+            解压到指定目录：
+                tar -zxvf hello.tar.gz -C /usr/local 解压hello.tar.gz文件到/usr/local目录下
 
  */
 public class Test {
