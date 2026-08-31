@@ -131,6 +131,57 @@ package com.itheima.linux;
             解压到指定目录：
                 tar -zxvf hello.tar.gz -C /usr/local 解压hello.tar.gz文件到/usr/local目录下
 
+ zip / unzip: 压缩、解压 zip 格式文件
+        说明：zip 和 unzip 是两个独立的命令（不属于 tar 体系），部分系统需要先安装
+             安装：yum install -y zip unzip  或  apt install zip unzip
+             与 tar 的区别：zip 一步完成"打包 + 压缩"，不需要像 tar 那样用 -z 去调 gzip
+
+        zip 压缩：
+        语法：zip [-r] 压缩包名.zip 文件或目录
+        选项：
+            -r 表示递归处理，压缩目录时必须加，否则只会存入一个空目录
+            -x 表示排除指定文件
+        eg: zip hello.zip a.txt b.txt      将 a.txt、b.txt 压缩成 hello.zip
+        eg: zip -r hello.zip hello/        将 hello 目录及其下所有文件压缩成 hello.zip
+        eg: zip -r hello.zip hello/ -x "*.log"   压缩 hello 目录，但排除所有 .log 文件
+
+        unzip 解压：
+        语法：unzip [-lo] 压缩包名.zip [-d dir]
+        选项：
+            -d dir 表示指定解压到哪个目录（对应 tar 的 -C）
+            -l 表示只查看压缩包内的文件列表，不解压
+            -o 表示覆盖已存在的文件时不再询问
+        eg: unzip hello.zip                解压 hello.zip 到当前目录
+        eg: unzip hello.zip -d /tmp/target 解压 hello.zip 到 /tmp/target 目录
+        eg: unzip -l hello.zip             只查看 hello.zip 里有哪些文件
+        eg: unzip -o hello.zip             解压并直接覆盖同名文件
+
+        tar 与 zip 对照：
+            打包压缩：tar -zcvf x.tar.gz dir/   <=>  zip -r x.zip dir/
+            解压：    tar -zxvf x.tar.gz        <=>  unzip x.zip
+            指定目录：-C /path                  <=>  -d /path
+            查看内容：tar -tzvf x.tar.gz        <=>  unzip -l x.zip
+
+        实际怎么选：
+            Linux 服务器之间传文件用 tar.gz，能保留权限、软链接、所有者，压缩率也更高
+            要和 Windows 用户交换文件用 zip，Windows 原生支持双击解压
+
+        注意：unzip 解压 Windows 压缩的中文文件名容易乱码（编码不是 UTF-8）
+             可用 unzip -O GBK hello.zip 指定编码
+             部分发行版的 unzip 不带 -O 选项，可安装 p7zip 后用 7z x hello.zip 代替
+
+ vi/vim: Linux 常用的文本编辑器
+        1. 启动：vi fileName
+        2. 保存退出：Esc + :wq
+        3. 不保存退出：Esc + :q!
+        4. 保存不退出：Esc + :w
+        5. 切换模式：Esc
+        6. 删除内容：dd 删除一行，dw 删除一个单词，x 删除一个字符
+        7. 插入内容：i 在光标前插入，a 在光标后插入，o 在新行插入
+        8. 复制内容：yy 复制一行，yw 复制一个单词，p 粘贴
+        9. 剪切内容：x 剪切一个字符，dw 剪切一个单词，dd 剪切一行
+        10. 替换内容：:s/old/new/ 替换一行中的 old 为 new，:s/old/new/g 替换所有行中的 old 为 new
+
  */
 public class Test {
 }
