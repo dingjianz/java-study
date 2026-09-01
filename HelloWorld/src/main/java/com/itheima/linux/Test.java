@@ -179,8 +179,30 @@ package com.itheima.linux;
         6. 删除内容：dd 删除一行，dw 删除一个单词，x 删除一个字符
         7. 插入内容：i 在光标前插入，a 在光标后插入，o 在新行插入
         8. 复制内容：yy 复制一行，yw 复制一个单词，p 粘贴
-        9. 剪切内容：x 剪切一个字符，dw 剪切一个单词，dd 剪切一行
-        10. 替换内容：:s/old/new/ 替换一行中的 old 为 new，:s/old/new/g 替换所有行中的 old 为 new
+
+ find: 在指定目录下查找文件
+    语法： find dirName -option fileName
+    选项：
+        -name 按文件名查找
+        -size 按文件大小查找
+        -mtime 按文件修改时间查找
+        -perm 按文件权限查找
+    eg: find /home -name "hello.txt"  在 /home 目录下按文件名查找 hello.txt
+    eg: find / -name "*.txt"  在根目录下按文件名查找所有 .txt 文件
+    eg: find /home -size +100M  在 /home 目录下按文件大小查找大于 100M 的文件
+    eg: find /home -mtime -7  在 /home 目录下按文件修改时间查找最近 7 天内修改过的文件
+    eg: find /home -perm 755  在 /home 目录下按文件权限查找权限为 755 的文件
+
+ grep: 从指定文件中查找指定的文本内容
+    语法： grep [-inAB] word fileName
+    选项：
+        -i 表示忽略大小写
+        -n 表示显示行号
+        -A 表示显示匹配行之后的 n 行
+        -B 表示显示匹配行之前的 n 行
+
+ eg: grep hello helloword.java  在 helloword.java 文件中查找包含 hello 的行
+ eg: grep hello *.java 查找当前目录中所有 .java 文件中包含 hello 的行
 
  */
 public class Test {
