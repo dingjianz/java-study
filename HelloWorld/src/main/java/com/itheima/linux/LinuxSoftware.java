@@ -60,6 +60,87 @@ public class LinuxSoftware {
         5、注册MySQL为系统服务
             cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysql
             chkconfig --add mysql
+        6、初始化数据库
+            groupadd mysql                                  创建 mysql 用户组
+            useradd -r -g mysql -s /bin/false mysql         创建不能登录的系统用户 mysql，归属 mysql 组
+            mysqld --initialize --user=mysql --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data
+            注意：初始化完毕后，日志中会输出mysql的root用户的临时密码，记得复制记录下来。
+
+            命令拆解：
+                useradd -r          创建系统账号（system account），uid 较小，不创建家目录
+                useradd -g mysql    指定主组为 mysql
+                useradd -s /bin/false  指定登录 shell 为 /bin/false，即禁止该用户登录，只用于运行服务
+                mysqld --initialize    初始化数据目录并生成 root 临时密码
+                --basedir           MySQL 的安装目录
+                --datadir           数据文件存放目录
+
+        7、启动服务登录MySQL
+            systemctl start mysql       启动 mysql 服务
+            mysql -uroot -pxxxxx        用上一步记录的临时密码登录（-p 后紧跟密码，无空格）
+
+        8、配置MySQL的root用户的密码，授权远程访问
+            ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '1234';
+            CREATE USER 'root'@'%' IDENTIFIED BY '1234';
+            GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
+            FLUSH PRIVILEGES;
+
+            语句说明：
+                ALTER USER ... IDENTIFIED WITH mysql_native_password
+                    把 root@localhost 的临时密码改成 1234，并切换为 mysql_native_password 加密方式
+                    （MySQL 8 默认是 caching_sha2_password，部分老客户端不支持）
+                CREATE USER 'root'@'%'      新建允许从任意主机（% 通配）连接的 root 用户
+                GRANT ALL PRIVILEGES ON *.*  授予该用户对所有库、所有表的全部权限
+                FLUSH PRIVILEGES            刷新权限表，使授权立即生效
+
+            注意：'root'@'%' + 全部权限属于高风险配置，仅适合本地学习环境；
+                 生产环境应限定来源 IP，并按需最小化授权。
+
+    安装Nginx（源码编译安装方式）：
+        1、安装nginx运行时需要的依赖
+            yum install -y pcre pcre-devel zlib zlib-devel openssl openssl-devel
+        2、上传nginx的源码包
+            nginx-1.20.2.tar.gz
+        3、解压源码包到当前目录
+            tar -zxvf nginx-1.20.2.tar.gz
+        4、进入到解压目录（cd nginx-1.20.2）后，执行指令
+            ./configure --prefix=/usr/local/nginx
+        5、执行编译nginx的指令
+            make
+        6、执行安装nginx的指令，安装到上述指定的 /usr/local/nginx 目录
+            make install
+        7、进入到nginx安装目录/usr/local/nginx，启动nginx服务
+            sbin/nginx
+
+        命令拆解：
+            yum install -y      -y 表示安装过程中所有询问自动回答 yes，无需交互确认
+            xxx-devel           开发包，包含头文件和静态库，源码编译时才需要
+                pcre / pcre-devel       正则表达式库，nginx 的 rewrite、location 匹配依赖它
+                zlib / zlib-devel       压缩库，用于 gzip 压缩响应
+                openssl / openssl-devel 加密库，用于支持 HTTPS
+            ./configure         检测系统环境并生成 Makefile，--prefix 指定最终的安装目录
+            make                按 Makefile 把源码编译成可执行文件（此时还在源码目录里）
+            make install        把编译产物拷贝到 --prefix 指定的目录，完成安装
+            sbin/nginx          相对路径启动，等价于 /usr/local/nginx/sbin/nginx
+
+        注意：nginx 默认监听 80 端口，若开启了防火墙，需要先放开对应端口才能从外部访问。
+
+    防火墙操作：
+        服务级操作（systemctl）：
+            查看防火墙状态     systemctl status firewalld  、 firewall-cmd --state
+            关闭防火墙        systemctl stop firewalld
+            开启防火墙        systemctl start firewalld
+            永久关闭防火墙     systemctl disable firewalld
+
+        端口级操作（firewall-cmd）：
+            开放指定端口      firewall-cmd --zone=public --add-port=8080/tcp --permanent
+            关闭指定端口      firewall-cmd --zone=public --remove-port=8080/tcp --permanent
+            立即生效         firewall-cmd --reload
+            查看开放的端口     firewall-cmd --zone=public --list-ports
+
+        注意：
+            1、systemctl是管理Linux中服务的命令，可以对服务进行启动、停止、重启、查看状态等操作
+            2、firewall-cmd是Linux中专门用于控制防火墙的命令
+            3、为了保证系统安全，生产服务器的防火墙不建议关闭
 
      */
 }
