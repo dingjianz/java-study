@@ -187,7 +187,58 @@ public class Test {
  *    - Docker 使用分层存储，相同层可复用
  *    - 显示每层的下载进度
  *
- * 4. docker inspect
+ * 4. docker save
+ *    作用：将 Docker 镜像导出为 tar 归档文件
+ *    语法：docker save [选项] 镜像名[:标签]
+ *
+ *    常用选项：
+ *    -o, --output <文件名>  - 指定输出文件路径
+ *
+ *    示例：
+ *    docker save -o nginx.tar nginx:latest
+ *    → 将 nginx:latest 镜像保存为 nginx.tar 文件
+ *
+ *    docker save -o my-images.tar nginx:1.21 mysql:8.0
+ *    → 同时导出多个镜像到一个 tar 文件
+ *
+ *    docker save nginx:latest > nginx.tar
+ *    → 使用重定向方式保存（等效于 -o 参数）
+ *
+ *    使用场景：
+ *    - 在无网络环境下迁移镜像
+ *    - 备份镜像到本地存储
+ *    - 镜像版本归档管理
+ *    - 离线部署（配合 docker load 使用）
+ *
+ *    注意事项：
+ *    - 导出的 tar 文件包含镜像的所有层和元数据
+ *    - 文件大小可能较大，取决于镜像大小
+ *    - 不会压缩，如需压缩可配合 gzip 使用：
+ *      docker save nginx:latest | gzip > nginx.tar.gz
+ *
+ * 5. docker load
+ *    作用：从 tar 归档文件加载镜像（与 docker save 配对使用）
+ *    语法：docker load [选项]
+ *
+ *    常用选项：
+ *    -i, --input <文件名>  - 指定输入的 tar 文件
+ *
+ *    示例：
+ *    docker load -i nginx.tar
+ *    → 从 nginx.tar 文件加载镜像
+ *
+ *    docker load < nginx.tar
+ *    → 使用重定向方式加载（等效于 -i 参数）
+ *
+ *    gunzip -c nginx.tar.gz | docker load
+ *    → 加载压缩的镜像文件
+ *
+ *    完整的镜像迁移流程：
+ *    【源机器】docker save -o app.tar myapp:v1.0
+ *    【传输】  scp app.tar user@target-host:/tmp/
+ *    【目标机器】docker load -i /tmp/app.tar
+ *
+ * 6. docker inspect
  *    作用：查看 Docker 对象的详细信息（JSON 格式）
  *    支持对象：容器、镜像、网络、卷、节点等
  *
