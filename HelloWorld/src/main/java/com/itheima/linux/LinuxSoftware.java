@@ -142,5 +142,62 @@ public class LinuxSoftware {
             2、firewall-cmd是Linux中专门用于控制防火墙的命令
             3、为了保证系统安全，生产服务器的防火墙不建议关闭
 
+    后端项目部署：
+        1. 执行maven的父工程中的package生命周期，对项目进行打包【打包之前，先连接上服务器数据库，先测试通过】。
+
+        2. 在linux服务器的/usr/local目录下，创建一个目录tlias-app，将jar包上传到服务器的 /usr/local/tlias-app 目录中。
+
+        3. 然后在命令行执行命令，运行jar包：java -jar xxxxxx.jar
+
+        注意：
+            • 上述执行运行jar包之后，会占用前台窗口，窗口关闭服务也就停了。可以使用 nohup 指令，后台运行服务，执行指令：
+              nohup java -jar xxxxxx.jar &> tlias.log &
+
+              命令拆解：
+                  nohup               no hang up，忽略挂断信号，保证进程在终端关闭后继续运行
+                  &>                  将标准输出和标准错误都重定向到同一个文件（等价于 > tlias.log 2>&1）
+                  tlias.log           日志输出文件
+                  &                   放到后台执行，释放当前终端
+
+            • 查看进程：ps -ef | grep xxxx
+              ps                  Process Status，显示进程状态
+              ps -e               -e 表示 every/all，显示所有进程（包括其他用户的）
+              ps -ef              -f 表示 full format，显示完整的详细信息
+              grep xxxx           过滤出包含 xxxx 的进程（通常用 jar 包名或 java 进程）
+
+              输出示例：
+                UID        PID  PPID  C STIME TTY          TIME CMD
+                root         1     0  0 10:00 ?        00:00:02 /usr/lib/systemd/systemd
+                root      1234     1  0 10:30 ?        00:00:15 java -jar tlias.jar
+                admin     5678  5000  0 14:20 pts/0    00:00:00 ps -ef
+
+              各列含义：
+                UID     运行该进程的用户
+                PID     进程ID（Process ID），唯一标识，用于 kill 命令
+                PPID    父进程ID（Parent Process ID）
+                C       CPU使用率
+                STIME   进程启动时间
+                TTY     终端类型（? 表示后台进程，pts/0 表示终端0）
+                TIME    累计CPU时间
+                CMD     完整的启动命令
+
+            • 停止后台服务：
+              步骤1：查找进程 ID
+                ps -ef | grep java      查找所有 java 进程
+                ps -ef | grep tlias     更精确地查找包含 tlias 的进程
+
+              步骤2：终止进程
+                kill -9 PID             强制终止进程（PID 是上一步查到的进程 ID，第二列数字）
+                kill PID                温和终止（默认 -15，SIGTERM 信号，允许进程清理资源）
+
+              或者一步到位：
+                pkill -9 -f tlias       按完整命令行匹配并终止（-f 匹配完整命令，-9 强制终止）
+
+              命令拆解：
+                kill -9         发送 SIGKILL 信号，强制终止，进程无法捕获或忽略
+                kill            默认发送 SIGTERM 信号（-15），进程可以捕获并优雅关闭
+                pkill -f        按完整命令行字符串匹配进程（不只是进程名）
+                PID             进程 ID，ps 命令输出的第二列
+
      */
 }
