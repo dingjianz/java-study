@@ -130,6 +130,47 @@ public class Test {
       root 密码：123
 
 
+  ==========================================
+  数据卷介绍
+
+  数据卷（volume）是一个虚拟目录，是 容器内目录 与 宿主机目录 之间映射的桥梁。
+  方便我们操作容器内的文件，或者方便迁移容器内产生的数据。
+
+  在执行docker run命令时，使用 -v 数据卷:容器 内目录 的方式可以完成数据卷挂载（数据卷不存在时，Docker会自动创建数据卷）
+  docker run -d --name nginx-web -p 9001:80 -v html:/usr/share/nginx/html nginx:1.20.0
+  ==========================================
+  数据卷-操作命令
+
+  命令                        说明                    文档地址
+  ------------------------------------------------------------------------------------------
+  docker volume create        创建数据卷              https://docs.docker.com/engine/reference/commandline/volume_create/
+  docker volume ls            查看所有数据卷          https://docs.docker.com/engine/reference/commandline/volume_ls/
+  docker volume rm            删除指定数据卷          https://docs.docker.com/engine/reference/commandline/volume_rm/
+  docker volume inspect       查看某个数据卷的详情    https://docs.docker.com/engine/reference/commandline/volume_inspect/
+  docker volume prune         清除所有未使用的数据卷  https://docs.docker.com/engine/reference/commandline/volume_prune/
+
+  ==========================================
+  本地目录挂载
+
+  命令格式：
+  docker run -d --name 容器名 -p 宿主机端口:容器端口 -v 宿主机目录或文件:容器内目录或文件 镜像名
+
+  注意事项：
+
+  1. 本地目录必须以 / 或 ./ 开头，如果直接以名称开头，会被识别为数据卷而非本地目录
+
+  2. -v mysql:/var/lib/mysql
+     → 会被识别为一个数据卷，数据卷叫 mysql
+
+  3. -v ./mysql:/var/lib/mysql
+     → 会被识别为当前目录下的 mysql 目录
+
+  示例：
+  docker run -d --name nginx01 -p 9001:80 \
+    -v /root/nginx/html:/usr/share/nginx/html \
+    -v /root/nginx/conf.d:/etc/nginx/conf.d \
+    nginx
+
      */
 }
 
