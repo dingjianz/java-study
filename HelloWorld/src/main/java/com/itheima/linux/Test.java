@@ -36,6 +36,8 @@ package com.itheima.linux;
 
      mkdir: 创建目录
             -p 表示如果目录不存在则创建
+         eg: mkdir itcast 创建名为itcast的目录
+         eg: mkdir -p itcast/java 创建多级目录 itcast/java
 
      rm: 删除文件或目录
         语法： rm [-rf] [file|dir]
