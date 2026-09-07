@@ -45,7 +45,9 @@ package com.itheima.redis;
      示例：SET lock:user:999 1 NX EX 30
      说明：仅当 key 不存在时设置，并指定过期时间，常用于带过期时间的分布式锁
 
+  ===== Redis的key的格式 =====
 
+  • [项目名]:[业务名]:[类型]:[id]
 
  */
 public class StringRedis {
