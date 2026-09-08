@@ -16,6 +16,20 @@ spring:
       max-file-size: 10MB       # 单个文件最大大小
       max-request-size: 100MB    # 单次请求最大大小（包括所有文件和表单数据）
 
+  data:
+    redis:
+      host: 172.31.101.75
+      port: 6380
+      password: 1234
+      timeout: 1000ms
+      jedis:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 8
+          max-wait: 1000ms
+          min-evictable-idle-time: 1000ms
+
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
