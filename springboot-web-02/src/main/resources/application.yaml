@@ -16,19 +16,22 @@ spring:
       max-file-size: 10MB       # 单个文件最大大小
       max-request-size: 100MB    # 单次请求最大大小（包括所有文件和表单数据）
 
+  # Spring Boot 2.4+ 起 Redis 配置前缀由 spring.redis 改为 spring.data.redis
   data:
     redis:
+      # 客户端类型：不指定时默认用 lettuce（classpath 上有 lettuce-core 就优先生效）
+      client-type: jedis
       host: 172.31.101.75
       port: 6380
       password: 1234
-      timeout: 1000ms
+      timeout: 1000ms # 读写超时，必须带单位
       jedis:
         pool:
-          max-active: 8
-          max-idle: 8
-          min-idle: 8
-          max-wait: 1000ms
-          min-evictable-idle-time: 1000ms
+          max-active: 8 # 最大连接
+          max-idle: 8 # 最大空闲连接
+          min-idle: 8 # 最小空闲连接
+          max-wait: 1000ms # 连接等待时间，必须带单位
+          min-evictable-idle-time: 1000ms # 空闲连接被回收前的最短存活时间
 
 mybatis:
   configuration:
