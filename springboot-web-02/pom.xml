@@ -119,6 +119,12 @@
             <artifactId>sa-token-spring-boot3-starter</artifactId>
             <version>1.46.0</version>
         </dependency>
+        <!-- Sa-Token 会话持久化到 Redis，服务重启后 token 仍然有效 -->
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-redis-jackson</artifactId>
+            <version>1.46.0</version>
+        </dependency>
 
          <!--利用 AOP 做操作日志记录-->
         <dependency>

@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * RedisTemplate的两种序列化实践方案：
  *
@@ -29,7 +32,7 @@ public class RedisStringTests {
     private StringRedisTemplate stringRedisTemplate;
 
     @Test
-    void test() throws Exception {
+    void testString() throws Exception {
         // 创建对象
         LoginInfo loginInfo = new LoginInfo(1, "heima", "jianding9", "123456");
         // 手动序列化
@@ -42,4 +45,25 @@ public class RedisStringTests {
         LoginInfo loginInfo2 = objectMapper.readValue(jsonLoginInfo, LoginInfo.class);
         System.out.println(loginInfo2);
     }
+
+    @Test
+    void testHash() throws Exception {
+        stringRedisTemplate.opsForHash().put("heima:user:6", "name", "宋江");
+        stringRedisTemplate.opsForHash().put("heima:user:6", "age", "18");
+
+        Map<Object, Object> entries = stringRedisTemplate.opsForHash().entries("heima:user:6");
+        System.out.println(entries);
+
+        // stringRedisTemplate.opsForHash().delete("heima:user:6", "name");
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", "柳泉");
+        map.put("username", "liuquan");
+        map.put("id", "10");
+        map.put("token", "xxxx");
+
+        stringRedisTemplate.opsForHash().putAll("heima:user:7", map);
+    }
+
+
 }
